@@ -13,17 +13,15 @@ struct AppTabBar: View {
     @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
-//        defaultTabView
         CustomTabBarContainerView(selection: $tabSelection) {
-//            Color.blue
+            
             News()
                 .tabBarItem(tab: .news, selection: $tabSelection)
-            Spacer()
             
-            Color.red.ignoresSafeArea()
+            MySavedView()
                 .tabBarItem(tab: .mySaved, selection: $tabSelection)
             
-            Color.green.ignoresSafeArea()
+            Color.black
                 .tabBarItem(tab: .setting, selection: $tabSelection)
         }
     }

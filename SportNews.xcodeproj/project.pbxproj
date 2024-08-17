@@ -23,6 +23,11 @@
 		CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB552C70EEF0008E6FCE /* TabBarItem.swift */; };
 		CE5C84052C710CA20098D0F0 /* MySavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84042C710CA20098D0F0 /* MySavedView.swift */; };
 		CE5C84072C710CB40098D0F0 /* MySavedRowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84062C710CB40098D0F0 /* MySavedRowsView.swift */; };
+		CE5C84092C710F750098D0F0 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84082C710F750098D0F0 /* SearchButton.swift */; };
+		CE5C840B2C710F940098D0F0 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C840A2C710F940098D0F0 /* SaveButton.swift */; };
+		CE5C840D2C710FD70098D0F0 /* GoToSourceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C840C2C710FD70098D0F0 /* GoToSourceButton.swift */; };
+		CE5C840F2C7112D30098D0F0 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C840E2C7112D30098D0F0 /* ShareButton.swift */; };
+		CE5C84112C7116020098D0F0 /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84102C7116020098D0F0 /* ReloadButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,12 +42,17 @@
 		CE10ACDD2C70AE28008E6626 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		CE10ACE12C70BEB8008E6626 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		CE59CB4D2C70D654008E6FCE /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
-		CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
 		CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
 		CE59CB552C70EEF0008E6FCE /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		CE5C84042C710CA20098D0F0 /* MySavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedView.swift; sourceTree = "<group>"; };
 		CE5C84062C710CB40098D0F0 /* MySavedRowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedRowsView.swift; sourceTree = "<group>"; };
+		CE5C84082C710F750098D0F0 /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		CE5C840A2C710F940098D0F0 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
+		CE5C840C2C710FD70098D0F0 /* GoToSourceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSourceButton.swift; sourceTree = "<group>"; };
+		CE5C840E2C7112D30098D0F0 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
+		CE5C84102C7116020098D0F0 /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +160,11 @@
 		CE10ACC82C708524008E6626 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CE5C84082C710F750098D0F0 /* SearchButton.swift */,
+				CE5C84102C7116020098D0F0 /* ReloadButton.swift */,
+				CE5C840A2C710F940098D0F0 /* SaveButton.swift */,
+				CE5C840C2C710FD70098D0F0 /* GoToSourceButton.swift */,
+				CE5C840E2C7112D30098D0F0 /* ShareButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -317,12 +332,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE5C84112C7116020098D0F0 /* ReloadButton.swift in Sources */,
 				CE5C84052C710CA20098D0F0 /* MySavedView.swift in Sources */,
 				CE5C84072C710CB40098D0F0 /* MySavedRowsView.swift in Sources */,
+				CE5C840D2C710FD70098D0F0 /* GoToSourceButton.swift in Sources */,
 				CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */,
 				CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */,
 				CE10ACDA2C70A5E6008E6626 /* Articles.swift in Sources */,
+				CE5C84092C710F750098D0F0 /* SearchButton.swift in Sources */,
+				CE5C840B2C710F940098D0F0 /* SaveButton.swift in Sources */,
 				CE10ACDC2C70ADC8008E6626 /* NewsRowView.swift in Sources */,
+				CE5C840F2C7112D30098D0F0 /* ShareButton.swift in Sources */,
 				CE10ACD42C709B03008E6626 /* News.swift in Sources */,
 				CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */,
 				CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */,
