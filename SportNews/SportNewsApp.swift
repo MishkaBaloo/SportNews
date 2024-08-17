@@ -11,7 +11,7 @@ import SwiftUI
 struct SportNewsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppTabBar()
         }
     }
 }

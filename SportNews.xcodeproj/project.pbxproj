@@ -16,6 +16,13 @@
 		CE10ACDC2C70ADC8008E6626 /* NewsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */; };
 		CE10ACDE2C70AE28008E6626 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACDD2C70AE28008E6626 /* PreviewProvider.swift */; };
 		CE10ACE22C70BEB8008E6626 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACE12C70BEB8008E6626 /* NetworkingManager.swift */; };
+		CE59CB4E2C70D654008E6FCE /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB4D2C70D654008E6FCE /* AppTabBar.swift */; };
+		CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */; };
+		CE59CB522C70E638008E6FCE /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */; };
+		CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */; };
+		CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB552C70EEF0008E6FCE /* TabBarItem.swift */; };
+		CE5C84052C710CA20098D0F0 /* MySavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84042C710CA20098D0F0 /* MySavedView.swift */; };
+		CE5C84072C710CB40098D0F0 /* MySavedRowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84062C710CB40098D0F0 /* MySavedRowsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +36,13 @@
 		CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRowView.swift; sourceTree = "<group>"; };
 		CE10ACDD2C70AE28008E6626 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		CE10ACE12C70BEB8008E6626 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		CE59CB4D2C70D654008E6FCE /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
+		CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
+		CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
+		CE59CB552C70EEF0008E6FCE /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		CE5C84042C710CA20098D0F0 /* MySavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedView.swift; sourceTree = "<group>"; };
+		CE5C84062C710CB40098D0F0 /* MySavedRowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedRowsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +191,7 @@
 		CE10ACCD2C7085A6008E6626 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CE59CB4C2C70D60C008E6FCE /* CustomTabBar */,
 				CE10ACD32C709B03008E6626 /* News.swift */,
 				CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */,
 			);
@@ -207,6 +222,8 @@
 		CE10ACD12C7085EC008E6626 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CE5C84042C710CA20098D0F0 /* MySavedView.swift */,
+				CE5C84062C710CB40098D0F0 /* MySavedRowsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +233,18 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CE59CB4C2C70D60C008E6FCE /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				CE59CB4D2C70D654008E6FCE /* AppTabBar.swift */,
+				CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */,
+				CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */,
+				CE59CB552C70EEF0008E6FCE /* TabBarItem.swift */,
+				CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */,
+			);
+			path = CustomTabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,13 +317,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE5C84052C710CA20098D0F0 /* MySavedView.swift in Sources */,
+				CE5C84072C710CB40098D0F0 /* MySavedRowsView.swift in Sources */,
+				CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */,
+				CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */,
 				CE10ACDA2C70A5E6008E6626 /* Articles.swift in Sources */,
 				CE10ACDC2C70ADC8008E6626 /* NewsRowView.swift in Sources */,
 				CE10ACD42C709B03008E6626 /* News.swift in Sources */,
 				CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */,
+				CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */,
 				CE10ACE22C70BEB8008E6626 /* NetworkingManager.swift in Sources */,
 				CE10ACDE2C70AE28008E6626 /* PreviewProvider.swift in Sources */,
 				CE10ACB52C70847A008E6626 /* SportNewsApp.swift in Sources */,
+				CE59CB4E2C70D654008E6FCE /* AppTabBar.swift in Sources */,
+				CE59CB522C70E638008E6FCE /* CustomTabBarContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
