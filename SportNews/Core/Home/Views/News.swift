@@ -9,14 +9,30 @@ import SwiftUI
 
 struct News: View {
     
-    let textColor: [String:Color] = ["Sports" : .accentThree, "News" : .layerOne]
+    @State private var selectedCategory: Category? = nil
     
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+//            Color.black.ignoresSafeArea()
             
             VStack(spacing: 15) {
                 header
+                
+                ScrollView(.horizontal) {
+                    HStack(spacing: 8) {
+                        ForEach(Category.allCases, id: \.self) { cateory in
+                            CategoryRowCell(
+                                title: cateory.rawValue.capitalized,
+                                isSelected: cateory == selectedCategory
+                                )
+                             .onTapGesture {
+                                 selectedCategory = cateory
+                             }
+                        }
+                    }
+                }
+                .scrollIndicators(.hidden)
+                Spacer()
             }
         }
     }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AppTabBar: View {
     
-    @State private var selection: String = "Home"
     @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
@@ -35,25 +34,7 @@ struct AppTabBarView_Previews: PreviewProvider {
 }
 
 extension AppTabBar {
+
     
-    private var defaultTabView: some View {
-        TabView(selection: $selection,
-                content:  {
-            Color.red
-                .tabItem {
-                    Image(systemName: "globe")
-                }
-            
-            Color.blue
-                .tabItem {
-                    Image(systemName: "bookmark")
-                }
-            
-            Color.orange
-                .tabItem {
-                    Image(systemName: "gearshape")
-                }
-        })
-    }
     
 }
