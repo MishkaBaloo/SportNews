@@ -8,16 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @State private var tabSelection: TabBarItem = .news
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            ZStack {
+                // background layer
+             
+                
+                
+                // conetent layer
+                VStack {
+                    CustomTabBarContainerView(selection: $tabSelection) {
+                        
+                        News()
+                            .tabBarItem(tab: .news, selection: $tabSelection)
+                        
+                        MySavedView()
+                            .tabBarItem(tab: .mySaved, selection: $tabSelection)
+                        
+                        SettingView()
+                            .tabBarItem(tab: .setting, selection: $tabSelection)
+                    }
+                }
+            }
         }
-        .padding()
     }
 }
+
 
 #Preview {
     ContentView()

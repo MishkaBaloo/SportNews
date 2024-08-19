@@ -1,18 +1,13 @@
 //
-//  Articles.swift
+//  NewsAPIDataModel.swift
 //  SportNews
 //
-//  Created by Michael on 8/17/24.
+//  Created by Michael on 8/19/24.
 //
 
 import Foundation
 
-// SportNews API info
 /*
- 
- URL: https://eventregistry.org/api/v1/event/getEvents
- 
- JSON Response:
  {
    "articles": {
      "results": [
@@ -101,79 +96,104 @@ import Foundation
      "pages": 383
    }
  }
- 
  */
 
-// MARK: - Articles
-struct Articles{
-    /*, Decodable {*/
-    let uri, lang: String
-    let isDuplicate: Bool?
-    let date, time: String?
-    let dateTime, dateTimePub: String?
-    let dataType: String?
-    let sim: Int?
-    let url: String?
-    let title, body: String?
-    let source: Source?
-    let image: String?
-    let sentiment: Double?
-    let wgt, relevance: Int?
-    let metaItem: String?
-    let currentNews: Int?
+
+
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
+
+import Foundation
+
+// MARK: - Welcome
+//struct Welcome {
+//    let articles: NewsDataModel?
+//}
+//
+//// MARK: - Articles
+//struct NewsDataModel {
+//    let results: [Result]?
+//    let totalResults, page, count, pages: Int?
+//}
+
+
+// MARK: - Result
+struct NewsAPIDataModel: Decodable {
+////    let id: String?
+//    let uri: String?
+//    let time: String?
+//    let date: String? //
+//    let dataType: String? //
+//    let url: String? //
+//    let title: String? //
+//    let body: String? //
+////    let source: Source?
+//    let image: String? //
     
-//    init(from decoder: any Decoder) throws {
-//        
+        let uri, lang: String?
+        let isDuplicate: Bool?
+        let date, time: String?
+        let dateTime, dateTimePub: String?
+        let dataType: String?
+        let sim: Int?
+        let url: String?
+        let title, body: String?
+//        let source: Source?
+//        let authors: [Any?]?
+//        let concepts: [Concept]?
+        let image: String?
+//        let eventURI: NSNull?
+//        let shares: Shares?
+        let sentiment: Double?
+        let wgt, relevance: Int?
+        let metaItem: String?
+    
+//    enum CodingKeys: String, CodingKey {
+//        case uri, time, date, dataType, url, title, body, image
 //    }
     
-    enum CodingKeys: String, CodingKey {
-        case uri = "uri"
-        case lang = "lang"
-        case isDuplicate = "isDuplicate"
-        case date = "date"
-        case time = "time"
-        case dateTime = "dateTime"
-        case dateTimePub = "dateTimePub"
-        case dataType = "dataType"
-        case sim = "sim"
-        case url = "url"
-        case titlle = "title"
-        case body = "body"
-        case source = "source"
-        case image = "image"
-        case sentiment = "sentiment"
-        case wgt = "wgt"
-        case relevance = "relevance"
-        case metaItem = "#META ITEM"
-        case currentNews
-    }
     
-//    func updateNews(amount: Int) -> Articles {
-//        return Articles( id: id, <#any Decoder#>, uri: uri, lang: lang, isDuplicate: isDuplicate, date: date, time: time, dateTime: dateTime, dateTimePub: dateTimePub, dataType: dataType, sim: sim, url: url, title: title, body: body, source: source, image: image, sentiment: sentiment, wgt: wgt, relevance: relevance, metaItem: metaItem, currentNews: amount)
+    
+//    func updateNews(amount: Int) -> NewsAPIDataModel {
+//        return NewsAPIDataModel(uri: uri, time: time, date: date, dataType: dataType, url: url, title: title, body: body, image: image)
 //    }
-    
 }
+
+// MARK: - Concept
+//struct Concept {
+//    let uri: String?
+//    let type: String?
+//    let score: Int?
+////    let label: Label?
+////    let location: Location?
+//    let metaItem: String?
+//}
 
 // MARK: - Label
-struct Label {
-    let eng: String?
-}
+//struct Label {
+//    let eng: String?
+//}
 
 // MARK: - Location
-struct Location {
-    let type: String?
-    let label: Label?
-    let country: Country?
-}
+//struct Location {
+//    let type: String?
+//    let label: Label?
+//    let country: Country?
+//}
 
 // MARK: - Country
-struct Country {
-    let type: String?
-    let label: Label?
-}
+//struct Country {
+//    let type: String?
+//    let label: Label?
+//}
 
+// MARK: - Shares
+//struct Shares {
+//}
 
 // MARK: - Source
-struct Source {
-    let uri, dataType, title: String?
-}
+//struct Source {
+//    let uri, dataType, title: String?
+//}

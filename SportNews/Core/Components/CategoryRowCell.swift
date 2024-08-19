@@ -15,11 +15,12 @@ struct CategoryRowCell: View {
     var body: some View {
         Text(title)
             .font(.callout)
+            .fontWeight(isSelected ? .bold : .light)
             .frame(minWidth: 30)
             .padding(.vertical, 12)
             .padding(.horizontal, 14)
             .themeColors(isSelected: isSelected)
-            .clipShape(.rect(cornerRadius: 16))
+            .clipShape(.rect(cornerRadius: 20))
     }
 }
 

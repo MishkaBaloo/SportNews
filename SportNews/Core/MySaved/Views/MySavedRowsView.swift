@@ -9,50 +9,50 @@ import SwiftUI
 
 struct MySavedRowsView: View {
     
-    let news: Articles
+    let news: NewsAPIDataModel
     
     var body: some View {
-
+        
         VStack(spacing: 32) {
             HStack { // PHOTO AREA
-//                VStack(alignment: .leading, spacing: 8) {
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(.accentTwo, lineWidth: 1.0)
-                        .background {
-                            Image("lana").resizable()
-                                .clipShape(.rect(cornerRadius: 25))
+                //                VStack(alignment: .leading, spacing: 8) {
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(.accentTwo, lineWidth: 1.0)
+                    .background {
+                        Image("ImageNewsSmallDefault").resizable()
+                            .clipShape(.rect(cornerRadius: 25))
                     }
-                        .frame(width: 120, height: 120)
-//                }
+                    .frame(width: 120, height: 120)
+                //                }
                 
-                .padding(.horizontal, 8)
+                    .padding(.horizontal, 8)
                 
                 VStack(alignment: .leading, spacing: 0, content: {
-//                    VStack(alignment: .leading, spacing: 12, content: {
-                        HStack { // DATE && TIME AREA
-                            if let date = news.date {
-                                Text(date)
-                                    .foregroundStyle(.accentThree)
-                                    .font(.callout)
-                                    .fontWeight(.light)
-                            }
-                            
-                            Text("•")
-                            
-                            if let time = news.time {
-                                Text(time)
-                                    .foregroundStyle(.accentTwo)
-                                    .font(.callout)
-                                    .fontWeight(.light)
-                            }
+                    //                    VStack(alignment: .leading, spacing: 12, content: {
+                    HStack { // DATE && TIME AREA
+                        if let date = news.date {
+                            Text(date)
+                                .foregroundStyle(.accentThree)
+                                .font(.callout)
+                                .fontWeight(.light)
                         }
-                        .padding(.top, 10)
-                        .padding(.bottom, 4)
-
                         
+                        Text("•")
+                        
+                        if let time = news.time {
+                            Text(time)
+                                .foregroundStyle(.accentTwo)
+                                .font(.callout)
+                                .fontWeight(.light)
+                        }
+                    }
+                    .padding(.top, 10)
+                    .padding(.bottom, 4)
+                    
+                    
                     VStack {
                         if let title = news.title {
-                        Text(title)
+                            Text(title)
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.layerOne)
@@ -60,8 +60,8 @@ struct MySavedRowsView: View {
                         }
                     }
                     .padding(.trailing, 16)
-                        
-                        
+                    
+                    
                     HStack {
                         if let dataType = news.dataType {
                             Text(dataType)
@@ -74,8 +74,8 @@ struct MySavedRowsView: View {
                         }
                     }
                     .padding(.bottom, 10)
-                    })
-//                })
+                })
+                //                })
                 
             }
             .background(.backgroudTwo)

@@ -1,14 +1,15 @@
 //
-//  NetworkingManager.swift
+//  NewNetworkingManager.swift
 //  SportNews
 //
-//  Created by Michael on 8/17/24.
+//  Created by Michael on 8/20/24.
 //
 
 import Foundation
+
 import Combine
 
-class NetworkingManager {
+class NewNetworkingManager {
     
     enum NetworkingError: LocalizedError {
         case badURLRespone(url: URL)
@@ -37,13 +38,13 @@ class NetworkingManager {
         return output.data
     }
     
-//    static func handleCompletion(completion: Subscribers.Completion<any Publishers.Decode<AnyPublisher<Data, any Error>, [Articles], JSONDecoder>.Failure>) {
-//        switch completion {
-//        case .finished:
-//            break
-//        case .failure(let error) :
-//            print(error.localizedDescription)
-//        }
-//    }
+    static func handleCompletion(completion: Subscribers.Completion<any Publishers.Decode<AnyPublisher<Data, any Error>, [NewsAPIDataModel], JSONDecoder>.Failure>) {
+        switch completion {
+        case .finished:
+            break
+        case .failure(let error) :
+            print(error.localizedDescription)
+        }
+    }
     
 }

@@ -1,5 +1,5 @@
 //
-//  Category.swift
+//  MySavedCategory.swift
 //  SportNews
 //
 //  Created by Michael on 8/19/24.
@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum Category: String, CaseIterable {
+enum MySavedCategory: String, CaseIterable {
+    case all = "📰 All"
     case soccer = "⚽️Soccer"
     case basketball = "🏀BasKetball"
     case baseball = "⚾️Baseball"

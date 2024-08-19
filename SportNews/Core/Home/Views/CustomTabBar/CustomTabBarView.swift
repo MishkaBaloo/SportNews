@@ -16,13 +16,13 @@ struct CustomTabBarView: View {
     @State var localSelection: TabBarItem
     
     var body: some View {
+        
         tabBarversionOne
             .onChange(of: selection) { oldValue, newValue in
                 withAnimation(.easeInOut) {
                     localSelection = newValue
                 }
             }
-//        tabBarversionTwo
     }
 }
 
@@ -46,21 +46,18 @@ extension CustomTabBarView {
         VStack {
             Image(systemName: tab.iconName).font(.system(.title, weight: .semibold))
                 .foregroundStyle(localSelection == tab ? .backgroudOne : .layerOne) // .backgroudOne if selected
-                .frame(width: 50, height: 50)
+                .frame(width: 60, height: 61)
                 .background(
                 Circle()
-                    .frame(width: 55, height: 55)
                     .foregroundStyle(localSelection == tab ? .layerOne :.layerThree) // .layerOne if selected
                 )
         }
-        .padding(.vertical, 6)
-        .frame(maxWidth: .infinity)
-        .background(Color.backgroudTwo)
-        .clipShape(Circle())
+        .padding(.horizontal, 3)
+        .padding(.bottom, 8)
     }
     
     private var tabBarversionOne: some View {
-        HStack {
+        HStack(alignment: .center) {
             ForEach(tabs,id: \.self) { tab in
                 tabView(tab: tab)
                     .onTapGesture {
@@ -68,10 +65,8 @@ extension CustomTabBarView {
                     }
             }
         }
-        .padding(6)
         .background(
-            Capsule()
-            .foregroundStyle(.backgroudOne)
+           Image("TabBar")
         )
         .padding()
     }

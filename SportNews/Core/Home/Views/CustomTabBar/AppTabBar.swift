@@ -12,16 +12,20 @@ struct AppTabBar: View {
     @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
-        CustomTabBarContainerView(selection: $tabSelection) {
-            
-            News()
-                .tabBarItem(tab: .news, selection: $tabSelection)
-            
-            MySavedView()
-                .tabBarItem(tab: .mySaved, selection: $tabSelection)
-            
-            Color.black
-                .tabBarItem(tab: .setting, selection: $tabSelection)
+        ZStack {
+            VStack {
+                CustomTabBarContainerView(selection: $tabSelection) {
+                    
+                    News()
+                        .tabBarItem(tab: .news, selection: $tabSelection)
+                    
+                    MySavedView()
+                        .tabBarItem(tab: .mySaved, selection: $tabSelection)
+                    
+                    SettingView()
+                        .tabBarItem(tab: .setting, selection: $tabSelection)
+                }
+            }
         }
     }
 }

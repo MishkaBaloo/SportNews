@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewsRowView: View {
     
-    let news: Articles
+    let news: NewsAPIDataModel
     
     var body: some View {
     
