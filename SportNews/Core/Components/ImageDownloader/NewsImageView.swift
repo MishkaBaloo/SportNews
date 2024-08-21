@@ -33,7 +33,7 @@ struct NewsImageView: View {
 
 struct NewsImageView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsImageView(news: DeveloperPriview.instance.news)
+        NewsImageView(news: DeveloperPreview.instance.news)
             .padding()
             .previewLayout(.sizeThatFits)
     }

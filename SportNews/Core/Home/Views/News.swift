@@ -9,26 +9,35 @@ import SwiftUI
 
 struct News: View {
     
+    @EnvironmentObject private var vm: NewsViewModel
+    
     @State private var selectedCategory: Category? = nil
+    @State private var showSearchTab: Bool = false
+    
+    @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
-        ZStack {
+//        ZStack {
             // background layer
             
-            Image("BG").resizable()
-                .ignoresSafeArea()
+//            Image("BG").resizable()
+//                .ignoresSafeArea()
             
             VStack(spacing: 15) {
+                if showSearchTab == false {
                     header
-                    categoryCell
-                
-                VStack {
-                    
+                } else {
+                    searchBar
                 }
-                    
-                    Spacer()
+                categoryCell
+                
+                
+                Spacer()
+                
+                
+                
             }
-        }
+//        }
     }
     
     private var header: some View {
@@ -50,7 +59,9 @@ struct News: View {
             
             SearchButton()
                 .onTapGesture {
-                    
+                    withAnimation(.easeInOut) {
+                        showSearchTab.toggle()
+                    }
                 }
                 .padding(.trailing, 6)
         }
@@ -73,8 +84,31 @@ struct News: View {
         //        .padding(.horizontal, 16) // if want to scroll under 16 inch of horizontal
         .scrollIndicators(.hidden)
     }
+    
+    private var searchBar: some View {
+        HStack {
+            SearchTabBarView(searchText: $vm.searchText)
+            CancelButton()
+                .onTapGesture {
+                    withAnimation(.easeInOut) {
+                        showSearchTab.toggle()
+                    }
+                }
+        }
+        .frame(maxWidth: .infinity)
+        .background(.backgroudTwo)
+        .frame(height: 50)
+        .padding(.top)
+        .padding(.bottom)
+        
+    }
 }
 
 #Preview {
-    News()
+//    NavigationView(content: {
+        News()
+            .preferredColorScheme(.dark)
+//    })
+            .environmentObject(DeveloperPreview.instance.newsVM)
 }
+

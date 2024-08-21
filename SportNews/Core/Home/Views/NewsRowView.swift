@@ -43,5 +43,5 @@ struct NewsRowView: View {
 }
                
 #Preview {
-    NewsRowView(news: DeveloperPriview.instance.news)
+    NewsRowView(news: DeveloperPreview.instance.news)
 }

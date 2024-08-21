@@ -9,20 +9,29 @@ import SwiftUI
 
 struct MySavedView: View {
     
+    @EnvironmentObject private var vm: MySavedViewModel
+    
     @State private var newsIsNotSaved: Bool = true
     @State private var selectedCategory: MySavedCategory? = nil
     
+    @State private var showSearchTab: Bool = false
+    
     var body: some View {
-        ZStack {
+//        ZStack {
             // background layer
-            Image("BG").resizable()
-                .ignoresSafeArea()
+//            Image("BG").resizable()
+//                .ignoresSafeArea()
             
             VStack(spacing: 15) {
-                header
+                if showSearchTab == false {
+                    header
+                } else {
+                    searchBar
+                }
                 categoryCell
                 
                 Spacer()
+                
                 if newsIsNotSaved {
                     Text("You haven't saved the news yet ...")
                         .font(.system(size: 16, weight: .light))
@@ -34,7 +43,7 @@ struct MySavedView: View {
                 
                 Spacer()
             }
-        }
+//        }
     }
     
     private var header: some View {
@@ -49,7 +58,9 @@ struct MySavedView: View {
             
             SearchButton()
                 .onTapGesture {
-                    
+                    withAnimation(.easeInOut) {
+                        showSearchTab.toggle()
+                    }
                 }
                 .padding(.trailing, 6)
         }
@@ -75,9 +86,32 @@ struct MySavedView: View {
         //        .padding(.horizontal, 16) // if want to scroll under 16 inch of horizontal
         .scrollIndicators(.hidden)
     }
+    
+    private var searchBar: some View {
+        HStack {
+            SearchTabBarView(searchText: $vm.searchText)
+            CancelButton()
+                .onTapGesture {
+                    withAnimation(.easeInOut) {
+                        showSearchTab.toggle()
+                    }
+                }
+        }
+        .frame(maxWidth: .infinity)
+        .background(.backgroudTwo)
+        .frame(height: 50)
+        .padding(.top)
+        .padding(.bottom)
+        
+    }
 }
 
 
 #Preview {
-    MySavedView()
+    NavigationView(content: {
+        MySavedView()
+            .preferredColorScheme(.dark)
+    })
+    .environmentObject(DeveloperPreview.instance.mySavedVM)
 }
+

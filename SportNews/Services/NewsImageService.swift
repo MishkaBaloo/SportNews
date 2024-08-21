@@ -15,18 +15,18 @@ class NewsImageService {
 
     private var imageSubscriptoin: AnyCancellable?
     private let news: NewsAPIDataModel
-    private let fileManager = LocalFileManager.instance
+    private let fileManager = LocalFileManagerJPG.instance
     private let folderName = "news_images"
     private let imageName: String
 
     init(news: NewsAPIDataModel) {
         self.news = news
-        self.imageName = news.url!
-        ()
+        self.imageName = news.url
+        getNewsImage()
     }
     
     private func getNewsImage() {
-        if let savedImage = fileManager.getImage(imageName: news.uri!, folderName: folderName) {
+        if let savedImage = fileManager.getImage(imageName: news.id, folderName: folderName) {
             image = savedImage
             print("Retrieved image from File Manager")
         } else {
@@ -36,7 +36,7 @@ class NewsImageService {
     }
     
     private func downloadNewsImage() {
-        guard let url = URL(string: news.image!) else { return }
+        guard let url = URL(string: news.image) else { return }
         
         imageSubscriptoin = NewNetworkingManager.download(url: url)
             .tryMap({ data -> UIImage? in

@@ -68,7 +68,6 @@ extension CustomTabBarView {
         .background(
            Image("TabBar")
         )
-        .padding()
     }
     
     private func switchToTab(tab: TabBarItem) {

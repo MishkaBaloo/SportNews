@@ -9,86 +9,34 @@ import SwiftUI
 
 struct SettingView: View {
     
-    let privacyPolicy = URL(string: "https://policies.google.com/privacy")
-    let termsOfUse = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
+//    let privacyPolicy = URL(string: "https://policies.google.com/privacy")
+//    let termsOfUse = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
     
-    @State private var visibility: NavigationSplitViewVisibility = .all
-    @State private var selectedCategory: SettingList? = nil
     
     var body: some View {
-        ZStack {
+//        ZStack {
             
             // background layer
-            
-            
+//            Image("BG").ignoresSafeArea()
             // content layer
             VStack {
-                header
                 
+                header
                 List {
-                    HStack {
-                        Text("Notifications")
-                        
-                        Image(systemName: "chevron.right")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .onTapGesture {
-                        
-                    }
                     
-                    HStack {
-                        Text("Notifications")
-                        
-                        Image(systemName: "chevron.right")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .onTapGesture {
-                        
-                    }
-                    
-                    HStack {
-                        Text("Notifications")
-                        
-                        Image(systemName: "chevron.right")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .onTapGesture {
-                        
-                    }
-                    
-                    HStack {
-                        Text("Notifications")
-                        
-                        Image(systemName: "chevron.right")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .onTapGesture {
-                        
-                    }
-                    
-                    HStack {
-                        Text("Notifications")
-                        
-                        Image(systemName: "chevron.right")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .onTapGesture {
-                        
-                    }
-                    
-                    HStack {
-                        Text("Notifications")
-                        
-                        Image(systemName: "chevron.right")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .onTapGesture {
-                        
-                    }
+                    notifications
+                    shareApp
+                    leaveFeedback
+                    rateUse
+                    privacypolicy
+                    termsofuse
                     
                 }
+                .scrollContentBackground(.hidden)
+                .frame(width: 353, height: 310)
+
             }
-        }
+//        }
     }
 }
 
@@ -115,3 +63,108 @@ private var header: some View {
         .preferredColorScheme(.dark)
 }
 
+//MARK: ListItems
+
+extension SettingView {
+    private var notifications: some View {
+        
+        Button(action: {
+            
+        }, label: {
+            HStack {
+                Text("Notifications")
+                
+                Image(systemName: "chevron.right")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .foregroundStyle(.layerOne)
+            .font(.headline)
+        })
+//        .listRowBackground(Color.backgroudTwo)
+    }
+
+    private var shareApp: some View {
+        
+        Button(action: {
+            
+        }, label: {
+            HStack {
+                Text("Share App")
+                
+                Image(systemName: "chevron.right")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .foregroundStyle(.layerOne)
+            .font(.headline)
+        })
+//        .listRowBackground(Color.backgroudTwo)
+    }
+
+    private var leaveFeedback: some View {
+        
+        Button(action: {
+            
+        }, label: {
+            HStack {
+                Text("Leave Feedback")
+                
+                Image(systemName: "chevron.right")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .foregroundStyle(.layerOne)
+            .font(.headline)
+        })
+//        .listRowBackground(Color.backgroudTwo)
+    }
+
+    private var rateUse: some View {
+        
+        Button(action: {
+            
+        }, label: {
+            HStack {
+                Text("Rate Use")
+                
+                Image(systemName: "chevron.right")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .foregroundStyle(.layerOne)
+            .font(.headline)
+        })
+//        .listRowBackground(Color.backgroudTwo)
+    }
+
+    private var privacypolicy: some View {
+        
+        Button(action: {
+            
+        }, label: {
+            HStack {
+                Text("Privacy Policy")
+                
+                Image(systemName: "chevron.right")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .foregroundStyle(.layerOne)
+            .font(.headline)
+        })
+//        .listRowBackground(Color.backgroudTwo)
+    }
+
+    private var termsofuse: some View {
+        
+        Button(action: {
+            
+        }, label: {
+            HStack {
+                Text("Terms of Use")
+                
+                Image(systemName: "chevron.right")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .foregroundStyle(.layerOne)
+            .font(.headline)
+        })
+//        .listRowBackground(Color.backgroudTwo)
+    }
+}

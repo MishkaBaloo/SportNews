@@ -19,7 +19,9 @@ struct MySavedRowsView: View {
                 RoundedRectangle(cornerRadius: 25)
                     .stroke(.accentTwo, lineWidth: 1.0)
                     .background {
-                        Image("ImageNewsSmallDefault").resizable()
+                        NewsImageView(news: news)
+                            .scaledToFill()
+                            .frame(width: 120, height: 120)
                             .clipShape(.rect(cornerRadius: 25))
                     }
                     .frame(width: 120, height: 120)
@@ -38,6 +40,7 @@ struct MySavedRowsView: View {
                         }
                         
                         Text("•")
+                            .foregroundStyle(Color.layerOne)
                         
                         if let time = news.time {
                             Text(time)
@@ -86,5 +89,5 @@ struct MySavedRowsView: View {
 }
                
 #Preview {
-    MySavedRowsView(news: DeveloperPriview.instance.news)
+    MySavedRowsView(news: DeveloperPreview.instance.news)
 }
