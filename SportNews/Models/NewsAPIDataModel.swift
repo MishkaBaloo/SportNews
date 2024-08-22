@@ -9,7 +9,7 @@
 // key - pasha -  "4a97229c-a083-465f-9af9-ac9cd72140bd"
 // my logged key - 5a9e7729-5b7a-4df2-a7cf-ec0d7a5a9d91
 
-// URL -
+// URL - https://eventregistry.org/api/v1/article/getArticles?apiKey=40b71bf4-7af9-4e31-a32c-f6616bc2fe62&resultType=articles&articlesPage=1&articlesCount=20&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keyword=Footbal&lang=eng
 
 /*
  {
@@ -53,39 +53,35 @@
 import Foundation
 import SwiftUI
 
+struct NewsResult: Codable {
+  let articles: Articles?
+}
 
-struct NewsAPIDataModel: /*Identifiable,*/ Codable {
+struct Articles: Codable {
+  let results: [NewsAPIDataModel]?
+}
+
+struct NewsAPIDataModel: Identifiable, Codable {
     
-//    let id: String
-    
+    var id: String { uri }
     let uri: String
-    let lang: String
-    let isDuplicate: Bool
+    let lang: String?
+    let isDuplicate: Bool?
     let date, time: String?
     let dateTime, dateTimePub: String?
     let dataType: String?
-//    let sim: Int?
     let url: String
     let title, body: String?
-//    let source: Source?
-//    let authors: [Author]?
-    let image: String
-//    let eventURI: NSNull?
-//    let sentiment: Double?
-//    let wgt, relevance: Int?
+    let image: String?
     let currentNewsHolding: Int?
     
-    enum CodingKeys: String, CodingKey {
-        case uri, lang, isDuplicate, date, time, dateTime, dateTimePub, dataType, url, title, body /*,image*/
-        case currentNewsHolding
-        case image = "https://bunny-wp-pullzone-vufvp0bs6b.b-cdn.net/wp-content/uploads/2024/08/Sports-Minister-Mustapha-Yusif-receiving-the-keys-to-the-stadium.jpg"
-//        case id
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case uri, lang, isDuplicate, date, time, dateTime, dateTimePub, dataType, url, title, body ,image
+//        case currentNewsHolding
+//    }
     
    func updateNews(amount: Int) -> NewsAPIDataModel {
        return NewsAPIDataModel(
-//        id: id,
-        
         uri: uri,
         lang: lang,
         isDuplicate: isDuplicate,
@@ -101,21 +97,4 @@ struct NewsAPIDataModel: /*Identifiable,*/ Codable {
         currentNewsHolding: amount
        )
     }
-    
-    var id: String {
-        return uri
-    }
-    
 }
-
-// MARK: - Author
-//struct Author {
-//    let uri, name, type: String?
-//    let isAgency: Bool?
-//}
-
-// MARK: - Source
-//struct Source {
-//    let uri, dataType, title: String?
-//}
-

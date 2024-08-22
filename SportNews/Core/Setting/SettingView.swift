@@ -14,29 +14,34 @@ struct SettingView: View {
     
     
     var body: some View {
-//        ZStack {
+        ZStack {
             
             // background layer
-//            Image("BG").ignoresSafeArea()
+            Image("BG")
+            .ignoresSafeArea()
+            
             // content layer
             VStack {
                 
+//                Spacer(minLength: 0)
+                
                 header
+                
                 List {
-                    
                     notifications
                     shareApp
                     leaveFeedback
                     rateUse
                     privacypolicy
                     termsofuse
-                    
                 }
                 .scrollContentBackground(.hidden)
                 .frame(width: 353, height: 310)
+                
+//                Spacer(minLength: 0)
 
             }
-//        }
+        }
     }
 }
 
@@ -49,7 +54,7 @@ private var header: some View {
             
             ClearButton()
                 .onTapGesture {
-                    
+        
                 }
                 .padding(.trailing, 8)
         }

@@ -17,11 +17,11 @@ struct News: View {
     @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
-//        ZStack {
+        ZStack {
             // background layer
             
-//            Image("BG").resizable()
-//                .ignoresSafeArea()
+            Image("BG").resizable()
+                .ignoresSafeArea()
             
             VStack(spacing: 15) {
                 if showSearchTab == false {
@@ -32,12 +32,12 @@ struct News: View {
                 categoryCell
                 
                 
-                Spacer()
+                Spacer(minLength: 0)
                 
                 
                 
             }
-//        }
+        }
     }
     
     private var header: some View {

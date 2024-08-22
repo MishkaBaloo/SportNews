@@ -2,39 +2,37 @@
 //  NewsImageView.swift
 //  SportNews
 //
-//  Created by Michael on 8/20/24.
+//  Created by Michael on 8/22/24.
 //
 
 import SwiftUI
 
 struct NewsImageView: View {
     
-    @StateObject var vm: NewsImageVIewModel
-    
-    init(news: NewsAPIDataModel) {
-        _vm = StateObject(wrappedValue: NewsImageVIewModel(news: news))
-    }
+    let news: NewsAPIDataModel
+    let url = URL(string: "")
     
     var body: some View {
-        ZStack {
-            if let image = vm.image {
-                Image(uiImage: image)
+        
+        AsyncImage(url: URL(string: news.image ?? "")) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let returnedImage):
+                returnedImage
                     .resizable()
                     .scaledToFit()
-            } else if vm.isLoading {
-                ProgressView()
-            } else {
+            case .failure:
                 Image(systemName: "questionmark")
-                    .foregroundStyle(.layerThree)
+                    .font(.headline)
+            default:
+                Image(systemName: "questionmark")
+                    .font(.headline)
             }
         }
     }
 }
 
-struct NewsImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewsImageView(news: DeveloperPreview.instance.news)
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    NewsImageView(news: DeveloperPreview.instance.news)
 }

@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct SportNewsApp: App {
+    
+    @StateObject var newsVM = NewsViewModel()
+    @StateObject var mySavedVM = MySavedViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                ContentView()
+            }
+            .environmentObject(newsVM)
+            .environmentObject(mySavedVM)
         }
     }
 }

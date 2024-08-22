@@ -11,16 +11,16 @@ struct MySavedView: View {
     
     @EnvironmentObject private var vm: MySavedViewModel
     
-    @State private var newsIsNotSaved: Bool = true
+    @State private var newsIsNotSaved: Bool = false
     @State private var selectedCategory: MySavedCategory? = nil
     
     @State private var showSearchTab: Bool = false
     
     var body: some View {
-//        ZStack {
+        ZStack {
             // background layer
-//            Image("BG").resizable()
-//                .ignoresSafeArea()
+            Image("BG").resizable()
+                .ignoresSafeArea()
             
             VStack(spacing: 15) {
                 if showSearchTab == false {
@@ -30,7 +30,10 @@ struct MySavedView: View {
                 }
                 categoryCell
                 
-                Spacer()
+                Spacer(minLength: 0)
+                
+                //                    MySavedRowsView(news: DeveloperPreview.instance.news)
+                
                 
                 if newsIsNotSaved {
                     Text("You haven't saved the news yet ...")
@@ -38,12 +41,12 @@ struct MySavedView: View {
                         .fontWeight(.light)
                         .foregroundStyle(.layerTwo)
                 } else {
-                    
+                    allNewsList
                 }
                 
-                Spacer()
+//                Spacer(minLength: 0)
             }
-//        }
+        }
     }
     
     private var header: some View {
@@ -103,6 +106,16 @@ struct MySavedView: View {
         .padding(.top)
         .padding(.bottom)
         
+    }
+    
+    private var allNewsList: some View {
+            ScrollView {
+                ForEach(vm.allNews) { news in
+                    MySavedRowsView(news: news)
+                }
+            }
+            .scrollIndicators(.hidden)
+        .ignoresSafeArea()
     }
 }
 

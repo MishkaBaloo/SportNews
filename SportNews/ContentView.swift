@@ -16,38 +16,26 @@ struct ContentView: View {
     @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
-        //        NavigationStack {
-        ZStack {
-            // background layer
-            Image("BG").ignoresSafeArea()
+        
+        CustomTabBarContainerView(selection: $tabSelection) {
             
+            News()
+            //                        .environmentObject(DeveloperPreview.instance.newsVM)
+                .tabBarItem(tab: .news, selection: $tabSelection)
             
-            // conetent layer
-            VStack {
-                CustomTabBarContainerView(selection: $tabSelection) {
-                    
-                    News()
-                        .environmentObject(DeveloperPreview.instance.newsVM)
-                        .tabBarItem(tab: .news, selection: $tabSelection)
-                    
-                    MySavedView()
-                        .environmentObject(DeveloperPreview.instance.mySavedVM)
-                        .tabBarItem(tab: .mySaved, selection: $tabSelection)
-                    
-                    SettingView()
-                        .tabBarItem(tab: .setting, selection: $tabSelection)
-                }
-            }
+            MySavedView()
+            //                        .environmentObject(DeveloperPreview.instance.mySavedVM)
+                .tabBarItem(tab: .mySaved, selection: $tabSelection)
             
+            SettingView()
+                .tabBarItem(tab: .setting, selection: $tabSelection)
         }
     }
 }
 
 #Preview {
-    NavigationView(content: {
         ContentView()
-            .preferredColorScheme(.dark)
-    })
-    .environmentObject(DeveloperPreview.instance.newsVM)
-    .environmentObject(DeveloperPreview.instance.mySavedVM)
+        .preferredColorScheme(.dark)
+        .environmentObject(DeveloperPreview.instance.newsVM)
+    .   environmentObject(DeveloperPreview.instance.mySavedVM)
 }
