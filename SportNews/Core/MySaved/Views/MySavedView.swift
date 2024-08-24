@@ -50,7 +50,7 @@ struct MySavedView: View {
     }
     
     private var header: some View {
-        HStack(spacing: 8) {
+        HStack {
             HStack {
                 Text("My ").foregroundStyle(.accentThree)
                 +
@@ -67,6 +67,7 @@ struct MySavedView: View {
                 }
                 .padding(.trailing, 6)
         }
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
         .padding(.horizontal, 16)
     }

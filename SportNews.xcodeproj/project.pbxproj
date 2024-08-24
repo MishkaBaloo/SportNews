@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE08EB7A2C79CB00003A5EE5 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08EB792C79CB00003A5EE5 /* NotificationsView.swift */; };
 		CE10ACB52C70847A008E6626 /* SportNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACB42C70847A008E6626 /* SportNewsApp.swift */; };
 		CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACB62C70847A008E6626 /* ContentView.swift */; };
 		CE10ACB92C70847B008E6626 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE10ACB82C70847B008E6626 /* Assets.xcassets */; };
@@ -35,6 +36,8 @@
 		CEBBE8DA2C73655A009CBED4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBE8D92C73655A009CBED4 /* Category.swift */; };
 		CEBBE8DC2C736602009CBED4 /* CategoryRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */; };
 		CEC13CF52C77BF3A006EFFB4 /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13CF42C77BF3A006EFFB4 /* NewsImageView.swift */; };
+		CEC13CF82C77ED32006EFFB4 /* CollectionViewPagingLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CEC13CF72C77ED32006EFFB4 /* CollectionViewPagingLayout */; };
+		CEC13CFA2C77EEB5006EFFB4 /* CustomNewsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13CF92C77EEB5006EFFB4 /* CustomNewsCardView.swift */; };
 		CED22B882C737D9A009099B3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B872C737D9A009099B3 /* SettingView.swift */; };
 		CED22B8A2C7391FF009099B3 /* MySavedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B892C7391FF009099B3 /* MySavedCategory.swift */; };
 		CED22B8C2C7394BE009099B3 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B8B2C7394BE009099B3 /* ClearButton.swift */; };
@@ -47,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE08EB792C79CB00003A5EE5 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		CE10ACB12C70847A008E6626 /* SportNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE10ACB42C70847A008E6626 /* SportNewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportNewsApp.swift; sourceTree = "<group>"; };
 		CE10ACB62C70847A008E6626 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 		CEBBE8D92C73655A009CBED4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowCell.swift; sourceTree = "<group>"; };
 		CEC13CF42C77BF3A006EFFB4 /* NewsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
+		CEC13CF92C77EEB5006EFFB4 /* CustomNewsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewsCardView.swift; sourceTree = "<group>"; };
 		CED22B872C737D9A009099B3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		CED22B892C7391FF009099B3 /* MySavedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedCategory.swift; sourceTree = "<group>"; };
 		CED22B8B2C7394BE009099B3 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
@@ -92,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC13CF82C77ED32006EFFB4 /* CollectionViewPagingLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				CED22B872C737D9A009099B3 /* SettingView.swift */,
+				CE08EB792C79CB00003A5EE5 /* NotificationsView.swift */,
 				CE16D6362C7601F2001EE833 /* SettingViewModel.swift */,
 			);
 			path = Setting;
@@ -256,6 +263,7 @@
 				CE59CB4C2C70D60C008E6FCE /* CustomTabBar */,
 				CE10ACD32C709B03008E6626 /* News.swift */,
 				CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */,
+				CEC13CF92C77EEB5006EFFB4 /* CustomNewsCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,6 +358,9 @@
 			dependencies = (
 			);
 			name = SportNews;
+			packageProductDependencies = (
+				CEC13CF72C77ED32006EFFB4 /* CollectionViewPagingLayout */,
+			);
 			productName = SportNews;
 			productReference = CE10ACB12C70847A008E6626 /* SportNews.app */;
 			productType = "com.apple.product-type.application";
@@ -378,6 +389,9 @@
 				Base,
 			);
 			mainGroup = CE10ACA82C70847A008E6626;
+			packageReferences = (
+				CEC13CF62C77ED32006EFFB4 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */,
+			);
 			productRefGroup = CE10ACB22C70847A008E6626 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -412,6 +426,7 @@
 				CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */,
 				CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */,
 				CEE515632C752C3C00DB1D9D /* UIApplication.swift in Sources */,
+				CEC13CFA2C77EEB5006EFFB4 /* CustomNewsCardView.swift in Sources */,
 				CED22B8C2C7394BE009099B3 /* ClearButton.swift in Sources */,
 				CE5C84092C710F750098D0F0 /* SearchButton.swift in Sources */,
 				CE5C840B2C710F940098D0F0 /* SaveButton.swift in Sources */,
@@ -427,6 +442,7 @@
 				CE10ACD42C709B03008E6626 /* News.swift in Sources */,
 				CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */,
 				CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */,
+				CE08EB7A2C79CB00003A5EE5 /* NotificationsView.swift in Sources */,
 				CE10ACDE2C70AE28008E6626 /* PreviewProvider.swift in Sources */,
 				CEE515612C7528FD00DB1D9D /* SearchTabBarView.swift in Sources */,
 				CEC13CF52C77BF3A006EFFB4 /* NewsImageView.swift in Sources */,
@@ -644,6 +660,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEC13CF62C77ED32006EFFB4 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amirdew/CollectionViewPagingLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEC13CF72C77ED32006EFFB4 /* CollectionViewPagingLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEC13CF62C77ED32006EFFB4 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */;
+			productName = CollectionViewPagingLayout;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE10ACA92C70847A008E6626 /* Project object */;
 }

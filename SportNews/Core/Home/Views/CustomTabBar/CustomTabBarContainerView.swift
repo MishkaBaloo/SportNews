@@ -20,9 +20,10 @@ struct CustomTabBarContainerView<Content:View>: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            content //.ignoresSafeArea()
+//            content.ignoresSafeArea()
+            content
             CustomTabBarView(tabs: tabs, selection: $selection, localSelection: selection)
-                .padding()
+                .padding(.top, 16)
         }
         .onPreferenceChange(TabBarItemsPreferenceKey.self, perform: { value in
             self.tabs = value

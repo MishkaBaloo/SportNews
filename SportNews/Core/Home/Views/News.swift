@@ -23,6 +23,7 @@ struct News: View {
             Image("BG").resizable()
                 .ignoresSafeArea()
             
+            // content layer
             VStack(spacing: 15) {
                 if showSearchTab == false {
                     header
@@ -65,6 +66,7 @@ struct News: View {
                 }
                 .padding(.trailing, 6)
         }
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
         .padding(.horizontal, 16)
     }
@@ -110,5 +112,7 @@ struct News: View {
             .preferredColorScheme(.dark)
 //    })
             .environmentObject(DeveloperPreview.instance.newsVM)
+            .environmentObject(DeveloperPreview.instance.newsVM)
+    
 }
 

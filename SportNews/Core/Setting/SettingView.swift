@@ -6,47 +6,75 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingView: View {
     
-//    let privacyPolicy = URL(string: "https://policies.google.com/privacy")
-//    let termsOfUse = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
+    @Environment(\.requestReview) var requestReview
+    
+//    @EnvironmentObject private var vm: SettingViewModel
+    
+    let privacyPolicyURL = URL(string: "https://policies.google.com/privacy")
+    let termsOfUseURL = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
+    let url: String = "https://github.com/MishkaBaloo"
+    
+    @State private var showRequestReview: Bool = false
     
     
     var body: some View {
-        ZStack {
-            
-            // background layer
-            Image("BG")
-            .ignoresSafeArea()
-            
-            // content layer
-            VStack {
+        NavigationStack {
+            ZStack {
                 
-//                Spacer(minLength: 0)
+                // background layer
+                Image("BG").resizable()
+                .ignoresSafeArea()
                 
-                header
-                
-                List {
-                    notifications
-                    shareApp
-                    leaveFeedback
-                    rateUse
-                    privacypolicy
-                    termsofuse
+                // content layer
+                VStack {
+                    
+    //                Spacer(minLength: 0)
+                    
+                    header
+                    
+                    List {
+                        notifications
+                        
+                        // share app
+                        if let url =  URL(string: url) {
+                            ShareLink(item: url) {
+                                HStack {
+                                    Text("Share App")
+                                        .foregroundStyle(.layerOne)
+                                        .font(.headline)
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(.layerTwo)
+                                        .font(.caption)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                }
+                            }
+                        }
+                        
+                        leaveFeedback
+                        
+                        rateUse
+                            .onTapGesture {
+                                requestReview()
+                            }
+                        
+                        privacypolicy // link
+                        termsofuse // link
+                    }
+                    .scrollContentBackground(.hidden)
                 }
-                .scrollContentBackground(.hidden)
-                .frame(width: 353, height: 310)
-                
-//                Spacer(minLength: 0)
-
             }
         }
     }
 }
 
 private var header: some View {
-    HStack(spacing: 8) {
+    HStack {
         HStack {
             Text("Settings").foregroundStyle(.accentThree)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -56,9 +84,10 @@ private var header: some View {
                 .onTapGesture {
         
                 }
-                .padding(.trailing, 8)
+                .padding(.trailing, 6)
         }
     }
+    .frame(maxWidth: .infinity)
     .padding(.vertical, 4)
     .padding(.horizontal, 16)
 }
@@ -72,36 +101,11 @@ private var header: some View {
 
 extension SettingView {
     private var notifications: some View {
-        
-        Button(action: {
-            
-        }, label: {
-            HStack {
-                Text("Notifications")
-                
-                Image(systemName: "chevron.right")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-            .foregroundStyle(.layerOne)
-            .font(.headline)
-        })
-//        .listRowBackground(Color.backgroudTwo)
-    }
-
-    private var shareApp: some View {
-        
-        Button(action: {
-            
-        }, label: {
-            HStack {
-                Text("Share App")
-                
-                Image(systemName: "chevron.right")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-            .foregroundStyle(.layerOne)
-            .font(.headline)
-        })
+        NavigationLink("Notifications") {
+            NotificationsView()
+        }
+        .foregroundStyle(.layerOne)
+        .font(.headline)
 //        .listRowBackground(Color.backgroudTwo)
     }
 
@@ -112,64 +116,66 @@ extension SettingView {
         }, label: {
             HStack {
                 Text("Leave Feedback")
+                    .foregroundStyle(.layerOne)
+                    .font(.headline)
                 
                 Image(systemName: "chevron.right")
+                    .fontWeight(.medium)
+                    .foregroundStyle(.layerTwo)
+                    .font(.caption)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .foregroundStyle(.layerOne)
-            .font(.headline)
         })
 //        .listRowBackground(Color.backgroudTwo)
     }
 
     private var rateUse: some View {
-        
-        Button(action: {
+        HStack {
+            Text("Rate Use")
+                .foregroundStyle(.layerOne)
+                .font(.headline)
             
-        }, label: {
-            HStack {
-                Text("Rate Use")
-                
-                Image(systemName: "chevron.right")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-            .foregroundStyle(.layerOne)
-            .font(.headline)
-        })
-//        .listRowBackground(Color.backgroudTwo)
+            Image(systemName: "chevron.right")
+                .fontWeight(.medium)
+                .foregroundStyle(.layerTwo)
+                .font(.caption)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
     }
 
     private var privacypolicy: some View {
         
-        Button(action: {
+        HStack {
+            Link("Privacy Policy", destination: privacyPolicyURL!)
             
-        }, label: {
-            HStack {
-                Text("Privacy Policy")
-                
-                Image(systemName: "chevron.right")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-            .foregroundStyle(.layerOne)
-            .font(.headline)
-        })
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .fontWeight(.medium)
+                .foregroundStyle(.layerTwo)
+                .font(.caption)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .foregroundStyle(.layerOne)
+        .font(.headline)
 //        .listRowBackground(Color.backgroudTwo)
     }
 
     private var termsofuse: some View {
         
-        Button(action: {
+        HStack {
+            Link("Terms of Use", destination: termsOfUseURL!)
             
-        }, label: {
-            HStack {
-                Text("Terms of Use")
-                
-                Image(systemName: "chevron.right")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-            .foregroundStyle(.layerOne)
-            .font(.headline)
-        })
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .fontWeight(.medium)
+                .foregroundStyle(.layerTwo)
+                .font(.caption)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .foregroundStyle(.layerOne)
+        .font(.headline)
 //        .listRowBackground(Color.backgroudTwo)
     }
 }
