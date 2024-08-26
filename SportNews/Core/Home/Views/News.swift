@@ -14,7 +14,9 @@ struct News: View {
     @State private var selectedCategory: Category? = nil
     @State private var showSearchTab: Bool = false
     
-    @State private var tabSelection: TabBarItem = .news
+    @State private var showDetailView: Bool = false
+
+
     
     var body: some View {
         ZStack {
@@ -32,14 +34,15 @@ struct News: View {
                 }
                 categoryCell
                 
-                
-                Spacer(minLength: 0)
-                
-                
+               CustomRotationView().padding(.bottom, 80)
+                    
+
+                    
                 
             }
         }
     }
+
     
     private var header: some View {
         HStack(spacing: 8) {
@@ -111,7 +114,6 @@ struct News: View {
         News()
             .preferredColorScheme(.dark)
 //    })
-            .environmentObject(DeveloperPreview.instance.newsVM)
             .environmentObject(DeveloperPreview.instance.newsVM)
     
 }

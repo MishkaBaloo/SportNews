@@ -37,7 +37,7 @@ struct NotificationsView: View {
     private var displayAs: some View {
         Section {
             Image("IMG_3815").resizable()
-                .frame(height: 130)
+                .frame(width: 340 ,height: 130)
                 .foregroundStyle(.clear)
         } header: {
             Text("display as")

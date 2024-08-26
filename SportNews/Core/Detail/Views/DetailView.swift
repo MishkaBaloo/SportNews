@@ -1,22 +1,55 @@
 //
-//  NewsRowView.swift
+//  DetailView.swift
 //  SportNews
 //
-//  Created by Michael on 8/17/24.
+//  Created by Michael on 8/26/24.
 //
 
 import SwiftUI
 
-struct NewsRowView: View {
+struct DetailLoadingView: View {
     
-    let news: NewsAPIDataModel
-    let defaultURL: URL = URL(string: "https://eventregistry.org/")!
+    @Binding var news: NewsAPIDataModel?
     
     var body: some View {
-        
-            VStack { // chat news today
+        ZStack{
+            if let news = news {
+                DetailView(news: news)
+            }
+        }
+    }
+}
+
+struct DetailView: View {
+    
+//    @StateObject private var vm: DetailViewModel
+    
+    let news: NewsAPIDataModel
+    
+//    init(news: NewsAPIDataModel) {
+//        _vm = StateObject(wrappedValue: DetailViewModel())
+//    }
+    
+    var body: some View {
+        ZStack {
+            
+            // background layer
+            Color.accentOne.ignoresSafeArea()
+            
+            // content layer
+            VStack {
                 
-//
+                HStack {
+                    BackButton()
+                    Spacer()
+                    GoToSourceButton()
+                    SaveButton()
+                    ShareButton()
+                }
+                .padding()
+                
+                VStack {
+                    
                     HStack {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundStyle(.backgroudOne)
@@ -28,14 +61,10 @@ struct NewsRowView: View {
                             .frame(width: 100, height: 20)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 20)
                     .padding(.leading, 16)
                     .padding(.bottom, 6)
-                
+                    
                     // title
-                
-                
-                
                     HStack {
                         if let title = news.title {
                             Text(title)
@@ -47,7 +76,7 @@ struct NewsRowView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 16)
                     
-                    VStack {
+                    HStack {
                         HStack {
                             
                             if let date = news.date {
@@ -61,58 +90,35 @@ struct NewsRowView: View {
                         }
                         .font(.system(size: 16, weight: .bold))
                         .foregroundStyle(.layerSix)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 20)
+                        
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 16)
+                }
                 
-                
-                VStack { // body text
+                ScrollView {
+                    NewsImageView(news: news)
+                        .scaledToFill()
+                        .frame(width: 353, height: 200)
+                        .clipShape(.rect(cornerRadius: 25))
+                    
+                    VStack { // body text
                         if let body = news.body {
                             Text(body)
-                                .lineSpacing(3)
-                                .frame(width: 293, height: 215, alignment: .center)
+                                .lineSpacing(2)
+                                .frame(width: 353, alignment: .center)
                                 .foregroundStyle(.backgroudThree)
                                 .font(.system(size: 14, weight: .light))
                         }
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 8)
-                
-                HStack {
-                    HStack { // buttons area
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(.backgroudThree, lineWidth: 2.0)
-                            .frame(width: 110, height: 50)
-                            .foregroundStyle(.clear)
-                            .overlay {
-                                Text("Read Full")
-                                    .foregroundStyle(.backgroudOne)
-                                    .font(.system(size: 16, weight: .bold))
-                            }
-                            .onTapGesture {
-                                
-                            }
-                            .padding()
-                            Spacer()
-                        
-                            GoToSourceButton()
-                            SaveButton()
-                            .onTapGesture {
-                                
-                            }
-                            ShareButton()
-                            .padding(.trailing, 6)
                     }
-//                    .frame(maxWidth: .infinity, alignment: .bottom)
+                    .padding(.top, 8)
                 }
-               
+                .scrollIndicators(.hidden)
             }
-            .frame(width: 353, height: 520)
-            .background(Color.accentOne)
-            .clipShape(.rect(cornerRadius: 35))
         }
     }
-               
+}
+
 #Preview {
-    NewsRowView(news: DeveloperPreview.instance.news)
+    DetailView(news: DeveloperPreview.instance.news)
 }

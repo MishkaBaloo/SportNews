@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE08EB7A2C79CB00003A5EE5 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08EB792C79CB00003A5EE5 /* NotificationsView.swift */; };
+		CE08EB7C2C7A24DC003A5EE5 /* CustomRotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08EB7B2C7A24DC003A5EE5 /* CustomRotationView.swift */; };
 		CE10ACB52C70847A008E6626 /* SportNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACB42C70847A008E6626 /* SportNewsApp.swift */; };
 		CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACB62C70847A008E6626 /* ContentView.swift */; };
 		CE10ACB92C70847B008E6626 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE10ACB82C70847B008E6626 /* Assets.xcassets */; };
@@ -33,11 +34,13 @@
 		CE5C840D2C710FD70098D0F0 /* GoToSourceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C840C2C710FD70098D0F0 /* GoToSourceButton.swift */; };
 		CE5C840F2C7112D30098D0F0 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C840E2C7112D30098D0F0 /* ShareButton.swift */; };
 		CE5C84112C7116020098D0F0 /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C84102C7116020098D0F0 /* ReloadButton.swift */; };
+		CEB16F562C7D1B9400E1A688 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB16F552C7D1B9400E1A688 /* BackButton.swift */; };
+		CEB16F582C7D1C3700E1A688 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB16F572C7D1C3700E1A688 /* DetailView.swift */; };
+		CEB16F5A2C7D22FC00E1A688 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB16F592C7D22FC00E1A688 /* DetailViewModel.swift */; };
 		CEBBE8DA2C73655A009CBED4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBE8D92C73655A009CBED4 /* Category.swift */; };
 		CEBBE8DC2C736602009CBED4 /* CategoryRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */; };
 		CEC13CF52C77BF3A006EFFB4 /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13CF42C77BF3A006EFFB4 /* NewsImageView.swift */; };
 		CEC13CF82C77ED32006EFFB4 /* CollectionViewPagingLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CEC13CF72C77ED32006EFFB4 /* CollectionViewPagingLayout */; };
-		CEC13CFA2C77EEB5006EFFB4 /* CustomNewsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13CF92C77EEB5006EFFB4 /* CustomNewsCardView.swift */; };
 		CED22B882C737D9A009099B3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B872C737D9A009099B3 /* SettingView.swift */; };
 		CED22B8A2C7391FF009099B3 /* MySavedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B892C7391FF009099B3 /* MySavedCategory.swift */; };
 		CED22B8C2C7394BE009099B3 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B8B2C7394BE009099B3 /* ClearButton.swift */; };
@@ -51,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		CE08EB792C79CB00003A5EE5 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		CE08EB7B2C7A24DC003A5EE5 /* CustomRotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRotationView.swift; sourceTree = "<group>"; };
 		CE10ACB12C70847A008E6626 /* SportNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE10ACB42C70847A008E6626 /* SportNewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportNewsApp.swift; sourceTree = "<group>"; };
 		CE10ACB62C70847A008E6626 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,10 +81,12 @@
 		CE5C840C2C710FD70098D0F0 /* GoToSourceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToSourceButton.swift; sourceTree = "<group>"; };
 		CE5C840E2C7112D30098D0F0 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		CE5C84102C7116020098D0F0 /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
+		CEB16F552C7D1B9400E1A688 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		CEB16F572C7D1C3700E1A688 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		CEB16F592C7D22FC00E1A688 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CEBBE8D92C73655A009CBED4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowCell.swift; sourceTree = "<group>"; };
 		CEC13CF42C77BF3A006EFFB4 /* NewsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
-		CEC13CF92C77EEB5006EFFB4 /* CustomNewsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNewsCardView.swift; sourceTree = "<group>"; };
 		CED22B872C737D9A009099B3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		CED22B892C7391FF009099B3 /* MySavedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedCategory.swift; sourceTree = "<group>"; };
 		CED22B8B2C7394BE009099B3 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 				CE5C840C2C710FD70098D0F0 /* GoToSourceButton.swift */,
 				CED22B8B2C7394BE009099B3 /* ClearButton.swift */,
 				CE5C840E2C7112D30098D0F0 /* ShareButton.swift */,
+				CEB16F552C7D1B9400E1A688 /* BackButton.swift */,
 				CE16D6302C75E1BA001EE833 /* CancelButton.swift */,
 				CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */,
 			);
@@ -263,7 +270,7 @@
 				CE59CB4C2C70D60C008E6FCE /* CustomTabBar */,
 				CE10ACD32C709B03008E6626 /* News.swift */,
 				CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */,
-				CEC13CF92C77EEB5006EFFB4 /* CustomNewsCardView.swift */,
+				CE08EB7B2C7A24DC003A5EE5 /* CustomRotationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,6 +286,7 @@
 		CE10ACCF2C7085C4008E6626 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEB16F572C7D1C3700E1A688 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,6 +294,7 @@
 		CE10ACD02C7085CA008E6626 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CEB16F592C7D22FC00E1A688 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -425,11 +434,12 @@
 				CE5C840D2C710FD70098D0F0 /* GoToSourceButton.swift in Sources */,
 				CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */,
 				CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */,
+				CEB16F582C7D1C3700E1A688 /* DetailView.swift in Sources */,
 				CEE515632C752C3C00DB1D9D /* UIApplication.swift in Sources */,
-				CEC13CFA2C77EEB5006EFFB4 /* CustomNewsCardView.swift in Sources */,
 				CED22B8C2C7394BE009099B3 /* ClearButton.swift in Sources */,
 				CE5C84092C710F750098D0F0 /* SearchButton.swift in Sources */,
 				CE5C840B2C710F940098D0F0 /* SaveButton.swift in Sources */,
+				CEB16F562C7D1B9400E1A688 /* BackButton.swift in Sources */,
 				CE387E792C73EF84004DF906 /* NewNetworkingManager.swift in Sources */,
 				CE16D6312C75E1BA001EE833 /* CancelButton.swift in Sources */,
 				CE16D6372C7601F2001EE833 /* SettingViewModel.swift in Sources */,
@@ -440,10 +450,12 @@
 				CEBBE8DA2C73655A009CBED4 /* Category.swift in Sources */,
 				CEE515652C7532F600DB1D9D /* NewsViewModel.swift in Sources */,
 				CE10ACD42C709B03008E6626 /* News.swift in Sources */,
+				CEB16F5A2C7D22FC00E1A688 /* DetailViewModel.swift in Sources */,
 				CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */,
 				CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */,
 				CE08EB7A2C79CB00003A5EE5 /* NotificationsView.swift in Sources */,
 				CE10ACDE2C70AE28008E6626 /* PreviewProvider.swift in Sources */,
+				CE08EB7C2C7A24DC003A5EE5 /* CustomRotationView.swift in Sources */,
 				CEE515612C7528FD00DB1D9D /* SearchTabBarView.swift in Sources */,
 				CEC13CF52C77BF3A006EFFB4 /* NewsImageView.swift in Sources */,
 				CED22B932C73A26E009099B3 /* LocalFileManager.swift in Sources */,

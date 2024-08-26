@@ -13,39 +13,45 @@ struct MySavedView: View {
     
     @State private var newsIsNotSaved: Bool = false
     @State private var selectedCategory: MySavedCategory? = nil
-    
+    @State private var selectedNews: NewsAPIDataModel? = nil
     @State private var showSearchTab: Bool = false
+    @State private var showDetailView: Bool = false
     
     var body: some View {
-        ZStack {
-            // background layer
-            Image("BG").resizable()
-                .ignoresSafeArea()
-            
-            VStack(spacing: 15) {
-                if showSearchTab == false {
-                    header
-                } else {
-                    searchBar
+        NavigationStack {
+            ZStack {
+                // background layer
+                Image("BG").resizable()
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 15) {
+                    if showSearchTab == false {
+                        header
+                    } else {
+                        searchBar
+                    }
+                    categoryCell
+                    
+                    Spacer(minLength: 0)
+                    
+                    //                    MySavedRowsView(news: DeveloperPreview.instance.news)
+                    
+                    
+                    if newsIsNotSaved {
+                        Text("You haven't saved the news yet ...")
+                            .font(.system(size: 16, weight: .light))
+                            .fontWeight(.light)
+                            .foregroundStyle(.layerTwo)
+                    } else {
+                        allNewsList
+                    }
+                    
+    //                Spacer(minLength: 0)
                 }
-                categoryCell
-                
-                Spacer(minLength: 0)
-                
-                //                    MySavedRowsView(news: DeveloperPreview.instance.news)
-                
-                
-                if newsIsNotSaved {
-                    Text("You haven't saved the news yet ...")
-                        .font(.system(size: 16, weight: .light))
-                        .fontWeight(.light)
-                        .foregroundStyle(.layerTwo)
-                } else {
-                    allNewsList
-                }
-                
-//                Spacer(minLength: 0)
             }
+        }
+        .navigationDestination(isPresented: $showDetailView) {
+            DetailLoadingView(news: $selectedNews)
         }
     }
     
@@ -113,10 +119,18 @@ struct MySavedView: View {
             ScrollView {
                 ForEach(vm.allNews) { news in
                     MySavedRowsView(news: news)
+                        .onTapGesture {
+                            segue(news: news)
+                        }
                 }
             }
             .scrollIndicators(.hidden)
-        .ignoresSafeArea()
+            .ignoresSafeArea()
+    }
+    
+    private func segue(news: NewsAPIDataModel) {
+        selectedNews = news
+        showDetailView.toggle()
     }
 }
 
