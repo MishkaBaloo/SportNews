@@ -13,20 +13,13 @@ import CollectionViewPagingLayout
 struct CustomRotationView: View {
     
     @EnvironmentObject private var vm: NewsViewModel
+    
+    @State private var selectedNews: NewsAPIDataModel? = nil
+    @State private var showDetailView: Bool = false
 
     var body: some View {
-        
-//        ScrollView {
-//            ForEach(vm.allNews) { news in
-//                NewsRowView(news: news)
-//            }
-//        }
-        
-        TransformPageView(vm.allNews) { news, progress in
-            VStack {
+        StackPageView(vm.allNews) { news in
                 VStack { // chat news today
-                    
-    //
                         HStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundStyle(.backgroudOne)
@@ -43,9 +36,6 @@ struct CustomRotationView: View {
                         .padding(.bottom, 6)
                     
                         // title
-                    
-                    
-                    
                         HStack {
                             if let title = news.title {
                                 Text(title)
@@ -77,8 +67,6 @@ struct CustomRotationView: View {
                     
                     
                     VStack { // body text
-                        HStack {
-                            
                             if let body = news.body {
                                 Text(body)
                                     .lineSpacing(3)
@@ -86,8 +74,6 @@ struct CustomRotationView: View {
                                     .foregroundStyle(.backgroudThree)
                                     .font(.system(size: 14, weight: .light))
                             }
-                            
-                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 8)
@@ -117,7 +103,6 @@ struct CustomRotationView: View {
                                 ShareButton()
                                 .padding(.trailing, 6)
                         }
-    //                    .frame(maxWidth: .infinity, alignment: .bottom)
                     }
                    
                 }
@@ -125,16 +110,24 @@ struct CustomRotationView: View {
                 .background(Color.accentOne)
                 .clipShape(.rect(cornerRadius: 35))
             }
-            .scaleEffect(1 - abs(progress) * 0.6)
-            .transformEffect(.init(translationX: progress * 200, y: 0))
-            .blur(radius: abs(progress) * 20)
-            .opacity(1.8 - Double(abs(progress)))
-        }
-        .pagePadding(
-            vertical: .absolute(100),
-            horizontal: .absolute(80)
-        )
-       }
+            .options(.init(
+              scaleFactor: -0.03,
+              minScale: 0,
+              maxStackSize: 3,
+              spacingFactor: 0.01,
+              alphaFactor: 0.1,
+              shadowRadius: 8,
+              stackRotateAngel: .pi / 36,
+              popAngle: .pi / 4,
+              popOffsetRatio: .init(width: -1.45, height: 0.4),
+              stackPosition: CGPoint(x: 0, y: 1)
+            ))
+    }
+    
+    private func segue(news: NewsAPIDataModel) {
+        selectedNews = news
+        showDetailView.toggle()
+    }
 }
 
 #Preview {

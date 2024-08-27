@@ -13,34 +13,41 @@ struct News: View {
     
     @State private var selectedCategory: Category? = nil
     @State private var showSearchTab: Bool = false
-    
+    @State private var selectedNews: NewsAPIDataModel? = nil
     @State private var showDetailView: Bool = false
 
 
     
     var body: some View {
-        ZStack {
-            // background layer
-            
-            Image("BG").resizable()
-                .ignoresSafeArea()
-            
-            // content layer
-            VStack(spacing: 15) {
-                if showSearchTab == false {
-                    header
-                } else {
-                    searchBar
-                }
-                categoryCell
+        NavigationStack {
+            ZStack {
+                // background layer
                 
-               CustomRotationView().padding(.bottom, 80)
+                Image("BG").resizable()
+                    .ignoresSafeArea()
+                
+                // content layer
+                VStack(spacing: 15) {
+                    if showSearchTab == false {
+                        header
+                    } else {
+                        searchBar
+                    }
+                    categoryCell
                     
-
-                    
+                   CustomRotationView().padding(.bottom, 80)
+                }
                 
             }
+            .navigationDestination(isPresented: $showDetailView) {
+                DetailLoadingView(news: $selectedNews)
+            }
         }
+    }
+    
+    private func segue(news: NewsAPIDataModel) {
+        selectedNews = news
+        showDetailView.toggle()
     }
 
     

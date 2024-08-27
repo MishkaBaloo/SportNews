@@ -49,9 +49,9 @@ struct MySavedView: View {
     //                Spacer(minLength: 0)
                 }
             }
-        }
-        .navigationDestination(isPresented: $showDetailView) {
-            DetailLoadingView(news: $selectedNews)
+            .navigationDestination(isPresented: $showDetailView) {
+                DetailLoadingView(news: $selectedNews)
+            }
         }
     }
     

@@ -11,17 +11,16 @@ import Combine
 class DetailViewModel: ObservableObject {
     
     
-    @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array
+    @Published var allNews: [NewsAPIDataModel] = []// when we check all news we append to this allNews array
     
-
-    private let dataService = NewsDataService()
+    private let dataService: NewsDataService
     private var cancellables = Set<AnyCancellable>()
     
-//    init() {
-//        self.allNews = allNews
-//        self.dataService = 
-//        addSubscribers()
-//    }
+    init(allNews: NewsAPIDataModel) {
+        self.allNews = Array(arrayLiteral: allNews)
+        self.dataService = NewsDataService()
+        addSubscribers()
+    }
     
     func addSubscribers() {
       
