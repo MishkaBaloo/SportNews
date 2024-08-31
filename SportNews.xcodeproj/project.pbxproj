@@ -14,15 +14,14 @@
 		CE10ACB92C70847B008E6626 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE10ACB82C70847B008E6626 /* Assets.xcassets */; };
 		CE10ACBC2C70847B008E6626 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE10ACBB2C70847B008E6626 /* Preview Assets.xcassets */; };
 		CE10ACD42C709B03008E6626 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACD32C709B03008E6626 /* News.swift */; };
-		CE10ACDC2C70ADC8008E6626 /* NewsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */; };
 		CE10ACDE2C70AE28008E6626 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10ACDD2C70AE28008E6626 /* PreviewProvider.swift */; };
 		CE16D62F2C75D8E0001EE833 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16D62E2C75D8E0001EE833 /* Coordinator.swift */; };
 		CE16D6312C75E1BA001EE833 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16D6302C75E1BA001EE833 /* CancelButton.swift */; };
 		CE16D6332C75EC71001EE833 /* MySavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16D6322C75EC71001EE833 /* MySavedViewModel.swift */; };
 		CE16D6372C7601F2001EE833 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16D6362C7601F2001EE833 /* SettingViewModel.swift */; };
 		CE387E732C73DB1B004DF906 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE387E722C73DB1B004DF906 /* HapticManager.swift */; };
-		CE387E752C73ECD6004DF906 /* LocalFileManagerJPG.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE387E742C73ECD6004DF906 /* LocalFileManagerJPG.swift */; };
 		CE387E792C73EF84004DF906 /* NewNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE387E782C73EF84004DF906 /* NewNetworkingManager.swift */; };
+		CE48D07B2C834638006389B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE48D07A2C834638006389B5 /* Date.swift */; };
 		CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */; };
 		CE59CB522C70E638008E6FCE /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */; };
 		CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */; };
@@ -37,6 +36,7 @@
 		CEB16F562C7D1B9400E1A688 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB16F552C7D1B9400E1A688 /* BackButton.swift */; };
 		CEB16F582C7D1C3700E1A688 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB16F572C7D1C3700E1A688 /* DetailView.swift */; };
 		CEB16F5A2C7D22FC00E1A688 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB16F592C7D22FC00E1A688 /* DetailViewModel.swift */; };
+		CEB281922C7FBA5F0098C472 /* MySavedContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEB281902C7FBA5F0098C472 /* MySavedContainer.xcdatamodeld */; };
 		CEBBE8DA2C73655A009CBED4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBE8D92C73655A009CBED4 /* Category.swift */; };
 		CEBBE8DC2C736602009CBED4 /* CategoryRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */; };
 		CEC13CF52C77BF3A006EFFB4 /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13CF42C77BF3A006EFFB4 /* NewsImageView.swift */; };
@@ -44,8 +44,8 @@
 		CED22B882C737D9A009099B3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B872C737D9A009099B3 /* SettingView.swift */; };
 		CED22B8A2C7391FF009099B3 /* MySavedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B892C7391FF009099B3 /* MySavedCategory.swift */; };
 		CED22B8C2C7394BE009099B3 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B8B2C7394BE009099B3 /* ClearButton.swift */; };
-		CED22B932C73A26E009099B3 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B922C73A26E009099B3 /* LocalFileManager.swift */; };
 		CED22B972C73ACAC009099B3 /* NewsAPIDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED22B962C73ACAC009099B3 /* NewsAPIDataModel.swift */; };
+		CEDFF10D2C806F14006DD582 /* MySavedDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDFF10C2C806F14006DD582 /* MySavedDataService.swift */; };
 		CEE50CA02C77458A002E361F /* NewsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE50C9F2C77458A002E361F /* NewsDataService.swift */; };
 		CEE515612C7528FD00DB1D9D /* SearchTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE515602C7528FD00DB1D9D /* SearchTabBarView.swift */; };
 		CEE515632C752C3C00DB1D9D /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE515622C752C3C00DB1D9D /* UIApplication.swift */; };
@@ -61,15 +61,14 @@
 		CE10ACB82C70847B008E6626 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE10ACBB2C70847B008E6626 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE10ACD32C709B03008E6626 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRowView.swift; sourceTree = "<group>"; };
 		CE10ACDD2C70AE28008E6626 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		CE16D62E2C75D8E0001EE833 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CE16D6302C75E1BA001EE833 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		CE16D6322C75EC71001EE833 /* MySavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedViewModel.swift; sourceTree = "<group>"; };
 		CE16D6362C7601F2001EE833 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		CE387E722C73DB1B004DF906 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		CE387E742C73ECD6004DF906 /* LocalFileManagerJPG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManagerJPG.swift; sourceTree = "<group>"; };
 		CE387E782C73EF84004DF906 /* NewNetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNetworkingManager.swift; sourceTree = "<group>"; };
+		CE48D07A2C834638006389B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
 		CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
@@ -84,14 +83,15 @@
 		CEB16F552C7D1B9400E1A688 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		CEB16F572C7D1C3700E1A688 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		CEB16F592C7D22FC00E1A688 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		CEB281912C7FBA5F0098C472 /* MySavedContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MySavedContainer.xcdatamodel; sourceTree = "<group>"; };
 		CEBBE8D92C73655A009CBED4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CEBBE8DB2C736602009CBED4 /* CategoryRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowCell.swift; sourceTree = "<group>"; };
 		CEC13CF42C77BF3A006EFFB4 /* NewsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
 		CED22B872C737D9A009099B3 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		CED22B892C7391FF009099B3 /* MySavedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedCategory.swift; sourceTree = "<group>"; };
 		CED22B8B2C7394BE009099B3 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
-		CED22B922C73A26E009099B3 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		CED22B962C73ACAC009099B3 /* NewsAPIDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIDataModel.swift; sourceTree = "<group>"; };
+		CEDFF10C2C806F14006DD582 /* MySavedDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySavedDataService.swift; sourceTree = "<group>"; };
 		CEE50C9F2C77458A002E361F /* NewsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDataService.swift; sourceTree = "<group>"; };
 		CEE515602C7528FD00DB1D9D /* SearchTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabBarView.swift; sourceTree = "<group>"; };
 		CEE515622C752C3C00DB1D9D /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -155,6 +155,7 @@
 			children = (
 				CE10ACDD2C70AE28008E6626 /* PreviewProvider.swift */,
 				CEE515622C752C3C00DB1D9D /* UIApplication.swift */,
+				CE48D07A2C834638006389B5 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -178,6 +179,7 @@
 				CEBBE8D92C73655A009CBED4 /* Category.swift */,
 				CED22B892C7391FF009099B3 /* MySavedCategory.swift */,
 				CED22B962C73ACAC009099B3 /* NewsAPIDataModel.swift */,
+				CEB281902C7FBA5F0098C472 /* MySavedContainer.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,6 +189,7 @@
 			children = (
 				CE16D62D2C75D8CB001EE833 /* Coordinator */,
 				CEE50C9F2C77458A002E361F /* NewsDataService.swift */,
+				CEDFF10C2C806F14006DD582 /* MySavedDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -196,8 +199,6 @@
 			children = (
 				CE387E782C73EF84004DF906 /* NewNetworkingManager.swift */,
 				CE387E722C73DB1B004DF906 /* HapticManager.swift */,
-				CED22B922C73A26E009099B3 /* LocalFileManager.swift */,
-				CE387E742C73ECD6004DF906 /* LocalFileManagerJPG.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -269,7 +270,6 @@
 			children = (
 				CE59CB4C2C70D60C008E6FCE /* CustomTabBar */,
 				CE10ACD32C709B03008E6626 /* News.swift */,
-				CE10ACDB2C70ADC8008E6626 /* NewsRowView.swift */,
 				CE08EB7B2C7A24DC003A5EE5 /* CustomRotationView.swift */,
 			);
 			path = Views;
@@ -440,17 +440,19 @@
 				CE5C84092C710F750098D0F0 /* SearchButton.swift in Sources */,
 				CE5C840B2C710F940098D0F0 /* SaveButton.swift in Sources */,
 				CEB16F562C7D1B9400E1A688 /* BackButton.swift in Sources */,
+				CE48D07B2C834638006389B5 /* Date.swift in Sources */,
 				CE387E792C73EF84004DF906 /* NewNetworkingManager.swift in Sources */,
 				CE16D6312C75E1BA001EE833 /* CancelButton.swift in Sources */,
 				CE16D6372C7601F2001EE833 /* SettingViewModel.swift in Sources */,
 				CE16D62F2C75D8E0001EE833 /* Coordinator.swift in Sources */,
+				CEDFF10D2C806F14006DD582 /* MySavedDataService.swift in Sources */,
 				CED22B8A2C7391FF009099B3 /* MySavedCategory.swift in Sources */,
-				CE10ACDC2C70ADC8008E6626 /* NewsRowView.swift in Sources */,
 				CE5C840F2C7112D30098D0F0 /* ShareButton.swift in Sources */,
 				CEBBE8DA2C73655A009CBED4 /* Category.swift in Sources */,
 				CEE515652C7532F600DB1D9D /* NewsViewModel.swift in Sources */,
 				CE10ACD42C709B03008E6626 /* News.swift in Sources */,
 				CEB16F5A2C7D22FC00E1A688 /* DetailViewModel.swift in Sources */,
+				CEB281922C7FBA5F0098C472 /* MySavedContainer.xcdatamodeld in Sources */,
 				CE10ACB72C70847A008E6626 /* ContentView.swift in Sources */,
 				CE59CB562C70EEF0008E6FCE /* TabBarItem.swift in Sources */,
 				CE08EB7A2C79CB00003A5EE5 /* NotificationsView.swift in Sources */,
@@ -458,14 +460,12 @@
 				CE08EB7C2C7A24DC003A5EE5 /* CustomRotationView.swift in Sources */,
 				CEE515612C7528FD00DB1D9D /* SearchTabBarView.swift in Sources */,
 				CEC13CF52C77BF3A006EFFB4 /* NewsImageView.swift in Sources */,
-				CED22B932C73A26E009099B3 /* LocalFileManager.swift in Sources */,
 				CE16D6332C75EC71001EE833 /* MySavedViewModel.swift in Sources */,
 				CE10ACB52C70847A008E6626 /* SportNewsApp.swift in Sources */,
 				CED22B972C73ACAC009099B3 /* NewsAPIDataModel.swift in Sources */,
 				CE59CB522C70E638008E6FCE /* CustomTabBarContainerView.swift in Sources */,
 				CEBBE8DC2C736602009CBED4 /* CategoryRowCell.swift in Sources */,
 				CEE50CA02C77458A002E361F /* NewsDataService.swift in Sources */,
-				CE387E752C73ECD6004DF906 /* LocalFileManagerJPG.swift in Sources */,
 				CED22B882C737D9A009099B3 /* SettingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -691,6 +691,20 @@
 			productName = CollectionViewPagingLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		CEB281902C7FBA5F0098C472 /* MySavedContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEB281912C7FBA5F0098C472 /* MySavedContainer.xcdatamodel */,
+			);
+			currentVersion = CEB281912C7FBA5F0098C472 /* MySavedContainer.xcdatamodel */;
+			name = MySavedContainer.xcdatamodeld;
+			path = /Users/user/Documents/Programming/SwiftfulBootcamp/SportNews/SportNews/Models/MySavedContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CE10ACA92C70847A008E6626 /* Project object */;
 }

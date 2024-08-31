@@ -9,7 +9,9 @@ import SwiftUI
 
 struct MySavedView: View {
     
-    @EnvironmentObject private var vm: MySavedViewModel
+    @EnvironmentObject private var vm: NewsViewModel
+    
+    private let mySavedDataService = MySavedDataService()
     
     @State private var newsIsNotSaved: Bool = false
     @State private var selectedCategory: MySavedCategory? = nil
@@ -24,7 +26,7 @@ struct MySavedView: View {
                 Image("BG").resizable()
                     .ignoresSafeArea()
                 
-                VStack(spacing: 15) {
+                VStack(spacing: 10) {
                     if showSearchTab == false {
                         header
                     } else {
@@ -34,19 +36,14 @@ struct MySavedView: View {
                     
                     Spacer(minLength: 0)
                     
-                    //                    MySavedRowsView(news: DeveloperPreview.instance.news)
-                    
-                    
                     if newsIsNotSaved {
                         Text("You haven't saved the news yet ...")
                             .font(.system(size: 16, weight: .light))
                             .fontWeight(.light)
                             .foregroundStyle(.layerTwo)
                     } else {
-                        allNewsList
+                        mySavedNewsList
                     }
-                    
-    //                Spacer(minLength: 0)
                 }
             }
             .navigationDestination(isPresented: $showDetailView) {
@@ -93,7 +90,6 @@ struct MySavedView: View {
             }
             .padding(.horizontal, 16)
         }
-        //        .padding(.horizontal, 16) // if want to scroll under 16 inch of horizontal
         .scrollIndicators(.hidden)
     }
     
@@ -115,17 +111,12 @@ struct MySavedView: View {
         
     }
     
-    private var allNewsList: some View {
-            ScrollView {
-                ForEach(vm.allNews) { news in
-                    MySavedRowsView(news: news)
-                        .onTapGesture {
-                            segue(news: news)
-                        }
-                }
-            }
-            .scrollIndicators(.hidden)
-            .ignoresSafeArea()
+    private var mySavedNewsList: some View {
+        ScrollView {
+            MySavedRowsView()
+        }
+        .scrollIndicators(.hidden)
+        .ignoresSafeArea()
     }
     
     private func segue(news: NewsAPIDataModel) {

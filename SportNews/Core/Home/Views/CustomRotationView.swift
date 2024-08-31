@@ -15,11 +15,13 @@ struct CustomRotationView: View {
     @EnvironmentObject private var vm: NewsViewModel
     
     @State private var selectedNews: NewsAPIDataModel? = nil
-    @State private var showDetailView: Bool = false
+    @State private var changeSaveButtonIcon: Bool = false
+    
+    @State var mySavedDataService = MySavedDataService()
 
     var body: some View {
         StackPageView(vm.allNews) { news in
-                VStack { // chat news today
+                VStack {
                         HStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundStyle(.backgroudOne)
@@ -35,7 +37,6 @@ struct CustomRotationView: View {
                         .padding(.leading, 16)
                         .padding(.bottom, 6)
                     
-                        // title
                         HStack {
                             if let title = news.title {
                                 Text(title)
@@ -66,20 +67,20 @@ struct CustomRotationView: View {
                         .padding(.leading, 16)
                     
                     
-                    VStack { // body text
-                            if let body = news.body {
-                                Text(body)
-                                    .lineSpacing(3)
-                                    .frame(width: 293, height: 215, alignment: .center)
-                                    .foregroundStyle(.backgroudThree)
-                                    .font(.system(size: 14, weight: .light))
-                            }
+                    VStack {
+                        if let body = news.body {
+                            Text(body)
+                                .lineSpacing(3)
+                                .frame(width: 293, height: 215, alignment: .center)
+                                .foregroundStyle(.backgroudThree)
+                                .font(.system(size: 14, weight: .light))
+                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 8)
                     
                     HStack {
-                        HStack { // buttons area
+                        HStack {
                             RoundedRectangle(cornerRadius: 25)
                                 .stroke(.backgroudThree, lineWidth: 2.0)
                                 .frame(width: 110, height: 50)
@@ -93,143 +94,47 @@ struct CustomRotationView: View {
                                     
                                 }
                                 .padding()
-                                Spacer()
+                            Spacer()
                             
-                                GoToSourceButton()
-                                SaveButton()
-                                .onTapGesture {
-                                    
-                                }
-                                ShareButton()
+                            GoToSourceButton(news: news)
+                            
+                            Button {
+                                mySavedDataService.saveButtonPressed(news: news)
+                            } label: {
+                                Image(systemName: "bookmark" /*showBookmarkIcon ? "bookmark" : "bookmark.fill"*/) // fill if tap
+                                    .font(.title)
+                                    .foregroundStyle(.black)
+                                    .frame(width: 50, height: 50)
+                                    .background(
+                                        Circle()
+                                            .foregroundStyle(Color.layerOne.opacity(0.5))
+                                    )
+                            }
+                            ShareButton()
                                 .padding(.trailing, 6)
                         }
                     }
-                   
                 }
                 .frame(width: 353, height: 520)
                 .background(Color.accentOne)
                 .clipShape(.rect(cornerRadius: 35))
-            }
-            .options(.init(
-              scaleFactor: -0.03,
-              minScale: 0,
-              maxStackSize: 3,
-              spacingFactor: 0.01,
-              alphaFactor: 0.1,
-              shadowRadius: 8,
-              stackRotateAngel: .pi / 36,
-              popAngle: .pi / 4,
-              popOffsetRatio: .init(width: -1.45, height: 0.4),
-              stackPosition: CGPoint(x: 0, y: 1)
-            ))
-    }
-    
-    private func segue(news: NewsAPIDataModel) {
-        selectedNews = news
-        showDetailView.toggle()
+                .padding(.bottom, 80)
+        }
+        .options(.init(
+            scaleFactor: -0.03,
+            minScale: 0,
+            maxStackSize: 3,
+            spacingFactor: 0.01,
+            alphaFactor: 0.1,
+            shadowRadius: 8,
+            stackRotateAngel: .pi / 36,
+            popAngle: .pi / 4,
+            popOffsetRatio: .init(width: -1.45, height: 0.4),
+            stackPosition: CGPoint(x: 0, y: 1)
+        ))
     }
 }
-
 #Preview {
     CustomRotationView()
         .environmentObject(DeveloperPreview.instance.newsVM)
-}
-
-import UIKit
-import Foundation
-
-public extension StackTransformViewOptions {
-    enum LayoutRotation: String, CaseIterable {
-        case transparent
-        case perspective
-        case rotary
-        case vortex
-        case reverse
-        case blur
-    }
-
-    static func layout(_ layout: LayoutRotation) -> Self {
-        switch layout {
-        case .transparent:
-            return Self(
-                scaleFactor: 0.12,
-                minScale: 0.0,
-                maxStackSize: 4,
-                alphaFactor: 0.2,
-                bottomStackAlphaSpeedFactor: 10,
-                topStackAlphaSpeedFactor: 0.1,
-                popAngle: .pi / 10,
-                popOffsetRatio: .init(width: -1.45, height: 0.3)
-            )
-        case .perspective:
-            return Self(
-                scaleFactor: 0.1,
-                minScale: 0.2,
-                maxStackSize: 6,
-                spacingFactor: 0.08,
-                alphaFactor: 0.0,
-                perspectiveRatio: 0.3,
-                shadowRadius: 5,
-                popAngle: .pi / 10,
-                popOffsetRatio: .init(width: -1.45, height: 0.3),
-                stackPosition: CGPoint(x: 1, y: 0)
-            )
-        case .rotary:
-            return Self(
-                scaleFactor: -0.03,
-                minScale: 0.2,
-                maxStackSize: 3,
-                spacingFactor: 0.01,
-                alphaFactor: 0.1,
-                shadowRadius: 8,
-                stackRotateAngel: .pi / 16,
-                popAngle: .pi / 4,
-                popOffsetRatio: .init(width: -1.45, height: 0.4),
-                stackPosition: CGPoint(x: 0, y: 1)
-            )
-        case .vortex:
-            return Self(
-                scaleFactor: -0.15,
-                minScale: 0.2,
-                maxScale: nil,
-                maxStackSize: 4,
-                spacingFactor: 0,
-                alphaFactor: 0.4,
-                topStackAlphaSpeedFactor: 1,
-                perspectiveRatio: -0.3,
-                shadowEnabled: false,
-                popAngle: .pi,
-                popOffsetRatio: .zero,
-                stackPosition: CGPoint(x: 0, y: 1)
-            )
-        case .reverse:
-            return Self(
-                scaleFactor: 0.1,
-                maxScale: nil,
-                maxStackSize: 4,
-                spacingFactor: 0.08,
-                shadowRadius: 8,
-                popAngle: -.pi / 4,
-                popOffsetRatio: .init(width: 1.45, height: 0.4),
-                stackPosition: CGPoint(x: -1, y: -0.2),
-                reverse: true
-            )
-        case .blur:
-            return Self(
-                scaleFactor: 0.1,
-                maxScale: nil,
-                maxStackSize: 7,
-                spacingFactor: 0.06,
-                topStackAlphaSpeedFactor: 0.1,
-                perspectiveRatio: 0.04,
-                shadowRadius: 8,
-                popAngle: -.pi / 4,
-                popOffsetRatio: .init(width: 1.45, height: 0.4),
-                stackPosition: CGPoint(x: -1, y: 0),
-                reverse: true,
-                blurEffectEnabled: true,
-                maxBlurEffectRadius: 0.08
-            )
-        }
-    }
 }

@@ -22,13 +22,8 @@ struct DetailLoadingView: View {
 
 struct DetailView: View {
     
-//    @StateObject private var vm: DetailViewModel
-    
     let news: NewsAPIDataModel
     
-//    init(news: NewsAPIDataModel) {
-//        _vm = StateObject(wrappedValue: DetailViewModel())
-//    }
     
     var body: some View {
         ZStack {
@@ -42,7 +37,7 @@ struct DetailView: View {
                 HStack {
                     BackButton()
                     Spacer()
-                    GoToSourceButton()
+                    GoToSourceButton(news: news)
                     SaveButton()
                     ShareButton()
                 }
@@ -64,7 +59,6 @@ struct DetailView: View {
                     .padding(.leading, 16)
                     .padding(.bottom, 6)
                     
-                    // title
                     HStack {
                         if let title = news.title {
                             Text(title)
@@ -95,14 +89,13 @@ struct DetailView: View {
                         
                     }
                 }
-                
                 ScrollView {
                     NewsImageView(news: news)
                         .scaledToFill()
                         .frame(width: 353, height: 200)
                         .clipShape(.rect(cornerRadius: 25))
                     
-                    VStack { // body text
+                    VStack {
                         if let body = news.body {
                             Text(body)
                                 .lineSpacing(2)

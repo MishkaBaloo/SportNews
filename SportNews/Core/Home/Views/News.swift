@@ -15,33 +15,29 @@ struct News: View {
     @State private var showSearchTab: Bool = false
     @State private var selectedNews: NewsAPIDataModel? = nil
     @State private var showDetailView: Bool = false
-
-
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // background layer
-                
-                Image("BG").resizable()
-                    .ignoresSafeArea()
-                
-                // content layer
-                VStack(spacing: 15) {
+        ZStack {
+            // background layer
+            
+            Image("BG").resizable()
+                .ignoresSafeArea()
+            
+            // content layer
+            VStack(spacing: 10) {
+                VStack {
                     if showSearchTab == false {
                         header
                     } else {
                         searchBar
                     }
                     categoryCell
-                    
-                   CustomRotationView().padding(.bottom, 80)
+                    CustomRotationView()
                 }
-                
             }
-            .navigationDestination(isPresented: $showDetailView) {
-                DetailLoadingView(news: $selectedNews)
-            }
+        }
+        .navigationDestination(isPresented: $showDetailView) {
+            DetailLoadingView(news: $selectedNews)
         }
     }
     
@@ -49,7 +45,6 @@ struct News: View {
         selectedNews = news
         showDetailView.toggle()
     }
-
     
     private var header: some View {
         HStack(spacing: 8) {
@@ -93,7 +88,6 @@ struct News: View {
             }
             .padding(.horizontal, 16)
         }
-        //        .padding(.horizontal, 16) // if want to scroll under 16 inch of horizontal
         .scrollIndicators(.hidden)
     }
     
@@ -117,11 +111,9 @@ struct News: View {
 }
 
 #Preview {
-//    NavigationView(content: {
-        News()
-            .preferredColorScheme(.dark)
-//    })
-            .environmentObject(DeveloperPreview.instance.newsVM)
+    News()
+        .preferredColorScheme(.dark)
+        .environmentObject(DeveloperPreview.instance.newsVM)
     
 }
 

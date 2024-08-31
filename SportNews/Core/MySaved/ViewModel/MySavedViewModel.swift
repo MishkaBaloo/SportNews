@@ -11,11 +11,9 @@ import Combine
 class MySavedViewModel: ObservableObject {
     
     
-    @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array // articles
+    @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array
     
     @Published var searchText: String = ""
-    
-    // maybe footbal ,bassketball news []
 
     private let dataService = NewsDataService()
     private var cancellables = Set<AnyCancellable>()

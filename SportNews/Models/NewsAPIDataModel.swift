@@ -73,28 +73,4 @@ struct NewsAPIDataModel: Identifiable, Codable {
     let url: String
     let title, body: String?
     let image: String?
-    let currentNewsHolding: Int?
-    
-//    enum CodingKeys: String, CodingKey {
-//        case uri, lang, isDuplicate, date, time, dateTime, dateTimePub, dataType, url, title, body ,image
-//        case currentNewsHolding
-//    }
-    
-   func updateNews(amount: Int) -> NewsAPIDataModel {
-       return NewsAPIDataModel(
-        uri: uri,
-        lang: lang,
-        isDuplicate: isDuplicate,
-        date: date,
-        time: time,
-        dateTime: dateTime,
-        dateTimePub: dateTimePub,
-        dataType: dataType,
-        url: url,
-        title: title,
-        body: body,
-        image: image,
-        currentNewsHolding: amount
-       )
-    }
 }

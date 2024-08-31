@@ -10,7 +10,7 @@ import Combine
 
 class NewsDataService {
     
-    @Published var allNews: [NewsAPIDataModel] = [] // Articles
+    @Published var allNews: [NewsAPIDataModel] = []
     
     var newsSubscriptions: AnyCancellable?
     
@@ -33,13 +33,12 @@ class NewsDataService {
                 return output.data
             }
             .receive(on: DispatchQueue.main)
-            .decode(type: NewsResult.self, decoder: JSONDecoder()) // [Articles]
+            .decode(type: NewsResult.self, decoder: JSONDecoder())
             .sink { (completion) in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
-//                    print(error.localizedDescription)
                     print(String(describing: error)) // breakpoint
                 }
             } receiveValue: { [weak self] returnedNews in
