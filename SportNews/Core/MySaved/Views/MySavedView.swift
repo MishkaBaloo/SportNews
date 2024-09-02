@@ -131,6 +131,6 @@ struct MySavedView: View {
         MySavedView()
             .preferredColorScheme(.dark)
     })
-    .environmentObject(DeveloperPreview.instance.mySavedVM)
+    .environmentObject(DeveloperPreview.instance.newsVM)
 }
 

@@ -58,10 +58,24 @@ struct News: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.system(size: 34, weight: .bold))
             
-            ReloadButton()
-                .onTapGesture {
-                    
+            // reload nutton
+            Button(action: {
+                withAnimation(.linear(duration: 2.0)) {
+                    vm.reloadData()
                 }
+            }, label: {
+                Image(systemName: "arrow.clockwise")
+                    .font(.title)
+                    .foregroundStyle(.layerOne)
+                    .frame(width: 50, height: 50)
+                    .padding(.bottom, 3)
+                    .background(
+                    Circle()
+                        .stroke(.layerOne, lineWidth: 1)
+                        .fill(Color.black)
+                    )
+            })
+            .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             
             SearchButton()
                 .onTapGesture {
@@ -112,7 +126,6 @@ struct News: View {
 
 #Preview {
     News()
-        .preferredColorScheme(.dark)
         .environmentObject(DeveloperPreview.instance.newsVM)
     
 }

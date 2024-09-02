@@ -12,6 +12,7 @@ class NewsViewModel: ObservableObject {
     
     @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array
     @Published var mySavedNews: [NewsAPIDataModel] = []
+    @Published var isLoading: Bool = false
     @Published var searchText: String = ""
     private let dataService = NewsDataService()
     private let mySavedDataService = MySavedDataService()
@@ -49,12 +50,19 @@ class NewsViewModel: ObservableObject {
             }
             .sink { [weak self] (returnedNews) in
                 self?.mySavedNews = returnedNews
+                self?.isLoading = false
             }
             .store(in: &cancellables)
     }
     
     func saveButtonPressed(news: NewsAPIDataModel) {
         mySavedDataService.saveButtonPressed(news: news)
+    }
+    
+    func reloadData() {
+        isLoading = true
+        dataService.getNews()
+        HapticManager.notification(type: .success)
     }
     
     private func filterNews(text: String, news: [NewsAPIDataModel]) -> [NewsAPIDataModel] {

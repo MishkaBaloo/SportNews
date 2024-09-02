@@ -18,7 +18,7 @@ class NewsDataService {
         getNews()
     }
     
-    private func getNews() {
+     func getNews() {
         
         guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=2f47856f-ecd6-410b-a4e1-2fc3b2d82cc2&resultType=articles&articlesPage=1&articlesCount=20&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keyword=Sports&lang=eng")
         else { return }

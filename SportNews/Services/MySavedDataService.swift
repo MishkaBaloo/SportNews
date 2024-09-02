@@ -39,7 +39,7 @@ class MySavedDataService {
     
     //MARK: PRIVATE SECTION OF FUNC
     
-    private func getMySaved() {
+     func getMySaved() {
         let request = NSFetchRequest<MySavedEntity>(entityName: entityName)
         do {
             savedEntities = try container.viewContext.fetch(request)
