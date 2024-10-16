@@ -20,7 +20,7 @@ class NewsDataService {
     
      func getNews() {
         
-        guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=2f47856f-ecd6-410b-a4e1-2fc3b2d82cc2&resultType=articles&articlesPage=1&articlesCount=20&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keyword=Sports&lang=eng")
+        guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=4a97229c-a083-465f-9af9-ac9cd72140bd&resultType=articles&articlesPage=1&articlesCount=20&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keyword=Sports&lang=eng")
         else { return }
         
         newsSubscriptions = URLSession.shared.dataTaskPublisher(for: url)

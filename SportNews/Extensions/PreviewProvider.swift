@@ -22,6 +22,7 @@ class DeveloperPreview {
     
     let newsVM = NewsViewModel()
     let mySavedVM = MySavedViewModel()
+    let entity = MySavedEntity()
  
     let news = NewsAPIDataModel( // mock data
         uri: "8283098620",

@@ -6,44 +6,78 @@
 //
 
 import SwiftUI
+import CollectionViewPagingLayout
+
 
 struct News: View {
     
     @EnvironmentObject private var vm: NewsViewModel
+    @EnvironmentObject private var coordinator: Coordinator
+    
+    @State private var showDetailView: Bool = false
+    @State private var saveButtonPressed: Bool = false
+
+    @State var savedEntities: [MySavedEntity] = []
+    
+    let colors: [Color] = [.red, .green, .blue, .yellow, .orange]
+
     
     @State private var selectedCategory: Category? = nil
     @State private var showSearchTab: Bool = false
     @State private var selectedNews: NewsAPIDataModel? = nil
-    @State private var showDetailView: Bool = false
     
     var body: some View {
-        ZStack {
-            // background layer
-            
-            Image("BG").resizable()
-                .ignoresSafeArea()
-            
-            // content layer
-            VStack(spacing: 10) {
-                VStack {
-                    if showSearchTab == false {
-                        header
-                    } else {
-                        searchBar
+        NavigationStack {
+            ZStack {
+                // background layer
+                
+                Image("BG").resizable()
+                    .ignoresSafeArea()
+                
+                // content layer
+                VStack(spacing: 10) {
+                    VStack {
+                        if showSearchTab == false {
+                            header
+                        } else {
+                            searchBar
+                        }
+                        categoryCell
+                        
+                        cardsNewsCell
+                            
                     }
-                    categoryCell
-                    CustomRotationView()
                 }
             }
-        }
-        .navigationDestination(isPresented: $showDetailView) {
-            DetailLoadingView(news: $selectedNews)
+            .navigationDestination(isPresented: $showDetailView) {
+                DetailLoadingView(news: $selectedNews)
+            }
         }
     }
     
     private func segue(news: NewsAPIDataModel) {
         selectedNews = news
         showDetailView.toggle()
+    }
+    
+    private var cardsNewsCell: some View {
+        StackPageView(vm.allNews) { news in
+//            let color = colors[news % colors.count]
+//            NewsCard(news: news)
+            NewsCard(news: news)
+        }
+        .options(.init(
+            scaleFactor: -0.03,
+            minScale: 0,
+            maxStackSize: 3,
+            spacingFactor: 0.01,
+            alphaFactor: 0.1,
+            shadowRadius: 8,
+            stackRotateAngel: .pi / 36,
+            popAngle: .pi / 4,
+            popOffsetRatio: .init(width: -1.45, height: 0.4),
+            stackPosition: CGPoint(x: 0, y: 1)
+        ))
     }
     
     private var header: some View {
@@ -58,7 +92,6 @@ struct News: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.system(size: 34, weight: .bold))
             
-            // reload nutton
             Button(action: {
                 withAnimation(.linear(duration: 2.0)) {
                     vm.reloadData()

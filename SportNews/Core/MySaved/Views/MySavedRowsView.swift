@@ -9,100 +9,166 @@ import SwiftUI
 
 struct MySavedRowsView: View {
     
-    private let mySavedDataService = MySavedDataService()
+    @EnvironmentObject private var coordinator: Coordinator
+
+   
+    @State private var isPress: Bool = false
+    @State private var isShowingDialog = false
+    private let share: String = "https://github.com/MishkaBaloo"
+    @State var vm = MySavedDataService()
+    
+    @State private var showDetailView: Bool = false
+    @State private var selectedNews: MySavedEntity? = nil
+    
+    
+    let entity: MySavedEntity
+
+//    init(entity: MySavedEntity) {
+//        self.entity = entity
+//    }
     
     var body: some View {
-  
-        ScrollView {
-            ForEach(mySavedDataService.savedEntities) { entity in
-                VStack(spacing: 32) {
-                    HStack {
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(.accentTwo, lineWidth: 1.0)
-                            .background {
-                                
-                                AsyncImage(url: URL(string: entity.image ?? "")) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let returnedImage):
-                                        returnedImage
-                                            .resizable()
-                                            .scaledToFit()
-                                    case .failure:
-                                        Image(systemName: "questionmark")
-                                            .font(.headline)
-                                    default:
-                                        Image(systemName: "questionmark")
-                                            .font(.headline)
-                                    }
-                                }
-                                .scaledToFill()
-                                .frame(width: 120, height: 120)
-                                .clipShape(.rect(cornerRadius: 25))
-                            }
-                            .frame(width: 120, height: 120)
-                        
-                            .padding(.horizontal, 8)
-                        
-                        VStack(alignment: .leading, spacing: 0, content: {
-                            HStack {
-                                if let date = entity.date {
-                                    Text(date)
-                                        .foregroundStyle(.accentThree)
-                                        .font(.callout)
-                                        .fontWeight(.light)
-                                }
-                                
-                                Text("•")
-                                    .foregroundStyle(Color.layerOne)
-                                
-                                if let time = entity.time {
-                                    Text(time)
-                                        .foregroundStyle(.accentTwo)
-                                        .font(.callout)
-                                        .fontWeight(.light)
-                                }
-                            }
-                            .padding(.top, 10)
-                            .padding(.bottom, 4)
-                            
-                            VStack {
-                                if let title = entity.title {
-                                    Text(title)
+        NavigationStack {
+//            ForEach(vm.savedEntities) { entity in
+                HStack {
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(.accentThree, lineWidth: 1.0)
+                    //                    .stroke(Color.newsBackground.colors.randomElement(), lineWidth: 1.0)
+                        .background {
+                            AsyncImage(url: URL(string: entity.image ?? "")) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let returnedImage):
+                                    returnedImage
+                                        .resizable()
+                                        .scaledToFit()
+                                case .failure:
+                                    Image(systemName: "questionmark")
                                         .font(.headline)
-                                        .fontWeight(.bold)
-                                        .foregroundStyle(.layerOne)
-                                        .lineLimit(3)
+                                default:
+                                    Image(systemName: "questionmark")
+                                        .font(.headline)
                                 }
                             }
-                            .padding(.trailing, 16)
+                            .scaledToFill()
+                            .frame(width: 120, height: 120)
+                            .clipShape(.rect(cornerRadius: 25))
+                        }
+                        .frame(width: 120, height: 120)
+                        .padding(.horizontal, 8)
+                    
+                    VStack(alignment: .leading, spacing: 0, content: {
+                        HStack {
+                            if let date = entity.date {
+                                Text(date)
+                                    .foregroundStyle(.accentThree)
+                                    .font(.callout)
+                                    .fontWeight(.light)
+                            }
                             
-                            HStack {
-                                if let dataType = entity.dataType {
-                                    Text(dataType)
-                                        .foregroundStyle(.layerTwo)
-                                        .font(.callout)
-                                        .padding(4)
-                                        .background(Color.black.opacity(0.001))
-                                        .offset(x: -4)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
+                            Text("•")
+                            
+                                .foregroundStyle(Color.layerOne)
+                            
+                            if let time = entity.time {
+                                Text(time)
+                                    .foregroundStyle(.accentTwo)
+                                    .font(.callout)
+                                    .fontWeight(.light)
                             }
-                            .padding(.bottom, 10)
-                        })
-                    }
-                    .background(.backgroudTwo)
-                    .clipShape(.rect(cornerRadius: 35))
+                        }
+                        .padding(.top, 10)
+                        .padding(.bottom, 4)
+                        
+                        VStack {
+                            if let title = entity.title {
+                                Text(title)
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.layerOne)
+                                    .lineLimit(3)
+                            }
+                        }
+                        .padding(.trailing, 16)
+                        
+                        HStack {
+                            if let dataType = entity.dataType {
+                                Text(dataType)
+                                    .foregroundStyle(.layerTwo)
+                                    .font(.callout)
+                                    .padding(4)
+                                    .background(Color.black.opacity(0.001))
+                                    .offset(x: -4)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        .padding(.bottom, 10)
+                    })
                 }
+                
                 .frame(width: 353, height: 140)
+                .background(.backgroudTwo)
+                .clipShape(.rect(cornerRadius: 35))
+                .onTapGesture(perform: {
+//                  vm.delete(entity: entity) //delete selected element! alert make that misstake
+                    
+                    segue(entity: entity)
+//                    coordinator.build(fullScreenCover: .mySavedDetails)
+                })
+                .onLongPressGesture(perform: {
+                    isShowingDialog.toggle()
+                    HapticManager.notification(type: .success)
+                })
+                .confirmationDialog("Option", isPresented: $isShowingDialog, titleVisibility: .visible, actions: {
+                    
+                    Section {
+                        if let url = URL(string: share) {
+                            ShareLink(item: url) {
+                                Text("Share")
+                            }
+                        }
+                    }
+                    
+                    Section {
+                        if let newsUrl = URL(string: entity.url!) {
+                            Link(destination: newsUrl, label: {
+                                Text("Go to Source")
+                            })
+                        }
+                    }
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            vm.delete(entity: entity) // delete random element????!
+                        } label: {
+                            Text("Remove from Saved")
+                        }
+                    }
+                    
+                    
+                }, message: {
+                    Text("Here you can share the article with your friends or remove it from your saves. You can also go to the website of the author of the article.")
+                })
+               
+                
+//            } 
+            
+            .navigationDestination(isPresented: $showDetailView) {
+                DetailLoadingViewMySaved(entity: $selectedNews)
             }
         }
-        .scrollIndicators(.hidden)
     }
+    
+    private func segue(entity: MySavedEntity) {
+        selectedNews = entity
+        showDetailView.toggle()
+    }
+    
 }
                
-#Preview {
-    MySavedRowsView()
-
-}
+//#Preview {
+//    MySavedRowsView(entity: DeveloperPreview.instance.entity)
+////    MySavedRowsView()
+//
+//}

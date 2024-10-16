@@ -34,6 +34,7 @@ class NewsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        
         // update mySaved news
         $allNews
             .combineLatest(mySavedDataService.$savedEntities)

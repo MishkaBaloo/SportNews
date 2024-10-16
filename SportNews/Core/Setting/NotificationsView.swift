@@ -9,6 +9,8 @@ import SwiftUI
 
 struct NotificationsView: View {
     
+    @EnvironmentObject private var coordinator: Coordinator
+    
     let settings = ["Schedulede Summury", "Show Previews", "Screen Sharing"]
     
     let apps = ["SportsNews", "CryptoTracker", "AppClicker", "XCode", "Figma", "Instagram", "Safari", "Discord"]
@@ -22,6 +24,11 @@ struct NotificationsView: View {
                 
                 VStack {
                     List {
+                        Button(action: {
+                            coordinator.pop()
+                        }, label: {
+                            Text("Button")
+                        })
                         displayAs
                         settingsCell
                         siri
@@ -90,4 +97,5 @@ struct NotificationsView: View {
 #Preview {
     NotificationsView()
         .preferredColorScheme(.dark)
+        .environment(Coordinator())
 }

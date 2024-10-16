@@ -9,23 +9,17 @@ import SwiftUI
 
 // MARK: enums
 enum Page: String, Identifiable {
-    case news, mySaved, setting, detail, searchTab
+    
+    
+    case contentView, setting, news, mySaved, notifications
     
     var id: String {
         self.rawValue
     }
 }
 
-//enum Sheet: String, Identifiable {
-//    case lemon
-//    
-//    var id: String {
-//        self.rawValue
-//    }
-//}
-
 enum FullScreenCover: String, Identifiable {
-    case news, mySaved, setting, detail
+    case details, mySavedDetails, notifications
     
     var id: String {
         self.rawValue
@@ -33,22 +27,18 @@ enum FullScreenCover: String, Identifiable {
 }
 
 // MARK: Class
-class Coordinator: ObservableObject {
+class Coordinator: ObservableObject, Observable {
     
-    @EnvironmentObject private var vm: NewsViewModel
+    @State private var selectedNews: NewsAPIDataModel? = nil
+    @State private var selectedNewsMySaved: MySavedEntity? = nil
     
     @Published var path = NavigationPath()
-//    @Published var sheet: Sheet?
     @Published var fullScreenCover: FullScreenCover?
     
     // MARK: functions
     func push(_ page: Page) {
         path.append(page)
     }
-    
-//    func present(sheet: Sheet) {
-//        self.sheet = sheet
-//    }
     
     func present(fullScreenCover: FullScreenCover) {
         self.fullScreenCover = fullScreenCover
@@ -62,10 +52,6 @@ class Coordinator: ObservableObject {
         path.removeLast(path.count)
     }
     
-//    func dissmissSheet() {
-//        self.sheet = nil
-//    }
-    
     func dissmissFullScreenCover() {
         self.fullScreenCover = nil
     }
@@ -75,36 +61,29 @@ class Coordinator: ObservableObject {
     @ViewBuilder
     func build(page: Page) -> some View {
         switch page {
+        case .contentView:
+            ContentView()
+        case .setting:
+            SettingView()
         case .news:
             News()
         case .mySaved:
             MySavedView()
-        case .setting:
-            SettingView()
-        case .detail:
-            EmptyView()
-        case .searchTab:
-            SearchTabBarView(searchText: $vm.searchText)
+        case .notifications:
+            NotificationsView()
         }
     }
     
-//    @ViewBuilder
-//    func build(sheet: Sheet) -> some View {
-//        switch sheet {
-//        case .lemon:
-//            NavigationStack {
-//                LemonView()
-//            }
-//        }
-//    }
-    
-//    @ViewBuilder
-//    func build(fullScreenCover: FullScreenCover) -> some View {
-//        switch fullScreenCover {
-//        case .olive:
-//            NavigationStack {
-//                OliveView()
-//            }
-//        }
-//    }
+    @ViewBuilder
+    func build(fullScreenCover: FullScreenCover) -> some View {
+        switch fullScreenCover {
+        case .details:
+//            DetailLoadingView(news: $selectedNews)
+            DetailView(news: selectedNews!)
+        case .mySavedDetails:
+                DetailLoadingViewMySaved(entity: $selectedNewsMySaved)
+        case .notifications:
+            NotificationsView()
+        }
+    }
 }

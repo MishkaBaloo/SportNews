@@ -15,7 +15,8 @@ struct GoToSourceButton: View {
     let iconName: String = "shazam.logo"
     
     var body: some View {
-            Link(destination: URL(string: url)!, label: {
+
+        Link(destination: URL(string: url)!, label: {
                 Image(systemName: iconName)
                 .font(.title)
                 .foregroundStyle(.black)
@@ -31,3 +32,5 @@ struct GoToSourceButton: View {
 #Preview {
     GoToSourceButton(news: DeveloperPreview.instance.news)
 }
+
+

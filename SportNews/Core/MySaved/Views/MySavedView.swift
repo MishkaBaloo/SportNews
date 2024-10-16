@@ -9,15 +9,16 @@ import SwiftUI
 
 struct MySavedView: View {
     
-    @EnvironmentObject private var vm: NewsViewModel
-    
+    @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject private var vm: MySavedViewModel
+    @EnvironmentObject private var newsVM: NewsViewModel
     private let mySavedDataService = MySavedDataService()
-    
     @State private var newsIsNotSaved: Bool = false
     @State private var selectedCategory: MySavedCategory? = nil
-    @State private var selectedNews: NewsAPIDataModel? = nil
+//    @State private var selectedNews: NewsAPIDataModel? = nil
     @State private var showSearchTab: Bool = false
-    @State private var showDetailView: Bool = false
+//    @State private var showDetailView: Bool = false
+    private let share: String = "https://github.com/MishkaBaloo"
     
     var body: some View {
         NavigationStack {
@@ -33,23 +34,24 @@ struct MySavedView: View {
                         searchBar
                     }
                     categoryCell
-                    
                     Spacer(minLength: 0)
-                    
-                    if newsIsNotSaved {
-                        Text("You haven't saved the news yet ...")
-                            .font(.system(size: 16, weight: .light))
-                            .fontWeight(.light)
-                            .foregroundStyle(.layerTwo)
+                    if mySavedDataService.savedEntities.isEmpty {
+                        newsIsNotSavedText
+                    Spacer()
                     } else {
                         mySavedNewsList
                     }
                 }
             }
-            .navigationDestination(isPresented: $showDetailView) {
-                DetailLoadingView(news: $selectedNews)
-            }
         }
+    }
+    
+    private var newsIsNotSavedText: some View {
+        Text("You haven't saved the news yet ...")
+            .font(.system(size: 16, weight: .light))
+            .fontWeight(.light)
+            .foregroundStyle(.layerTwo)
+            
     }
     
     private var header: some View {
@@ -95,7 +97,8 @@ struct MySavedView: View {
     
     private var searchBar: some View {
         HStack {
-            SearchTabBarView(searchText: $vm.searchText)
+//            SearchTabBarView(searchText: $vm.searchText)
+            SearchTabBarView(searchText: $newsVM.searchText)
             CancelButton()
                 .onTapGesture {
                     withAnimation(.easeInOut) {
@@ -113,15 +116,14 @@ struct MySavedView: View {
     
     private var mySavedNewsList: some View {
         ScrollView {
-            MySavedRowsView()
+
+            ForEach(mySavedDataService.savedEntities) { entity in
+                MySavedRowsView(entity: entity)
+            }
+//            MySavedRowsView()
         }
         .scrollIndicators(.hidden)
         .ignoresSafeArea()
-    }
-    
-    private func segue(news: NewsAPIDataModel) {
-        selectedNews = news
-        showDetailView.toggle()
     }
 }
 

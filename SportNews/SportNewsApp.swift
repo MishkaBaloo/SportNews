@@ -13,13 +13,24 @@ struct SportNewsApp: App {
     @StateObject var newsVM = NewsViewModel()
     @StateObject var mySavedVM = MySavedViewModel()
     
+    @State private var showLaunchView: Bool = true
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                ContentView()
+//                ContentView()
+                Coordinator_View()
             }
             .environmentObject(newsVM)
             .environmentObject(mySavedVM)
+            
+//            ZStack {
+//                if showLaunchView {
+//                    LaunchView(showLaunchView: $showLaunchView)
+//                        .transition(.move(edge: .bottom))
+//                }
+//            }
+//            .zIndex(2.0)
         }
     }
 }

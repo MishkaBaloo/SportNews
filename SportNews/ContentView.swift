@@ -37,5 +37,5 @@ struct ContentView: View {
         ContentView()
         .preferredColorScheme(.dark)
         .environmentObject(DeveloperPreview.instance.newsVM)
-    .   environmentObject(DeveloperPreview.instance.mySavedVM)
+        .environmentObject(DeveloperPreview.instance.mySavedVM)
 }

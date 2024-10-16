@@ -10,12 +10,9 @@ import Combine
 
 class MySavedViewModel: ObservableObject {
     
-    
-    @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array
-    
+    @Published var mySavedNews: [MySavedEntity] = [] // when we check all news we append to this allNews array
     @Published var searchText: String = ""
-
-    private let dataService = NewsDataService()
+    private let dataService = MySavedDataService()
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -23,24 +20,25 @@ class MySavedViewModel: ObservableObject {
     }
     
     func addSubscribers() {
+        
         $searchText
-            .combineLatest(dataService.$allNews)
+            .combineLatest(dataService.$savedEntities)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .map(filterNews)
             .sink { [weak self] returnedNews in
-                self?.allNews = returnedNews
+                self?.mySavedNews = returnedNews
             }
             .store(in: &cancellables)
     }
     
-    private func filterNews(text: String, news: [NewsAPIDataModel]) -> [NewsAPIDataModel] {
+    private func filterNews(text: String, news: [MySavedEntity]) -> [MySavedEntity] {
         guard !text.isEmpty else {
             return news
         }
         
         let lowercasedText = text.lowercased()
         
-        return  allNews.filter { news in
+        return  mySavedNews.filter { news in
             return news.title!.lowercased().contains(lowercasedText) ||
             news.body!.lowercased().contains(lowercasedText)
         }

@@ -46,11 +46,12 @@ extension CustomTabBarView {
         VStack {
             Image(systemName: tab.iconName).font(.system(.title, weight: .semibold))
                 .foregroundStyle(localSelection == tab ? .backgroudOne : .layerOne) // .backgroudOne if selected
-                .frame(width: 60, height: 61)
+                .frame(width: 60, height: 60)
                 .background(
                 Circle()
                     .foregroundStyle(localSelection == tab ? .layerOne :.layerThree) // .layerOne if selected
                 )
+            
         }
         .padding(.horizontal, 3)
         .padding(.bottom, 8)
@@ -66,7 +67,7 @@ extension CustomTabBarView {
             }
         }
         .background(
-           Image("TabBar")
+            Image("TabBar").scaledToFit()
         )
     }
     
@@ -74,46 +75,3 @@ extension CustomTabBarView {
         selection = tab
     }
 }
-
-extension CustomTabBarView {
-    
-    private func tabView2(tab: TabBarItem) -> some View {
-        VStack {
-            Image(systemName: tab.iconName).font(.system(.title, weight: .semibold))
-                .foregroundStyle(localSelection == tab ? .backgroudOne : .layerOne) // .backgroudOne if selected
-                .frame(width: 60, height: 60)
-                .background(
-                    ZStack {
-                        if localSelection == tab {
-                            RoundedRectangle(cornerRadius: 10.0)
-                                .fill(.backgroudOne.opacity(0.2))
-                                .matchedGeometryEffect(id: "background_rectangle", in: namespace)
-                        }
-                    }
-                )
-        }
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity)
-        .background(Color.backgroudTwo)
-        .clipShape(Circle())
-    }
-    
-    
-    private var tabBarversionTwo: some View {
-        HStack {
-            ForEach(tabs,id: \.self) { tab in
-                tabView2(tab: tab)
-                    .onTapGesture {
-                        switchToTab(tab: tab)
-                    }
-            }
-        }
-        .padding(6)
-        .background(
-            Capsule()
-            .foregroundStyle(.backgroudOne.opacity(0.5))
-        )
-        .padding()
-    }
-}
-
