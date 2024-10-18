@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class NewsViewModel: ObservableObject {
     
@@ -78,5 +79,20 @@ class NewsViewModel: ObservableObject {
             news.body!.lowercased().contains(lowercasedText)
         }
     }
+    
+   private func getAccentColor(for index: Int) -> AccentColor {
+            switch index {
+            case 0:
+                return .accentOne
+            case 1:
+                return .accentTwo
+            case 2:
+                return .accentThree
+            case 3:
+                return .accentFour
+            default:
+                return .accentOne
+            }
+        }
 }
 

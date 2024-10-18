@@ -20,16 +20,15 @@ struct ContentView: View {
         CustomTabBarContainerView(selection: $tabSelection) {
             
             News()
-            //                        .environmentObject(DeveloperPreview.instance.newsVM)
                 .tabBarItem(tab: .news, selection: $tabSelection)
             
             MySavedView()
-            //                        .environmentObject(DeveloperPreview.instance.mySavedVM)
                 .tabBarItem(tab: .mySaved, selection: $tabSelection)
             
             SettingView()
                 .tabBarItem(tab: .setting, selection: $tabSelection)
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 

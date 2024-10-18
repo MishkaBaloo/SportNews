@@ -61,7 +61,7 @@ struct Articles: Codable {
   let results: [NewsAPIDataModel]?
 }
 
-struct NewsAPIDataModel: Identifiable, Codable {
+struct NewsAPIDataModel: Identifiable, Codable, Hashable {
     
     var id: String { uri }
     let uri: String

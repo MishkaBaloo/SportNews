@@ -9,10 +9,7 @@ import SwiftUI
 
 struct NotificationsView: View {
     
-    @EnvironmentObject private var coordinator: Coordinator
-    
     let settings = ["Schedulede Summury", "Show Previews", "Screen Sharing"]
-    
     let apps = ["SportsNews", "CryptoTracker", "AppClicker", "XCode", "Figma", "Instagram", "Safari", "Discord"]
     
     var body: some View {
@@ -20,15 +17,10 @@ struct NotificationsView: View {
             ZStack {
                 
                 Image("BG").resizable()
-                .ignoresSafeArea()
+                    .ignoresSafeArea()
                 
                 VStack {
                     List {
-                        Button(action: {
-                            coordinator.pop()
-                        }, label: {
-                            Text("Button")
-                        })
                         displayAs
                         settingsCell
                         siri
@@ -72,8 +64,6 @@ struct NotificationsView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 
             }
-            
-            
         } header: {
             Text("siri")
         }
@@ -81,13 +71,11 @@ struct NotificationsView: View {
     
     private var appSections: some View {
         Section {
-            
             ForEach(apps, id: \.self) { app in
                 NavigationLink(value: app) {
                     Text(app)
                 }
             }
-            
         } header: {
             Text("notification style")
         }
@@ -97,5 +85,4 @@ struct NotificationsView: View {
 #Preview {
     NotificationsView()
         .preferredColorScheme(.dark)
-        .environment(Coordinator())
 }

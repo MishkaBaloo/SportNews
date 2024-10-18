@@ -31,3 +31,13 @@ struct Coordinator_View: View {
         .environmentObject(DeveloperPreview.instance.newsVM)
         .environmentObject(DeveloperPreview.instance.mySavedVM)
 }
+
+extension UIViewController {
+    func hideNavigationBar() {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    func showNavigationBar() {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+}

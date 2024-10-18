@@ -18,19 +18,10 @@ struct SportNewsApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-//                ContentView()
-                Coordinator_View()
+                ContentView()
             }
             .environmentObject(newsVM)
             .environmentObject(mySavedVM)
-            
-//            ZStack {
-//                if showLaunchView {
-//                    LaunchView(showLaunchView: $showLaunchView)
-//                        .transition(.move(edge: .bottom))
-//                }
-//            }
-//            .zIndex(2.0)
         }
     }
 }

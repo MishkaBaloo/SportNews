@@ -20,7 +20,7 @@ class NewsDataService {
     
      func getNews() {
         
-        guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=4a97229c-a083-465f-9af9-ac9cd72140bd&resultType=articles&articlesPage=1&articlesCount=20&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keyword=Sports&lang=eng")
+        guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=4a97229c-a083-465f-9af9-ac9cd72140bd&resultType=articles&articlesPage=1&articlesCount=100&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keywordOper=or&lang=eng&keyword=football&keyword=soccer&keyword=baseball&keyword=cricket&keyword=baseball&keyword=volleyball&keyword=tennis&keyword=hokey&keyword=rugby&keyword=boxing&keyword=golf&keyword=basketball")
         else { return }
         
         newsSubscriptions = URLSession.shared.dataTaskPublisher(for: url)
@@ -28,7 +28,7 @@ class NewsDataService {
             .tryMap { (output) -> Data in
                 guard let response = output.response as? HTTPURLResponse,
                       response.statusCode >= 200 && response.statusCode < 300 else {
-                    throw URLError(.badServerResponse) // breakpoint
+                    throw URLError(.badServerResponse)
                 }
                 return output.data
             }
@@ -39,10 +39,10 @@ class NewsDataService {
                 case .finished:
                     break
                 case .failure(let error):
-                    print(String(describing: error)) // breakpoint
+                    print(String(describing: error))
                 }
             } receiveValue: { [weak self] returnedNews in
-                self?.allNews = returnedNews.articles?.results ?? [] // breakpoint
+                self?.allNews = returnedNews.articles?.results ?? [] 
                 self?.newsSubscriptions?.cancel()
             }
 

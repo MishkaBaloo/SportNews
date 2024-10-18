@@ -18,40 +18,39 @@ struct SettingView: View {
     private let termsOfUseURL = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
     private let url: String = "https://github.com/MishkaBaloo"
     private let dataService = MySavedDataService()
-
-//    @State private var showHomeView: Bool = false
+    
+    @State private var showHomeView: Bool = false
     
     
     var body: some View {
         NavigationStack {
-                    ZStack {
-                    // background layer
-                    Image("BG").resizable()
-                        .ignoresSafeArea()
-                    
-                    // content layer
-                    VStack {
-                        header
-                        List {
-                            notifications
-                            if URL(string: url) != nil {
-                                shareApp
-                            }
-                            leaveFeedback
-                            rateUse
-                            privacypolicy
-                            termsofuse
+            ZStack {
+                // background layer
+                Image("BG").resizable()
+                    .ignoresSafeArea()
+                
+                // content layer
+                VStack {
+                    header
+                    List {
+                        notifications
+                        if URL(string: url) != nil {
+                            shareApp
                         }
-                        .scrollContentBackground(.hidden)
+                        leaveFeedback
+                        rateUse
+                        privacypolicy
+                        termsofuse
                     }
-                    versionCell
+                    .scrollContentBackground(.hidden)
+                    .scrollDisabled(true)
                 }
-//                    .navigationDestination(isPresented: $showHomeView, destination: {
-//                        News()
-//                    })
-            
-            
+                versionCell
             }
+            .navigationDestination(isPresented: $showHomeView, destination: {
+                News()
+            })
+        }
     }
     
     private var header: some View {
@@ -73,13 +72,13 @@ struct SettingView: View {
                             .fill(Color.black)
                     )
             })
+            .padding(.trailing, 6)
             .alert("Clear Data", isPresented: $showAlert, actions: {
                 Button(role: .cancel, action: {}) {
                     Text("Cancel")
                 }
                 Button(role: .destructive, action: {
-                    dataService.deleteCache()
-//                    coordinator.popToRoot()
+                    dataService.clearCache()
                 }) {
                     Text("Clear")
                 }
@@ -91,39 +90,27 @@ struct SettingView: View {
         .padding(.vertical, 4)
         .padding(.horizontal, 16)
     }
-    
-    
-   
 }
 
 #Preview {
     SettingView()
         .preferredColorScheme(.dark)
         .environmentObject(DeveloperPreview.instance.newsVM)
-        .environment(Coordinator())
 }
 
 //MARK: ListItems
 
 extension SettingView {
     private var notifications: some View {
-        
-        Button(action: {
-//            coordinator.push(.notifications)
-            coordinator.present(fullScreenCover: .notifications)
-        }, label: {
-            HStack {
-                Text("Notifications")
-                    .foregroundStyle(.layerOne)
-                    .font(.headline)
-                
-                Image(systemName: "chevron.right")
-                    .fontWeight(.medium)
-                    .foregroundStyle(.layerTwo)
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+        VStack {
+            NavigationLink(destination: NotificationsView()) {
+                HStack {
+                    Text("Notifications")
+                        .foregroundStyle(.layerOne)
+                        .font(.headline)
+                }
             }
-        })
+        }
         .foregroundStyle(.layerOne)
         .font(.headline)
         .listRowBackground(Color.backgroudTwo)
@@ -131,20 +118,19 @@ extension SettingView {
     
     private var shareApp: some View {
         
-            ShareLink(item: url) {
-                HStack {
-                    Text("Share App")
-                        .foregroundStyle(.layerOne)
-                        .font(.headline)
-                    
-                    Image(systemName: "chevron.right")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.layerTwo)
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
+        ShareLink(item: url) {
+            HStack {
+                Text("Share App")
+                    .foregroundStyle(.layerOne)
+                    .font(.headline)
+                Image(systemName: "chevron.right")
+                    .fontWeight(.medium)
+                    .foregroundStyle(.layerTwo)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .listRowBackground(Color.backgroudTwo)
+        }
+        .listRowBackground(Color.backgroudTwo)
     }
     
     private var leaveFeedback: some View {
@@ -156,7 +142,6 @@ extension SettingView {
                 Text("Leave Feedback")
                     .foregroundStyle(.layerOne)
                     .font(.headline)
-                
                 Image(systemName: "chevron.right")
                     .fontWeight(.medium)
                     .foregroundStyle(.layerTwo)
@@ -166,13 +151,12 @@ extension SettingView {
         })
         .listRowBackground(Color.backgroudTwo)
     }
-
+    
     private var rateUse: some View {
         HStack {
             Text("Rate Use")
                 .foregroundStyle(.layerOne)
                 .font(.headline)
-            
             Image(systemName: "chevron.right")
                 .fontWeight(.medium)
                 .foregroundStyle(.layerTwo)
@@ -184,14 +168,12 @@ extension SettingView {
         }
         .listRowBackground(Color.backgroudTwo)
     }
-
+    
     private var privacypolicy: some View {
         
         HStack {
             Link("Privacy Policy", destination: privacyPolicyURL!)
-            
             Spacer()
-
             Image(systemName: "chevron.right")
                 .fontWeight(.medium)
                 .foregroundStyle(.layerTwo)
@@ -202,14 +184,12 @@ extension SettingView {
         .font(.headline)
         .listRowBackground(Color.backgroudTwo)
     }
-
+    
     private var termsofuse: some View {
         
         HStack {
             Link("Terms of Use", destination: termsOfUseURL!)
-            
             Spacer()
-            
             Image(systemName: "chevron.right")
                 .fontWeight(.medium)
                 .foregroundStyle(.layerTwo)

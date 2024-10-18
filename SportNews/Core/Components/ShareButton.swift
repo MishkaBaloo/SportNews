@@ -11,7 +11,8 @@ import SwiftUI
 struct ShareButton: View {
     
     let iconName: String = "square.and.arrow.up"
-    let url: String = "https://github.com/MishkaBaloo"
+    let news: NewsAPIDataModel
+    var url: String { news.url }
         
         var body: some View {
             if let url = URL(string: url) {
@@ -32,7 +33,7 @@ struct ShareButton: View {
     }
 
 #Preview {
-    ShareButton()
+    ShareButton(news: DeveloperPreview.instance.news)
 }
 
 

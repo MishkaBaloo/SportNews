@@ -36,63 +36,19 @@ class MySavedDataService: ObservableObject {
         }
     }
     
-     func deleteCache() {
-         let _: () = savedEntities.forEach { news in
-             delete(entity: news)
-         }
+    func deleteNewsMySaved(entity: MySavedEntity) {
+        if let entity = savedEntities.first(where: { $0.newsID == entity.newsID }) {
+            container.viewContext.delete(entity)
+            applyChanges()
+        }
     }
     
-//    func deleteLast() {
-//        let entity = savedEntities.first
-//        delete(entity: entity!)
-//    }
-    
-//    func clearCache() {
-//        if var entity = savedEntities? {
-//            entity.removeAll()
-//            applyChanges()
-//        } else {
-//            print("can't delete cards")
-//        }
-//    }
-    
-//    func removeFromMySaved(mySavedNews: MySavedEntity?) {
-//        if let selectedNews = mySavedNews.self {
-//            container.viewContext.delete(selectedNews)
-//            applyChanges()
-//        }
-//    }
-    
-//    func deleteMySaved(at offsets: IndexSet) {
-//        for offset in offsets {
-//            let entity = savedEntities[offset]
-//            container.viewContext.delete(entity)
-//            applyChanges()
-//        }
-//    }
-
-    
-//    func deleteSavedNews() {
-//        let savedEntities = savedEntities[0]
-//        container.viewContext.delete(savedEntities)
-//        applyChanges()
-//    }
-    
-//    func clearCache() {
-//        var entity: [MySavedEntity] { savedEntities }
-//        entity.removeAll(where: { entity in
-//            container.viewContext.delete(entity)
-//        })
-//    }
-    
-//    func deleteEntity(indexSet: IndexSet) {
-//        guard let index = indexSet.first else { return }
-//        let entity = savedEntities[index]
-//        container.viewContext.delete(entity)
-//        applyChanges()
-//        
-//    }
-    
+    func clearCache() {
+        savedEntities.forEach { news in
+            container.viewContext.delete(news)
+            applyChanges()
+        }
+    }
     
     //MARK: PRIVATE SECTION OF FUNC
     
@@ -132,7 +88,7 @@ class MySavedDataService: ObservableObject {
         }
     }
     
-    /*private*/ func applyChanges() {
+    private func applyChanges() {
         save()
         getMySaved()
     }

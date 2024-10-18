@@ -9,9 +9,6 @@ import SwiftUI
 
 struct DetailLoadingView: View {
     
-    @EnvironmentObject private var coordinator: Coordinator
-
-    
     @Binding var news: NewsAPIDataModel?
     
     var body: some View {
@@ -32,26 +29,29 @@ struct DetailView: View {
     @EnvironmentObject private var coordinator: Coordinator
     
     var body: some View {
-        ZStack {
-            
-            // background layer
-            Color.newsBackground.colors.randomElement()
-                .ignoresSafeArea()
-            
-            // content layer
-            VStack {
-                header
+        NavigationStack {
+            ZStack {
+                
+                // background layer
+                Color.blue
+                    .ignoresSafeArea()
+                
+                // content layer
                 VStack {
-                    chatNewsToday
-                    title
-                    dateTime
+                    header
+                    VStack {
+                        chatNewsToday
+                        title
+                        dateTime
+                    }
+                    ScrollView {
+                        image
+                        text
+                    }
+                    .scrollIndicators(.hidden)
                 }
-                ScrollView {
-                image
-                text
-                }
-                .scrollIndicators(.hidden)
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
@@ -78,11 +78,10 @@ extension DetailView {
                             .foregroundStyle(Color.white.opacity(0.5))
                     )
             })
-            
             Spacer()
             GoToSourceButton(news: news)
             SaveButton()
-            ShareButton()
+            ShareButton(news: news)
         }
         .padding()
     }

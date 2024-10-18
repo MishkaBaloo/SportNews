@@ -5,17 +5,29 @@
 //  Created by Michael on 9/19/24.
 //
 
-import Foundation
+//import Foundation
 import SwiftUI
 
-extension Color {
-    static let newsBackground = NewsBackground()
+
+enum AccentColor {
+    
+    case accentOne
+    case accentTwo
+    case accentThree
+    case accentFour
+    
+    var color: Color {
+        switch self {
+        case .accentOne:
+            return Color.accentOne
+        case .accentTwo:
+            return Color.accentTwo
+        case .accentThree:
+            return Color.accentThree
+        case .accentFour:
+            return Color.accentFour
+        }
+    }
 }
 
-struct NewsBackground {
-    
-    let colors = [Color.accentOne, Color.accentTwo, Color.accentThree, Color.accentFour]
-    
 
-    
-}

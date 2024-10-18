@@ -9,16 +9,11 @@ import SwiftUI
 
 struct MySavedView: View {
     
-    @EnvironmentObject private var coordinator: Coordinator
     @EnvironmentObject private var vm: MySavedViewModel
     @EnvironmentObject private var newsVM: NewsViewModel
     private let mySavedDataService = MySavedDataService()
-    @State private var newsIsNotSaved: Bool = false
     @State private var selectedCategory: MySavedCategory? = nil
-//    @State private var selectedNews: NewsAPIDataModel? = nil
     @State private var showSearchTab: Bool = false
-//    @State private var showDetailView: Bool = false
-    private let share: String = "https://github.com/MishkaBaloo"
     
     var body: some View {
         NavigationStack {
@@ -120,7 +115,6 @@ struct MySavedView: View {
             ForEach(mySavedDataService.savedEntities) { entity in
                 MySavedRowsView(entity: entity)
             }
-//            MySavedRowsView()
         }
         .scrollIndicators(.hidden)
         .ignoresSafeArea()

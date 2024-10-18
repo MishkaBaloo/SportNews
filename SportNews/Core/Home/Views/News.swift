@@ -12,16 +12,7 @@ import CollectionViewPagingLayout
 struct News: View {
     
     @EnvironmentObject private var vm: NewsViewModel
-    @EnvironmentObject private var coordinator: Coordinator
-    
     @State private var showDetailView: Bool = false
-    @State private var saveButtonPressed: Bool = false
-
-    @State var savedEntities: [MySavedEntity] = []
-    
-    let colors: [Color] = [.red, .green, .blue, .yellow, .orange]
-
-    
     @State private var selectedCategory: Category? = nil
     @State private var showSearchTab: Bool = false
     @State private var selectedNews: NewsAPIDataModel? = nil
@@ -45,7 +36,7 @@ struct News: View {
                         categoryCell
                         
                         cardsNewsCell
-                            
+                        
                     }
                 }
             }
@@ -62,8 +53,6 @@ struct News: View {
     
     private var cardsNewsCell: some View {
         StackPageView(vm.allNews) { news in
-//            let color = colors[news % colors.count]
-//            NewsCard(news: news)
             NewsCard(news: news)
         }
         .options(.init(
@@ -101,11 +90,10 @@ struct News: View {
                     .font(.title)
                     .foregroundStyle(.layerOne)
                     .frame(width: 50, height: 50)
-                    .padding(.bottom, 3)
                     .background(
-                    Circle()
-                        .stroke(.layerOne, lineWidth: 1)
-                        .fill(Color.black)
+                        Circle()
+                            .stroke(.layerOne, lineWidth: 1)
+                            .fill(Color.black)
                     )
             })
             .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)

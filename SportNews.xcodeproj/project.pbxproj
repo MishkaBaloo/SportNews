@@ -34,7 +34,7 @@
 		CE5C840F2C7112D30098D0F0 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C840E2C7112D30098D0F0 /* ShareButton.swift */; };
 		CE5DB2942C9C35A900E59664 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DB2932C9C35A900E59664 /* Color.swift */; };
 		CE5DB2962C9C475C00E59664 /* NewsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DB2952C9C475C00E59664 /* NewsCard.swift */; };
-		CE63C7322CB81588004834CD /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63C7312CB81588004834CD /* TabbarView.swift */; };
+		CE667DB42CC166AB00700419 /* ColorsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE667DB32CC166AB00700419 /* ColorsTask.swift */; };
 		CE76D55E2CAF4272004BEC65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE76D55D2CAF4272004BEC65 /* LaunchScreen.storyboard */; };
 		CE76D5602CAF42DB004BEC65 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE76D55F2CAF42DB004BEC65 /* LaunchView.swift */; };
 		CE9523D82C8735E800BE59D4 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9523D72C8735E800BE59D4 /* Welcome.swift */; };
@@ -86,7 +86,7 @@
 		CE5C840E2C7112D30098D0F0 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		CE5DB2932C9C35A900E59664 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		CE5DB2952C9C475C00E59664 /* NewsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCard.swift; sourceTree = "<group>"; };
-		CE63C7312CB81588004834CD /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		CE667DB32CC166AB00700419 /* ColorsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsTask.swift; sourceTree = "<group>"; };
 		CE76D55D2CAF4272004BEC65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE76D55F2CAF42DB004BEC65 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		CE9523D72C8735E800BE59D4 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
@@ -168,6 +168,7 @@
 				CEE515622C752C3C00DB1D9D /* UIApplication.swift */,
 				CE48D07A2C834638006389B5 /* Date.swift */,
 				CE5DB2932C9C35A900E59664 /* Color.swift */,
+				CE667DB32CC166AB00700419 /* ColorsTask.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -342,7 +343,6 @@
 			isa = PBXGroup;
 			children = (
 				CE59CB4F2C70D66F008E6FCE /* CustomTabBarView.swift */,
-				CE63C7312CB81588004834CD /* TabbarView.swift */,
 				CE59CB512C70E638008E6FCE /* CustomTabBarContainerView.swift */,
 				CE59CB552C70EEF0008E6FCE /* TabBarItem.swift */,
 				CE59CB532C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift */,
@@ -449,6 +449,7 @@
 				CE5C84072C710CB40098D0F0 /* MySavedRowsView.swift in Sources */,
 				CE5C840D2C710FD70098D0F0 /* GoToSourceButton.swift in Sources */,
 				CE59CB542C70EAA4008E6FCE /* TabBarItemsPreferenceKey.swift in Sources */,
+				CE667DB42CC166AB00700419 /* ColorsTask.swift in Sources */,
 				CE59CB502C70D66F008E6FCE /* CustomTabBarView.swift in Sources */,
 				CEB16F582C7D1C3700E1A688 /* DetailView.swift in Sources */,
 				CEE515632C752C3C00DB1D9D /* UIApplication.swift in Sources */,
@@ -460,7 +461,6 @@
 				CE387E792C73EF84004DF906 /* NewNetworkingManager.swift in Sources */,
 				CE16D6312C75E1BA001EE833 /* CancelButton.swift in Sources */,
 				CE16D62F2C75D8E0001EE833 /* Coordinator.swift in Sources */,
-				CE63C7322CB81588004834CD /* TabbarView.swift in Sources */,
 				CEDFF10D2C806F14006DD582 /* MySavedDataService.swift in Sources */,
 				CED22B8A2C7391FF009099B3 /* MySavedCategory.swift in Sources */,
 				CE5C840F2C7112D30098D0F0 /* ShareButton.swift in Sources */,
@@ -627,8 +627,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -636,9 +635,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = michael.SportNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -657,8 +660,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -666,9 +668,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = michael.SportNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
