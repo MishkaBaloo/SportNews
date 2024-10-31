@@ -13,7 +13,7 @@ struct News: View {
     
     @EnvironmentObject private var vm: NewsViewModel
     @State private var showDetailView: Bool = false
-    @State private var selectedCategory: Category? = nil
+//    @State private var selectedCategory: Category = .soccer
     @State private var showSearchTab: Bool = false
     @State private var selectedNews: NewsAPIDataModel? = nil
     
@@ -34,15 +34,23 @@ struct News: View {
                             searchBar
                         }
                         categoryCell
-                        
-                        cardsNewsCell
-                        
+                        if vm.isLoading {
+                            Spacer(minLength: 0)
+                            ProgressView("Loading news...")
+                                .progressViewStyle(CircularProgressViewStyle())
+                                Spacer(minLength: 0)
+                        } else {
+                            cardsNewsCell
+                        }
                     }
                 }
             }
             .navigationDestination(isPresented: $showDetailView) {
                 DetailLoadingView(news: $selectedNews)
             }
+        }
+        .onAppear {
+            vm.loadNewsForSelectedCategory()  // Load news for selected category at launch
         }
     }
     
@@ -52,22 +60,32 @@ struct News: View {
     }
     
     private var cardsNewsCell: some View {
-        StackPageView(vm.allNews) { news in
-            NewsCard(news: news)
-        }
-        .options(.init(
-            scaleFactor: -0.03,
-            minScale: 0,
-            maxStackSize: 3,
-            spacingFactor: 0.01,
-            alphaFactor: 0.1,
-            shadowRadius: 8,
-            stackRotateAngel: .pi / 36,
-            popAngle: .pi / 4,
-            popOffsetRatio: .init(width: -1.45, height: 0.4),
-            stackPosition: CGPoint(x: 0, y: 1)
-        ))
+                        
+            StackPageView(vm.allNews) { news in
+                
+                let index = vm.allNews.firstIndex(where: { $0.id == news.id})
+                let colorIndex = (index ?? 4) % 4
+                let accentColor = vm.getAccentColor(for: colorIndex)
+                
+                NewsCard(news: news, cardBackground: accentColor.color)
+                Spacer(minLength: 0)
+            }
+            .options(.init(
+                scaleFactor: -0.03,
+                minScale: 0,
+                maxStackSize: 3,
+                spacingFactor: 0.01,
+                alphaFactor: 0.1,
+                shadowRadius: 8,
+                stackRotateAngel: .pi / 36,
+                popAngle: .pi / 4,
+                popOffsetRatio: .init(width: -1.45, height: 0.4),
+                stackPosition: CGPoint(x: 0, y: 1)
+            ))
+        
     }
+    
+    
     
     private var header: some View {
         HStack(spacing: 8) {
@@ -82,11 +100,9 @@ struct News: View {
             .font(.system(size: 34, weight: .bold))
             
             Button(action: {
-                withAnimation(.linear(duration: 2.0)) {
                     vm.reloadData()
-                }
             }, label: {
-                Image(systemName: "arrow.clockwise")
+                Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.title)
                     .foregroundStyle(.layerOne)
                     .frame(width: 50, height: 50)
@@ -96,7 +112,6 @@ struct News: View {
                             .fill(Color.black)
                     )
             })
-            .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             
             SearchButton()
                 .onTapGesture {
@@ -115,14 +130,16 @@ struct News: View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 ForEach(Category.allCases, id: \.self) { category in
-                    CategoryRowCell(title: category.rawValue.capitalized, isSelected: category == selectedCategory)
+                    CategoryRowCell(title: category.rawValue.capitalized, isSelected: category == vm.selectedCategory)
                         .onTapGesture {
-                            selectedCategory = category
+                            vm.selectedCategory = category // Set new category using @AppStorage in NewsViewModel
+                            vm.getNews(for: category) // reload news for new category
                         }
                 }
             }
             .padding(.horizontal, 16)
         }
+        .padding(.bottom, 16)
         .scrollIndicators(.hidden)
     }
     

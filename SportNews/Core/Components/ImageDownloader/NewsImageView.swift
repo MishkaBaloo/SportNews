@@ -23,10 +23,10 @@ struct NewsImageView: View {
                     .resizable()
                     .scaledToFit()
             case .failure:
-                Image(systemName: "questionmark")
+                Image("ImageNewsBigDefault")
                     .font(.headline)
             default:
-                Image(systemName: "questionmark")
+                Image(systemName: "ImageNewsBigDefault")
                     .font(.headline)
             }
         }

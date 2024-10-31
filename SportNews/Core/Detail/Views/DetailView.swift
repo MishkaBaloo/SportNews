@@ -10,11 +10,17 @@ import SwiftUI
 struct DetailLoadingView: View {
     
     @Binding var news: NewsAPIDataModel?
+    @EnvironmentObject private var vm: NewsViewModel
     
     var body: some View {
         ZStack{
             if let news = news {
-                DetailView(news: news)
+                
+                let index = vm.allNews.firstIndex(where: { $0.id == news.id})
+                let colorIndex = index! % 4
+                let accentColor = vm.getAccentColor(for: colorIndex)
+                
+                DetailView(news: news, cardBackground: accentColor.color)
             }
         }
     }
@@ -24,17 +30,16 @@ struct DetailLoadingView: View {
 struct DetailView: View {
     
     let news: NewsAPIDataModel
-    
+    let cardBackground: Color
+    @EnvironmentObject private var vm: NewsViewModel
     @Environment(\.dismiss) var presentationMode
-    @EnvironmentObject private var coordinator: Coordinator
     
     var body: some View {
         NavigationStack {
             ZStack {
                 
                 // background layer
-                Color.blue
-                    .ignoresSafeArea()
+                cardBackground.ignoresSafeArea()
                 
                 // content layer
                 VStack {
@@ -57,7 +62,7 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView(news: DeveloperPreview.instance.news)
+    DetailView(news: DeveloperPreview.instance.news, cardBackground: .clear)
 }
 
 //MARK: COMPONENTS
@@ -80,7 +85,18 @@ extension DetailView {
             })
             Spacer()
             GoToSourceButton(news: news)
-            SaveButton()
+            Button {
+                vm.saveButtonPressed(news: news)
+            } label: {
+                Image(systemName: "bookmark")
+                    .font(.title)
+                    .foregroundStyle(.black)
+                    .frame(width: 50, height: 50)
+                    .background(
+                        Circle()
+                            .foregroundStyle(Color.layerOne.opacity(0.5))
+                        )
+            }
             ShareButton(news: news)
         }
         .padding()

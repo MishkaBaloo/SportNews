@@ -11,8 +11,6 @@ struct ContentView: View {
     
     @EnvironmentObject private var mySavedVM: MySavedViewModel
     @EnvironmentObject private var newsVM: NewsViewModel
-    
-    @StateObject private var coordinator = Coordinator()
     @State private var tabSelection: TabBarItem = .news
     
     var body: some View {

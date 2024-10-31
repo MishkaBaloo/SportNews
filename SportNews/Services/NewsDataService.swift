@@ -15,12 +15,12 @@ class NewsDataService {
     var newsSubscriptions: AnyCancellable?
     
     init() {
-        getNews()
+        getNews(for: .soccer)
     }
     
-     func getNews() {
+    func getNews(for category: Category) {
         
-        guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=4a97229c-a083-465f-9af9-ac9cd72140bd&resultType=articles&articlesPage=1&articlesCount=100&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keywordOper=or&lang=eng&keyword=football&keyword=soccer&keyword=baseball&keyword=cricket&keyword=baseball&keyword=volleyball&keyword=tennis&keyword=hokey&keyword=rugby&keyword=boxing&keyword=golf&keyword=basketball")
+        guard let url = URL(string: "https://eventregistry.org/api/v1/article/getArticles?apiKey=4a97229c-a083-465f-9af9-ac9cd72140bd&resultType=articles&articlesPage=1&articlesCount=100&articlesSortBy=date&articlesSortByAsc=false&articleBodyLen=-1&dataType=news&forceMaxDataTimeWindow=7, 31&keywordOper=or&lang=eng&keyword=\(category.keyword)")
         else { return }
         
         newsSubscriptions = URLSession.shared.dataTaskPublisher(for: url)

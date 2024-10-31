@@ -13,6 +13,7 @@ struct NewsCard: View {
     @State private var selectedNews: NewsAPIDataModel? = nil
     
     let news: NewsAPIDataModel
+    let cardBackground: Color
     
     var body: some View {
         VStack {
@@ -116,9 +117,8 @@ struct NewsCard: View {
             DetailLoadingView(news: $selectedNews)
         }
         .frame(width: 353, height: 520)
-        .background(Color.blue)
+        .background(cardBackground)
         .clipShape(.rect(cornerRadius: 35))
-        .padding(.bottom, 80)
     }
     
     private func segue(news: NewsAPIDataModel) {
@@ -128,5 +128,5 @@ struct NewsCard: View {
 }
 
 #Preview {
-    NewsCard(news: DeveloperPreview.instance.news)
+    NewsCard(news: DeveloperPreview.instance.news, cardBackground: .clear)
 }

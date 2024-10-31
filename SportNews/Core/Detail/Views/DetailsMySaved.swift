@@ -9,15 +9,20 @@ import SwiftUI
 
 struct DetailLoadingViewMySaved: View {
     
-    @EnvironmentObject private var coordinator: Coordinator
-
-    
     @Binding var entity: MySavedEntity?
+    @State private var dataService = MySavedDataService()
+    @EnvironmentObject private var vm: NewsViewModel
+    
     
     var body: some View {
         ZStack{
             if let entity = entity {
-                DetailViewMySaved(entity: entity)
+                
+                let index = dataService.savedEntities.firstIndex(where: { $0.newsID == entity.newsID})
+                let colorIndex = (index ?? 4) % 4
+                let accentColor = vm.getAccentColor(for: colorIndex)
+                
+                DetailViewMySaved(entity: entity, cardBackground: accentColor.color)
             }
         }
     }
@@ -26,19 +31,22 @@ struct DetailLoadingViewMySaved: View {
 
 struct DetailViewMySaved: View {
     
-    let entity: MySavedEntity
-    
+    @State private var dataService = MySavedDataService()
     @Environment(\.dismiss) var presentationMode
     
-    var url: String { entity.url! }
+    let entity: MySavedEntity
+    let cardBackground: Color
+    
+    var url: String {
+        return entity.url ?? "https://github.com/MishkaBaloo/SportNews"
+    }
     
     var body: some View {
         NavigationStack {
             ZStack {
                 
                 // background layer
-                Color.red
-                    .ignoresSafeArea()
+                cardBackground.ignoresSafeArea()
                 
                 // content layer
                 VStack {
@@ -58,7 +66,7 @@ struct DetailViewMySaved: View {
                         })
                         Spacer()
                         
-                        // go tu source button
+                        // go to source button
                         Link(destination: URL(string: url)!, label: {
                             Image(systemName: "shazam.logo")
                                 .font(.title)
@@ -70,7 +78,20 @@ struct DetailViewMySaved: View {
                                 )
                         })
                         
-                        SaveButton()
+                        Button {
+                            dataService.deleteNewsMySaved(entity: entity)
+                            presentationMode.callAsFunction()
+                        } label: {
+                            Image(systemName: "bookmark")
+                                .font(.title)
+                                .foregroundStyle(.black)
+                                .frame(width: 50, height: 50)
+                                .background(
+                                    Circle()
+                                        .foregroundStyle(Color.layerOne.opacity(0.5))
+                                    )
+                        }
+
                         
                         if let url = URL(string: url) {
                             ShareLink(item: url) {

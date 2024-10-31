@@ -19,7 +19,10 @@ class NewsViewModel: ObservableObject {
     private let mySavedDataService = MySavedDataService()
     private var cancellables = Set<AnyCancellable>()
     
+    @AppStorage("selectedCategory") var selectedCategory: Category = .soccer
+    
     init() {
+        loadNewsForSelectedCategory()
         addSubscribers()
     }
     
@@ -43,7 +46,6 @@ class NewsViewModel: ObservableObject {
                 
                 newsAPIDataModel
                     .compactMap { (news) -> NewsAPIDataModel? in
-//                         guard let entity = mySavedEntities.first(where: { $0.newsID == news.id }) else { // yellow notice that entity never used
                         guard mySavedEntities.first(where: { $0.newsID == news.id }) != nil else {
                             return nil
                         }
@@ -63,7 +65,10 @@ class NewsViewModel: ObservableObject {
     
     func reloadData() {
         isLoading = true
-        dataService.getNews()
+        dataService.getNews(for: selectedCategory)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.isLoading = false
+        }
         HapticManager.notification(type: .success)
     }
     
@@ -80,7 +85,7 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-   private func getAccentColor(for index: Int) -> AccentColor {
+    func getAccentColor(for index: Int) -> AccentColor {
             switch index {
             case 0:
                 return .accentOne
@@ -94,5 +99,34 @@ class NewsViewModel: ObservableObject {
                 return .accentOne
             }
         }
+    
+    
+    func getNews(for category: Category) {
+        DispatchQueue.main.async { [weak self] in
+            self?.isLoading = true  // Show ProgressView on main thread
+        }
+        
+        dataService.getNews(for: category)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in  // Short delay for smooth display
+            self?.dataService.$allNews
+                .receive(on: DispatchQueue.main)
+                .sink { news in
+                    self?.allNews = news
+                    self?.isLoading = false  // Hide ProgressView on main thread
+                }
+                .store(in: &self!.cancellables)
+        }
+    }
+    
+    func loadNewsForSelectedCategory() {
+        isLoading = true
+        dataService.getNews(for: selectedCategory)  // Get news for selectedCategory
+    }
+    
+    func saveSelectedCategory(_ category: Category) {
+        selectedCategory = category // Save the value automaticly with @AppStorage
+    }
 }
+
 

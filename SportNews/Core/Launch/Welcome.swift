@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct Welcome: View {
+    
+    @Binding var isFirstLaunch: Bool
+    
     var body: some View {
         ZStack {
             // backgroundLayer
             Color.accentThree.ignoresSafeArea()
-            
             
             // content layer
             VStack {
@@ -40,23 +42,20 @@ struct Welcome: View {
                 
                 VStack {
                     Button {
-                        
+                        withAnimation {
+                            isFirstLaunch = false
+                        }
                     } label: {
                         Text("Swipe Up")
                             .foregroundStyle(.backgroudOne)
                             .font(.system(size: 16, weight: .bold))
-                            
                     }
                 }
-
-                
-                
             }
-            
         }
     }
 }
 
 #Preview {
-    Welcome()
+    Welcome(isFirstLaunch: .constant(true))
 }

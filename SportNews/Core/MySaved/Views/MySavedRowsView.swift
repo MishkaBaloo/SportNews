@@ -8,21 +8,25 @@
 import SwiftUI
 
 struct MySavedRowsView: View {
-    @State private var isPress: Bool = false
     @State private var isShowingDialog = false
-    @State private var vm = MySavedViewModel()
+    @State private var vm = NewsViewModel()
     @State private var dataService = MySavedDataService()
-    
     @State private var showDetailView: Bool = false
     @State private var selectedNews: MySavedEntity? = nil
     
     let entity: MySavedEntity
+//    let strokeColor: Color
     
     var body: some View {
         NavigationStack {
             HStack {
+                
+                let index = dataService.savedEntities.firstIndex(where: { $0.newsID == entity.newsID})
+                let colorIndex = (index ?? 4) % 4
+                let accentColor = vm.getAccentColor(for: colorIndex)
+                
                 RoundedRectangle(cornerRadius: 25)
-                    .stroke(.accentThree, lineWidth: 1.0)
+                    .stroke(accentColor.color, lineWidth: 1.0)
                     .background {
                         AsyncImage(url: URL(string: entity.image ?? "")) { phase in
                             switch phase {

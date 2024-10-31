@@ -111,7 +111,6 @@ struct MySavedView: View {
     
     private var mySavedNewsList: some View {
         ScrollView {
-
             ForEach(mySavedDataService.savedEntities) { entity in
                 MySavedRowsView(entity: entity)
             }

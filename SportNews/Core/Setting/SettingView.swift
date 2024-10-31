@@ -11,8 +11,11 @@ import StoreKit
 struct SettingView: View {
     
     @EnvironmentObject private var vm: NewsViewModel
-    @EnvironmentObject private var coordinator: Coordinator
     @Environment(\.requestReview) var requestReview
+    
+    @State private var tabSelection: TabBarItem = .news
+    
+    @Environment(\.dismissWindow) var presentationMode
     @State private var showAlert: Bool = false
     private let privacyPolicyURL = URL(string: "https://policies.google.com/privacy")
     private let termsOfUseURL = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
@@ -79,6 +82,7 @@ struct SettingView: View {
                 }
                 Button(role: .destructive, action: {
                     dataService.clearCache()
+                
                 }) {
                     Text("Clear")
                 }

@@ -12,13 +12,21 @@ struct SportNewsApp: App {
     
     @StateObject var newsVM = NewsViewModel()
     @StateObject var mySavedVM = MySavedViewModel()
-    
-    @State private var showLaunchView: Bool = true
+    @AppStorage("hasLaunchedBefore") private var hasLaunchedBefore: Bool = false
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                ContentView()
+                if hasLaunchedBefore {
+                                  Welcome(isFirstLaunch: $hasLaunchedBefore)
+                                      .onAppear {
+                                          hasLaunchedBefore = true 
+                                      }
+                                      .transition(.move(edge: .top).combined(with: .opacity))
+                                      .animation(.easeInOut, value: hasLaunchedBefore)
+                              } else {
+                                  ContentView()
+                              }
             }
             .environmentObject(newsVM)
             .environmentObject(mySavedVM)
