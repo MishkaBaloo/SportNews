@@ -37,10 +37,10 @@ struct MySavedRowsView: View {
                                     .resizable()
                                     .scaledToFit()
                             case .failure:
-                                Image(systemName: "questionmark")
+                                Image("icon")
                                     .font(.headline)
                             default:
-                                Image(systemName: "questionmark")
+                                Image("icon")
                                     .font(.headline)
                             }
                         }

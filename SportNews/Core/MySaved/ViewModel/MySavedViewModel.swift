@@ -7,41 +7,57 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class MySavedViewModel: ObservableObject {
     
-    @Published var mySavedNews: [MySavedEntity] = [] // when we check all news we append to this allNews array
+    @Published var mySavedNews: [MySavedEntity] = []
     @Published var searchText: String = ""
+    
     private let dataService = MySavedDataService()
+    private let newsDataService = NewsDataService()
     private var cancellables = Set<AnyCancellable>()
     
+    @AppStorage("selectedCategory") var selectedCategory: MySavedCategory = .soccer {
+        didSet {
+            getMySaved(for: selectedCategory)
+        }
+    }
+
     init() {
         addSubscribers()
     }
     
     func addSubscribers() {
-        
         $searchText
-            .combineLatest(dataService.$savedEntities)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .map(filterNews)
-            .sink { [weak self] returnedNews in
-                self?.mySavedNews = returnedNews
+            .sink { [weak self] text in
+                self?.mySavedNews = self?.filterNews(text: text) ?? [] // sorting based on searchBarText
             }
             .store(in: &cancellables)
     }
     
-    private func filterNews(text: String, news: [MySavedEntity]) -> [MySavedEntity] {
+    private func filterNews(text: String) -> [MySavedEntity] {
         guard !text.isEmpty else {
-            return news
+            return dataService.savedEntities // Return all news if searchBarText isEmpty
         }
         
         let lowercasedText = text.lowercased()
-        
-        return  mySavedNews.filter { news in
-            return news.title!.lowercased().contains(lowercasedText) ||
-            news.body!.lowercased().contains(lowercasedText)
+        return dataService.savedEntities.filter {
+            $0.title?.lowercased().contains(lowercasedText) ?? false || $0.body?.lowercased().contains(lowercasedText) ?? false
         }
+    }
+    
+    func getMySaved(for category: MySavedCategory) {
+        
+        dataService.getMySaved(for: category)
+        
+        dataService.$savedEntities
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] news in
+                self?.mySavedNews = news
+            }
+            .store(in: &cancellables)
     }
 }
 

@@ -10,8 +10,9 @@ import SwiftUI
 struct GoToSourceButton: View {
     
     let news: NewsAPIDataModel
+    let heigth: CGFloat
+    let width: CGFloat
     var url: String { news.url }
-    
     let iconName: String = "shazam.logo"
     
     var body: some View {
@@ -20,7 +21,7 @@ struct GoToSourceButton: View {
                 Image(systemName: iconName)
                 .font(.title)
                 .foregroundStyle(.black)
-                .frame(width: 50, height: 50)
+                .frame(width: heigth, height: width)
                 .background(
                     Circle()
                         .foregroundStyle(Color.white.opacity(0.5))
@@ -30,7 +31,7 @@ struct GoToSourceButton: View {
 }
 
 #Preview {
-    GoToSourceButton(news: DeveloperPreview.instance.news)
+    GoToSourceButton(news: DeveloperPreview.instance.news, heigth: 50, width: 50)
 }
 
 

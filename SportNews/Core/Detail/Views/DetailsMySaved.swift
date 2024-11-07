@@ -153,7 +153,6 @@ struct DetailViewMySaved: View {
                             .foregroundStyle(.layerSix)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 20)
-                            
                         }
                     }
                     ScrollView {
@@ -167,10 +166,10 @@ struct DetailViewMySaved: View {
                                         .resizable()
                                         .scaledToFit()
                                 case .failure:
-                                    Image(systemName: "questionmark")
+                                    Image("newsNotLoadedImage")
                                         .font(.headline)
                                 default:
-                                    Image(systemName: "questionmark")
+                                    Image("newsNotLoadedImage")
                                         .font(.headline)
                                 }
                             }
@@ -189,8 +188,8 @@ struct DetailViewMySaved: View {
                             }
                             .padding(.top, 8)
                         }
-                        .scrollIndicators(.hidden)
                     }
+                    .scrollIndicators(.hidden)
                 }
             }
             .navigationBarBackButtonHidden(true)

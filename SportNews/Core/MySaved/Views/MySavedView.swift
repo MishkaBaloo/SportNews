@@ -12,7 +12,6 @@ struct MySavedView: View {
     @EnvironmentObject private var vm: MySavedViewModel
     @EnvironmentObject private var newsVM: NewsViewModel
     private let mySavedDataService = MySavedDataService()
-    @State private var selectedCategory: MySavedCategory? = nil
     @State private var showSearchTab: Bool = false
     
     var body: some View {
@@ -30,7 +29,7 @@ struct MySavedView: View {
                     }
                     categoryCell
                     Spacer(minLength: 0)
-                    if mySavedDataService.savedEntities.isEmpty {
+                    if vm.mySavedNews.isEmpty {
                         newsIsNotSavedText
                     Spacer()
                     } else {
@@ -46,7 +45,6 @@ struct MySavedView: View {
             .font(.system(size: 16, weight: .light))
             .fontWeight(.light)
             .foregroundStyle(.layerTwo)
-            
     }
     
     private var header: some View {
@@ -78,10 +76,11 @@ struct MySavedView: View {
                 ForEach(MySavedCategory.allCases, id: \.self) { category in
                     CategoryRowCell(
                         title: category.rawValue.capitalized,
-                        isSelected: category == selectedCategory
+                        isSelected: category == vm.selectedCategory
                     )
                     .onTapGesture {
-                        selectedCategory = category
+                        vm.selectedCategory = category
+                        vm.getMySaved(for: category) // Get news for selected category
                     }
                 }
             }
@@ -92,8 +91,7 @@ struct MySavedView: View {
     
     private var searchBar: some View {
         HStack {
-//            SearchTabBarView(searchText: $vm.searchText)
-            SearchTabBarView(searchText: $newsVM.searchText)
+            SearchTabBarView(searchText: $vm.searchText)
             CancelButton()
                 .onTapGesture {
                     withAnimation(.easeInOut) {
@@ -111,7 +109,7 @@ struct MySavedView: View {
     
     private var mySavedNewsList: some View {
         ScrollView {
-            ForEach(mySavedDataService.savedEntities) { entity in
+            ForEach(vm.mySavedNews) { entity in
                 MySavedRowsView(entity: entity)
             }
         }
@@ -127,5 +125,6 @@ struct MySavedView: View {
             .preferredColorScheme(.dark)
     })
     .environmentObject(DeveloperPreview.instance.newsVM)
+    .environmentObject(DeveloperPreview.instance.mySavedVM)
 }
 

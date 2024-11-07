@@ -13,17 +13,13 @@ struct SettingView: View {
     @EnvironmentObject private var vm: NewsViewModel
     @Environment(\.requestReview) var requestReview
     
-    @State private var tabSelection: TabBarItem = .news
-    
+    @State private var tabSelection: TabBarItem = .setting
     @Environment(\.dismissWindow) var presentationMode
     @State private var showAlert: Bool = false
     private let privacyPolicyURL = URL(string: "https://policies.google.com/privacy")
     private let termsOfUseURL = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
     private let url: String = "https://github.com/MishkaBaloo"
     private let dataService = MySavedDataService()
-    
-    @State private var showHomeView: Bool = false
-    
     
     var body: some View {
         NavigationStack {
@@ -47,12 +43,10 @@ struct SettingView: View {
                     }
                     .scrollContentBackground(.hidden)
                     .scrollDisabled(true)
+                    versionCell
+                    Spacer(minLength: 250)
                 }
-                versionCell
             }
-            .navigationDestination(isPresented: $showHomeView, destination: {
-                News()
-            })
         }
     }
     
@@ -64,6 +58,7 @@ struct SettingView: View {
             
             Button(action: {
                 showAlert.toggle()
+                tabSelection = .news  // Оновлюємо таб на новини
             }, label: {
                 Image(systemName: "trash")
                     .font(.title)
@@ -82,12 +77,11 @@ struct SettingView: View {
                 }
                 Button(role: .destructive, action: {
                     dataService.clearCache()
-                
                 }) {
                     Text("Clear")
                 }
             }, message: {
-                Text("Do you really want to clear the data?Saved articles will be lost.")
+                Text("Do you really want to clear the data? Saved articles will be lost.")
             })
         }
         .frame(maxWidth: .infinity)
@@ -105,8 +99,8 @@ struct SettingView: View {
 //MARK: ListItems
 
 extension SettingView {
+    
     private var notifications: some View {
-        VStack {
             NavigationLink(destination: NotificationsView()) {
                 HStack {
                     Text("Notifications")
@@ -114,7 +108,6 @@ extension SettingView {
                         .font(.headline)
                 }
             }
-        }
         .foregroundStyle(.layerOne)
         .font(.headline)
         .listRowBackground(Color.backgroudTwo)

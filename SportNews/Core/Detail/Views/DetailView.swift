@@ -26,7 +26,6 @@ struct DetailLoadingView: View {
     }
 }
 
-
 struct DetailView: View {
     
     let news: NewsAPIDataModel
@@ -84,7 +83,7 @@ extension DetailView {
                     )
             })
             Spacer()
-            GoToSourceButton(news: news)
+            GoToSourceButton(news: news, heigth: 50, width: 50)
             Button {
                 vm.saveButtonPressed(news: news)
             } label: {
@@ -97,7 +96,7 @@ extension DetailView {
                             .foregroundStyle(Color.layerOne.opacity(0.5))
                         )
             }
-            ShareButton(news: news)
+            ShareButton(news: news, heigth: 50, width: 50)
         }
         .padding()
     }

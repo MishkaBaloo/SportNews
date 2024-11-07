@@ -21,7 +21,8 @@ class MySavedDataService: ObservableObject {
             if let error = error {
                 print("ERROR LOADING CORE DATA. \(error)")
             }
-            self.getMySaved()
+            let initialCategory = MySavedCategory(rawValue: UserDefaults.standard.string(forKey: "selectedCategory") ?? MySavedCategory.all.rawValue) ?? .all
+            self.getMySaved(for: initialCategory)
         }
     }
     //MARK: PUBLIC SECTION OF FUNC
@@ -46,18 +47,24 @@ class MySavedDataService: ObservableObject {
     func clearCache() {
         savedEntities.forEach { news in
             container.viewContext.delete(news)
-            applyChanges()
         }
+        applyChanges()
     }
     
     //MARK: PRIVATE SECTION OF FUNC
     
-     func getMySaved() {
+    func getMySaved(for category: MySavedCategory) {
+        
         let request = NSFetchRequest<MySavedEntity>(entityName: entityName)
+        
+        if category != .all {
+            request.predicate = NSPredicate(format: "category == %@", category.rawValue)
+        }
+        
         do {
             savedEntities = try container.viewContext.fetch(request)
         } catch let error {
-            print("Error fetching MySaved Enitities. \(error)")
+            print("Error fetching MySaved Entities. \(error)")
         }
     }
     
@@ -71,14 +78,46 @@ class MySavedDataService: ObservableObject {
         entity.time = news.time
         entity.title = news.title
         entity.url = news.url
+        entity.category = selectedCategory(for: news)
+    
         applyChanges()
+    }
+    
+    private func selectedCategory(for news: NewsAPIDataModel) -> String {
+        
+        let title = news.title?.lowercased() ?? ""
+        let body = news.body?.lowercased() ?? ""
+        
+        // Dictionary with key words and their categories
+        let categoryKeywords: [String: MySavedCategory] = [
+            "soccer": .soccer,
+            "basketball": .basketball,
+            "baseball": .baseball,
+            "cricket": .cricket,
+            "football": .amFootball,
+            "volleyball": .volleyball,
+            "tennis": .tennis,
+            "hokey": .iceHokey,
+            "rugby": .rugby,
+            "boxing": .boxing,
+            "golf": .golf
+        ]
+        
+        // Review the dictionary and check if the keyword is in the title or body
+        for (keyword, category) in categoryKeywords {
+            if title.contains(keyword) || body.contains(keyword) {
+                return category.rawValue
+            }
+        }
+        
+        // Return "all" as the default category
+        return MySavedCategory.all.rawValue
     }
     
       func delete(entity: MySavedEntity) {
         container.viewContext.delete(entity)
-        applyChanges()
+          applyChanges()
     }
-    
     
     private func save() {
         do {
@@ -90,6 +129,6 @@ class MySavedDataService: ObservableObject {
     
     private func applyChanges() {
         save()
-        getMySaved()
+        getMySaved(for: .all)
     }
 }

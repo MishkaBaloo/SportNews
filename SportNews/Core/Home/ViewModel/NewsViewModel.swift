@@ -100,7 +100,6 @@ class NewsViewModel: ObservableObject {
             }
         }
     
-    
     func getNews(for category: Category) {
         DispatchQueue.main.async { [weak self] in
             self?.isLoading = true  // Show ProgressView on main thread
@@ -123,10 +122,4 @@ class NewsViewModel: ObservableObject {
         isLoading = true
         dataService.getNews(for: selectedCategory)  // Get news for selectedCategory
     }
-    
-    func saveSelectedCategory(_ category: Category) {
-        selectedCategory = category // Save the value automaticly with @AppStorage
-    }
 }
-
-

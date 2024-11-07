@@ -13,7 +13,6 @@ struct News: View {
     
     @EnvironmentObject private var vm: NewsViewModel
     @State private var showDetailView: Bool = false
-//    @State private var selectedCategory: Category = .soccer
     @State private var showSearchTab: Bool = false
     @State private var selectedNews: NewsAPIDataModel? = nil
     
@@ -49,9 +48,9 @@ struct News: View {
                 DetailLoadingView(news: $selectedNews)
             }
         }
-        .onAppear {
-            vm.loadNewsForSelectedCategory()  // Load news for selected category at launch
-        }
+//        .onAppear {
+//            vm.loadNewsForSelectedCategory()  // Load news for selected category at launch
+//        }
     }
     
     private func segue(news: NewsAPIDataModel) {
@@ -66,9 +65,8 @@ struct News: View {
                 let index = vm.allNews.firstIndex(where: { $0.id == news.id})
                 let colorIndex = (index ?? 4) % 4
                 let accentColor = vm.getAccentColor(for: colorIndex)
-                
                 NewsCard(news: news, cardBackground: accentColor.color)
-                Spacer(minLength: 0)
+                Spacer(minLength: 80)
             }
             .options(.init(
                 scaleFactor: -0.03,
@@ -84,8 +82,6 @@ struct News: View {
             ))
         
     }
-    
-    
     
     private var header: some View {
         HStack(spacing: 8) {
@@ -139,7 +135,6 @@ struct News: View {
             }
             .padding(.horizontal, 16)
         }
-        .padding(.bottom, 16)
         .scrollIndicators(.hidden)
     }
     
