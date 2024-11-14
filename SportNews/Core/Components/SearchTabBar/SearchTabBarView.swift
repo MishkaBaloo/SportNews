@@ -15,14 +15,16 @@ struct SearchTabBarView: View {
     var body: some View {
         
         HStack {
-            Image(systemName: "magnifyingglass").resizable()
+            Image("Search").resizable()
                 .frame(width: 24, height: 24)
                 .foregroundStyle(.layerOne)
             
             TextField("Search", text: $searchText)
+                .setFont(.bold, size: 16)
+                .tint(.accentOne)
                 .foregroundStyle(.layerOne)
                 .overlay(alignment: .trailing) {
-                    Image(systemName: "xmark.circle").resizable()
+                    Image("close-circle").resizable()
                         .frame(width: 24, height: 24)
                         .padding()
                         .offset(x: 10) // for tap gesture

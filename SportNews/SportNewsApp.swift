@@ -18,15 +18,10 @@ struct SportNewsApp: App {
         WindowGroup {
             NavigationStack {
                 if hasLaunchedBefore {
-                                  Welcome(isFirstLaunch: $hasLaunchedBefore)
-                                      .onAppear {
-                                          hasLaunchedBefore = true 
-                                      }
-                                      .transition(.move(edge: .top).combined(with: .opacity))
-                                      .animation(.easeInOut, value: hasLaunchedBefore)
-                              } else {
-                                  ContentView()
-                              }
+                    ContentView()
+                } else {
+                    Welcome(isFirstLaunch: $hasLaunchedBefore)
+                }
             }
             .environmentObject(newsVM)
             .environmentObject(mySavedVM)

@@ -12,6 +12,7 @@ struct MySavedView: View {
     @EnvironmentObject private var vm: MySavedViewModel
     @EnvironmentObject private var newsVM: NewsViewModel
     private let mySavedDataService = MySavedDataService()
+    
     @State private var showSearchTab: Bool = false
     
     var body: some View {
@@ -38,41 +39,43 @@ struct MySavedView: View {
                 }
             }
         }
+        .onAppear {
+            vm.getMySaved(for: vm.selectedCategory)
+        }
     }
     
     private var newsIsNotSavedText: some View {
-        Text("You haven't saved the news yet ...")
+        Text("You haven't saved the \(String(describing: vm.selectedCategory).capitalized) news yet ...")
             .font(.system(size: 16, weight: .light))
             .fontWeight(.light)
             .foregroundStyle(.layerTwo)
     }
     
+    
+    
     private var header: some View {
-        HStack {
-            HStack {
-                Text("My ").foregroundStyle(.accentThree)
-                +
-                Text("Saved").foregroundStyle(.layerOne)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.system(size: 34, weight: .bold))
-            
-            SearchButton()
-                .onTapGesture {
-                    withAnimation(.easeInOut) {
-                        showSearchTab.toggle()
+        VStack {
+            HStack(spacing: 6) {
+                (Text("My ").foregroundColor(.layerOne) + Text("Saved").foregroundColor(.accentThree))
+                    .setFont(.extraBold, size: 36)
+                Spacer()
+                
+                SearchButton()
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            showSearchTab.toggle()
+                        }
                     }
-                }
-                .padding(.trailing, 6)
+                    .padding(.trailing, 6)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 20)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 16)
     }
     
     private var categoryCell: some View {
         ScrollView(.horizontal) {
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 ForEach(MySavedCategory.allCases, id: \.self) { category in
                     CategoryRowCell(
                         title: category.rawValue.capitalized,
@@ -80,11 +83,11 @@ struct MySavedView: View {
                     )
                     .onTapGesture {
                         vm.selectedCategory = category
-                        vm.getMySaved(for: category) // Get news for selected category
+                        vm.getMySaved(for: category)
                     }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
         }
         .scrollIndicators(.hidden)
     }
@@ -108,9 +111,10 @@ struct MySavedView: View {
     }
     
     private var mySavedNewsList: some View {
+
         ScrollView {
-            ForEach(vm.mySavedNews) { entity in
-                MySavedRowsView(entity: entity)
+            ForEach(vm.mySavedNews) { news in
+                MySavedRowsView(category: newsVM.selectedCategory.rawValue, news: news)
             }
         }
         .scrollIndicators(.hidden)
@@ -124,6 +128,7 @@ struct MySavedView: View {
         MySavedView()
             .preferredColorScheme(.dark)
     })
+    .environmentObject(TabBarViewmodel())
     .environmentObject(DeveloperPreview.instance.newsVM)
     .environmentObject(DeveloperPreview.instance.mySavedVM)
 }

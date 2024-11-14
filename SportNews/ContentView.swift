@@ -9,23 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @StateObject var tabBarViewModel: TabBarViewmodel = TabBarViewmodel()
+    
     @EnvironmentObject private var mySavedVM: MySavedViewModel
     @EnvironmentObject private var newsVM: NewsViewModel
-    @State private var tabSelection: TabBarItem = .news
     
     var body: some View {
         
-        CustomTabBarContainerView(selection: $tabSelection) {
-            
+        CustomTabBarContainerView(selection: $tabBarViewModel.selectedTab) {
             News()
-                .tabBarItem(tab: .news, selection: $tabSelection)
-            
+                .tabBarItem(tab: .news, selection: $tabBarViewModel.selectedTab)
             MySavedView()
-                .tabBarItem(tab: .mySaved, selection: $tabSelection)
-            
+                .tabBarItem(tab: .mySaved, selection: $tabBarViewModel.selectedTab)
             SettingView()
-                .tabBarItem(tab: .setting, selection: $tabSelection)
+                .tabBarItem(tab: .setting, selection: $tabBarViewModel.selectedTab)
         }
+        .preferredColorScheme(.dark)
+        .environmentObject(tabBarViewModel)
         .ignoresSafeArea(.keyboard)
     }
 }

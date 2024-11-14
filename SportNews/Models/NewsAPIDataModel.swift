@@ -65,12 +65,10 @@ struct NewsAPIDataModel: Identifiable, Codable, Hashable {
     
     var id: String { uri }
     let uri: String
-    let lang: String?
-    let isDuplicate: Bool?
     let date, time: String?
-    let dateTime, dateTimePub: String?
     let dataType: String?
     let url: String
     let title, body: String?
     let image: String?
+    let category: String?
 }

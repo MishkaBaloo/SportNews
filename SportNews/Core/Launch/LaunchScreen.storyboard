@@ -16,31 +16,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbg-Pi-vCX">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhV-vY-eFs">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="twZ-qm-7jA">
-                                        <rect key="frame" x="136.66666666666666" y="319.66666666666669" width="119.99999999999997" height="120"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG" translatesAutoresizingMaskIntoConstraints="NO" id="68v-UR-gbU">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="Nrk-BR-736">
+                                        <rect key="frame" x="146.66666666666666" y="329.66666666666669" width="100" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="EBB-mE-IGh"/>
-                                            <constraint firstAttribute="width" constant="120" id="kcg-74-7f3"/>
+                                            <constraint firstAttribute="width" constant="100" id="cAL-1O-IMa"/>
+                                            <constraint firstAttribute="height" constant="100" id="mML-j7-9Vv"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="twZ-qm-7jA" firstAttribute="centerY" secondItem="Nbg-Pi-vCX" secondAttribute="centerY" id="11g-Ap-vQ1"/>
-                                    <constraint firstItem="twZ-qm-7jA" firstAttribute="centerX" secondItem="Nbg-Pi-vCX" secondAttribute="centerX" id="pS1-bf-lND"/>
+                                    <constraint firstAttribute="bottom" secondItem="68v-UR-gbU" secondAttribute="bottom" id="7yu-Pz-Y9U"/>
+                                    <constraint firstItem="Nrk-BR-736" firstAttribute="centerX" secondItem="OhV-vY-eFs" secondAttribute="centerX" id="bSc-Fe-ZID"/>
+                                    <constraint firstItem="Nrk-BR-736" firstAttribute="centerY" secondItem="OhV-vY-eFs" secondAttribute="centerY" id="f5y-En-HgY"/>
+                                    <constraint firstItem="68v-UR-gbU" firstAttribute="top" secondItem="OhV-vY-eFs" secondAttribute="top" id="gP2-zc-vqs"/>
+                                    <constraint firstAttribute="trailing" secondItem="68v-UR-gbU" secondAttribute="trailing" id="kN5-qG-hCC"/>
+                                    <constraint firstItem="68v-UR-gbU" firstAttribute="leading" secondItem="OhV-vY-eFs" secondAttribute="leading" id="n6z-Km-CiU"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Thu-mq-4jS"/>
                         <color key="backgroundColor" name="backgroudOne"/>
                         <constraints>
-                            <constraint firstItem="Thu-mq-4jS" firstAttribute="trailing" secondItem="Nbg-Pi-vCX" secondAttribute="trailing" id="0N5-gQ-BqY"/>
-                            <constraint firstItem="Nbg-Pi-vCX" firstAttribute="top" secondItem="Thu-mq-4jS" secondAttribute="top" id="OCX-VQ-1EK"/>
-                            <constraint firstItem="Thu-mq-4jS" firstAttribute="bottom" secondItem="Nbg-Pi-vCX" secondAttribute="bottom" id="Q2e-mo-pHg"/>
-                            <constraint firstItem="Nbg-Pi-vCX" firstAttribute="leading" secondItem="Thu-mq-4jS" secondAttribute="leading" id="V3D-NU-GPg"/>
+                            <constraint firstItem="OhV-vY-eFs" firstAttribute="bottom" secondItem="Thu-mq-4jS" secondAttribute="bottom" id="4Fa-eH-Ocf"/>
+                            <constraint firstItem="OhV-vY-eFs" firstAttribute="leading" secondItem="Thu-mq-4jS" secondAttribute="leading" id="Cue-Qe-bsw"/>
+                            <constraint firstItem="OhV-vY-eFs" firstAttribute="top" secondItem="Thu-mq-4jS" secondAttribute="top" id="IrF-3A-xAs"/>
+                            <constraint firstItem="Thu-mq-4jS" firstAttribute="trailing" secondItem="OhV-vY-eFs" secondAttribute="trailing" id="hjG-XQ-r5i"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -50,7 +57,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon" width="360" height="360"/>
+        <image name="BG" width="393" height="852"/>
+        <image name="icon" width="40" height="40"/>
         <namedColor name="backgroudOne">
             <color red="0.066666666666666666" green="0.066666666666666666" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

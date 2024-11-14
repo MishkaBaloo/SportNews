@@ -12,23 +12,23 @@ struct MySavedRowsView: View {
     @State private var vm = NewsViewModel()
     @State private var dataService = MySavedDataService()
     @State private var showDetailView: Bool = false
-    @State private var selectedNews: MySavedEntity? = nil
+    @State private var selectedNews: NewsAPIDataModel? = nil
     
-    let entity: MySavedEntity
-//    let strokeColor: Color
+    let category: String
+    let news: NewsAPIDataModel
     
     var body: some View {
         NavigationStack {
-            HStack {
+            HStack(spacing: 6) {
                 
-                let index = dataService.savedEntities.firstIndex(where: { $0.newsID == entity.newsID})
+                let index = vm.allNews.firstIndex(where: {$0.id == news.id})
                 let colorIndex = (index ?? 4) % 4
                 let accentColor = vm.getAccentColor(for: colorIndex)
                 
                 RoundedRectangle(cornerRadius: 25)
                     .stroke(accentColor.color, lineWidth: 1.0)
                     .background {
-                        AsyncImage(url: URL(string: entity.image ?? "")) { phase in
+                        AsyncImage(url: URL(string: news.image ?? "")) { phase in
                             switch phase {
                             case .empty:
                                 ProgressView()
@@ -51,84 +51,40 @@ struct MySavedRowsView: View {
                     .frame(width: 120, height: 120)
                     .padding(.horizontal, 8)
                 
-                VStack(alignment: .leading, spacing: 0, content: {
-                    HStack {
-                        if let date = entity.date {
-                            Text(date)
-                                .foregroundStyle(.accentThree)
-                                .font(.callout)
-                                .fontWeight(.light)
-                        }
-                        Text("•")
-                            .foregroundStyle(Color.layerOne)
-                        
-                        if let time = entity.time {
-                            Text(time)
-                                .foregroundStyle(.accentTwo)
-                                .font(.callout)
-                                .fontWeight(.light)
-                        }
-                    }
-                    .padding(.top, 10)
-                    .padding(.bottom, 4)
-                    
-                    VStack {
-                        if let title = entity.title {
-                            Text(title)
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.layerOne)
-                                .lineLimit(3)
-                        }
-                    }
-                    .padding(.trailing, 16)
-                    
-                    HStack {
-                        if let dataType = entity.dataType {
-                            Text(dataType)
-                                .foregroundStyle(.layerTwo)
-                                .font(.callout)
-                                .padding(4)
-                                .background(Color.black.opacity(0.001))
-                                .offset(x: -4)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
-                    .padding(.bottom, 10)
+                VStack(alignment: .leading, spacing: 6, content: {
+                    dateTime
+                    title
+                    categoryCell
                 })
             }
             .frame(width: 353, height: 140)
-            .background(.backgroudTwo)
+            .background(.backgroudTwo.opacity(0.95))
             .clipShape(.rect(cornerRadius: 35))
             .onTapGesture(perform: {
-                segue(entity: entity)
+                segue(news: news)
             })
             .onLongPressGesture(perform: {
                 isShowingDialog.toggle()
                 HapticManager.notification(type: .success)
             })
             .confirmationDialog("Option", isPresented: $isShowingDialog, titleVisibility: .visible, actions: {
-                
                 Section {
-                    if let url = URL(string: entity.url!) {
+                    if let url = URL(string: news.url) {
                         ShareLink(item: url) {
                             Text("Share")
                         }
                     }
                 }
-                
                 Section {
-                    if let newsUrl = URL(string: entity.url!) {
+                    if let newsUrl = URL(string: news.url) {
                         Link(destination: newsUrl, label: {
                             Text("Go to Source")
                         })
                     }
                 }
-                
                 Section {
                     Button(role: .destructive) {
-                        dataService.deleteNewsMySaved(entity: entity)
-                        
+                        dataService.deleteNewsMySaved(news: news)
                     } label: {
                         Text("Remove from Saved")
                     }
@@ -138,17 +94,57 @@ struct MySavedRowsView: View {
             })
         }
         .navigationDestination(isPresented: $showDetailView) {
-            DetailLoadingViewMySaved(entity: $selectedNews)
+            DetailLoadingView(news: $selectedNews)
         }
     }
     
-    private func segue(entity: MySavedEntity) {
-        selectedNews = entity
+    private func segue(news: NewsAPIDataModel) {
+        selectedNews = news
         showDetailView.toggle()
     }
 }
 
-//#Preview {
-//    MySavedRowsView(entity: DeveloperPreview.instance.entity)
-//    MySavedRowsView()
-//}
+#Preview {
+    MySavedRowsView(category: "", news: DeveloperPreview.instance.news)
+}
+
+extension MySavedRowsView {
+    
+    private var dateTime: some View {
+        HStack {
+            if let date = news.date {
+                Text(date)
+                    .foregroundStyle(.accentThree)
+            }
+            Text("•")
+                .foregroundStyle(Color.layerOne)
+            
+            if let time = news.time {
+                Text(time)
+                    .foregroundStyle(.accentTwo)
+            }
+        }
+        .setFont(.light, size: 14)
+    }
+    
+    private var title: some View {
+        Text(news.title ?? "")
+            .setFont(.bold, size: 16)
+            .foregroundStyle(.layerOne)
+            .lineLimit(3)
+            .lineSpacing(5)
+            .padding(.trailing, 16)
+    }
+    
+    private var categoryCell: some View {
+        HStack {
+            Text(category) // Display the category of the news
+                .setFont(.extraBold, size: 12)
+                .background(Color.black.opacity(0.001))
+                .offset(x: -4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(.layerTwo)
+                .setFont(.light, size: 16)
+        }
+    }
+}

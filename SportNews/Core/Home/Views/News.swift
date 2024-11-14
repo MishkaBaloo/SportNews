@@ -48,9 +48,6 @@ struct News: View {
                 DetailLoadingView(news: $selectedNews)
             }
         }
-//        .onAppear {
-//            vm.loadNewsForSelectedCategory()  // Load news for selected category at launch
-//        }
     }
     
     private func segue(news: NewsAPIDataModel) {
@@ -65,7 +62,7 @@ struct News: View {
                 let index = vm.allNews.firstIndex(where: { $0.id == news.id})
                 let colorIndex = (index ?? 4) % 4
                 let accentColor = vm.getAccentColor(for: colorIndex)
-                NewsCard(news: news, cardBackground: accentColor.color)
+                NewsCard(news: news, cardBackground: accentColor.color, category: vm.selectedCategory.rawValue)
                 Spacer(minLength: 80)
             }
             .options(.init(
@@ -84,21 +81,17 @@ struct News: View {
     }
     
     private var header: some View {
-        HStack(spacing: 8) {
-            
-            HStack {
-                Text("Sports").foregroundStyle(.accentThree)
-                +
-                Text("News").foregroundStyle(.layerOne)
-                
-            }
+        HStack(spacing: 6) {
+            ( Text("Sports").foregroundStyle(.accentThree)
+              +
+              Text("News").foregroundStyle(.layerOne))
             .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.system(size: 34, weight: .bold))
+            .setFont(.extraBold, size: 36)
             
             Button(action: {
-                    vm.reloadData()
+                vm.reloadData()
             }, label: {
-                Image(systemName: "arrow.triangle.2.circlepath")
+                Image("refresh")
                     .font(.title)
                     .foregroundStyle(.layerOne)
                     .frame(width: 50, height: 50)
@@ -118,13 +111,12 @@ struct News: View {
                 .padding(.trailing, 6)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 20)
     }
     
     private var categoryCell: some View {
         ScrollView(.horizontal) {
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 ForEach(Category.allCases, id: \.self) { category in
                     CategoryRowCell(title: category.rawValue.capitalized, isSelected: category == vm.selectedCategory)
                         .onTapGesture {
@@ -133,7 +125,7 @@ struct News: View {
                         }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
         }
         .scrollIndicators(.hidden)
     }
@@ -153,13 +145,13 @@ struct News: View {
         .frame(height: 50)
         .padding(.top)
         .padding(.bottom)
-        
     }
 }
 
 #Preview {
     News()
         .environmentObject(DeveloperPreview.instance.newsVM)
+        .environmentObject(TabBarViewmodel())
+
     
 }
-

@@ -10,57 +10,52 @@ import StoreKit
 
 struct SettingView: View {
     
-    @EnvironmentObject private var vm: NewsViewModel
+
     @Environment(\.requestReview) var requestReview
-    
-    @State private var tabSelection: TabBarItem = .setting
     @Environment(\.dismissWindow) var presentationMode
+    @EnvironmentObject var tabBarViewModel: TabBarViewmodel
+    
     @State private var showAlert: Bool = false
-    private let privacyPolicyURL = URL(string: "https://policies.google.com/privacy")
-    private let termsOfUseURL = URL(string: "https://policies.google.com/terms?hl=en-US#toc-using")
-    private let url: String = "https://github.com/MishkaBaloo"
     private let dataService = MySavedDataService()
     
     var body: some View {
         NavigationStack {
             ZStack {
                 // background layer
-                Image("BG").resizable()
-                    .ignoresSafeArea()
+                Image("BG").resizable().ignoresSafeArea()
                 
                 // content layer
                 VStack {
                     header
-                    List {
-                        notifications
-                        if URL(string: url) != nil {
-                            shareApp
-                        }
-                        leaveFeedback
-                        rateUse
-                        privacypolicy
-                        termsofuse
-                    }
-                    .scrollContentBackground(.hidden)
-                    .scrollDisabled(true)
+                    list
                     versionCell
-                    Spacer(minLength: 250)
+                        .padding()
+                    
+                    Spacer()
                 }
             }
         }
     }
+}
+
+#Preview {
+    SettingView()
+        .preferredColorScheme(.dark)
+        .environmentObject(TabBarViewmodel())
+        .environmentObject(DeveloperPreview.instance.newsVM)
+}
+
+extension SettingView {
     
     private var header: some View {
         HStack {
             Text("Settings").foregroundStyle(.accentThree)
+                .setFont(.extraBold, size: 36)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.system(size: 36, weight: .bold))
-            
             Button(action: {
-                showAlert.toggle()
-                tabSelection = .news  // Оновлюємо таб на новини
+                showAlert.toggle() // Оновлюємо таб на новини
             }, label: {
-                Image(systemName: "trash")
+                Image("clearData")
                     .font(.title)
                     .foregroundStyle(.systemOne)
                     .frame(width: 50, height: 50)
@@ -77,6 +72,8 @@ struct SettingView: View {
                 }
                 Button(role: .destructive, action: {
                     dataService.clearCache()
+                    tabBarViewModel.changeTab(tab: .news)
+                    
                 }) {
                     Text("Clear")
                 }
@@ -85,128 +82,36 @@ struct SettingView: View {
             })
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 16)
-    }
-}
-
-#Preview {
-    SettingView()
-        .preferredColorScheme(.dark)
-        .environmentObject(DeveloperPreview.instance.newsVM)
-}
-
-//MARK: ListItems
-
-extension SettingView {
-    
-    private var notifications: some View {
-            NavigationLink(destination: NotificationsView()) {
-                HStack {
-                    Text("Notifications")
-                        .foregroundStyle(.layerOne)
-                        .font(.headline)
-                }
-            }
-        .foregroundStyle(.layerOne)
-        .font(.headline)
-        .listRowBackground(Color.backgroudTwo)
+        .padding(.horizontal, 20)
     }
     
-    private var shareApp: some View {
-        
-        ShareLink(item: url) {
+    private var list: some View {
+        List(Settings.allCases) { setting in
             HStack {
-                Text("Share App")
-                    .foregroundStyle(.layerOne)
-                    .font(.headline)
-                Image(systemName: "chevron.right")
-                    .fontWeight(.medium)
-                    .foregroundStyle(.layerTwo)
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+              Text(setting.title)
+                .setFont(.bold, size: 16)
+              Spacer()
+              Image(.arrowsRight)
+                .resizable()
+                .frame(width: 25, height: 25)
+            }
+            .onTapGesture {
+              setting.action
             }
         }
-        .listRowBackground(Color.backgroudTwo)
-    }
-    
-    private var leaveFeedback: some View {
-        
-        Button(action: {
-            
-        }, label: {
-            HStack {
-                Text("Leave Feedback")
-                    .foregroundStyle(.layerOne)
-                    .font(.headline)
-                Image(systemName: "chevron.right")
-                    .fontWeight(.medium)
-                    .foregroundStyle(.layerTwo)
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-        })
-        .listRowBackground(Color.backgroudTwo)
-    }
-    
-    private var rateUse: some View {
-        HStack {
-            Text("Rate Use")
-                .foregroundStyle(.layerOne)
-                .font(.headline)
-            Image(systemName: "chevron.right")
-                .fontWeight(.medium)
-                .foregroundStyle(.layerTwo)
-                .font(.caption)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-        }
-        .onTapGesture {
-            requestReview()
-        }
-        .listRowBackground(Color.backgroudTwo)
-    }
-    
-    private var privacypolicy: some View {
-        
-        HStack {
-            Link("Privacy Policy", destination: privacyPolicyURL!)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .fontWeight(.medium)
-                .foregroundStyle(.layerTwo)
-                .font(.caption)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-        }
-        .foregroundStyle(.layerOne)
-        .font(.headline)
-        .listRowBackground(Color.backgroudTwo)
-    }
-    
-    private var termsofuse: some View {
-        
-        HStack {
-            Link("Terms of Use", destination: termsOfUseURL!)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .fontWeight(.medium)
-                .foregroundStyle(.layerTwo)
-                .font(.caption)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-        }
-        .foregroundStyle(.layerOne)
-        .font(.headline)
-        .listRowBackground(Color.backgroudTwo)
+        .frame(width: 390, height: 300)
+        .scrollContentBackground(.hidden)
+        .scrollDisabled(true)
     }
     
     private var versionCell: some View {
         HStack {
             Text("Version")
                 .foregroundStyle(.layerTwo)
-                .font(.system(size: 16, weight: .light))
             +
             Text(" 1.0")
                 .foregroundStyle(.accentOne)
-                .font(.system(size: 16, weight: .light))
         }
+        .setFont(.light, size: 18)
     }
 }

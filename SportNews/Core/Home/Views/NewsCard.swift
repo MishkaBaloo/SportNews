@@ -12,9 +12,12 @@ struct NewsCard: View {
     @EnvironmentObject private var vm: NewsViewModel
     @State private var showDetailView: Bool = false
     @State private var selectedNews: NewsAPIDataModel? = nil
+    @State private var isSaved: Bool = false
     
+    private let dataService = MySavedDataService()
     let news: NewsAPIDataModel
     let cardBackground: Color
+    let category: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -24,97 +27,14 @@ struct NewsCard: View {
             let scaleFactor = min(widthScale, heightScale)
             
             VStack {
-                HStack {
-                    RoundedRectangle(cornerRadius: 10 * scaleFactor)
-                        .foregroundStyle(.backgroudOne)
-                        .overlay {
-                            Text("CHAT News Today")
-                                .font(.system(size: 10 * scaleFactor, weight: .bold))
-                                .foregroundStyle(.layerOne)
-                        }
-                        .frame(width: 100 * scaleFactor, height: 20 * scaleFactor)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 20 * scaleFactor)
-                .padding(.leading, 16 * scaleFactor)
-                
-                HStack {
-                    if let title = news.title {
-                        Text(title)
-                            .frame(width: 313 * scaleFactor, height: 128 * scaleFactor, alignment: .leading)
-                            .foregroundStyle(.backgroudOne)
-                            .font(.system(size: 26 * scaleFactor, weight: .bold))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16 * scaleFactor)
-                
-                VStack {
-                    HStack {
-                        if let date = news.date {
-                            Text(date)
-                        }
-                        Text("•")
-                        
-                        if let time = news.time {
-                            Text(time)
-                        }
-                    }
-                    .font(.system(size: 16 * scaleFactor, weight: .bold))
-                    .foregroundStyle(.layerSix)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16 * scaleFactor)
-                
-                VStack {
-                    if let body = news.body {
-                        Text(body)
-                            .lineSpacing(3 * scaleFactor)
-                            .frame(width: 293 * scaleFactor, height: 215 * scaleFactor, alignment: .center)
-                            .foregroundStyle(.backgroudThree)
-                            .font(.system(size: 14 * scaleFactor, weight: .light))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 8 * scaleFactor)
-                
-                HStack {
-                    Button(action: {
-                        segue(news: news)
-                    }, label: {
-                        RoundedRectangle(cornerRadius: 25 * scaleFactor)
-                            .stroke(.backgroudThree, lineWidth: 2.0 * scaleFactor)
-                            .frame(width: 110 * scaleFactor, height: 50 * scaleFactor)
-                            .foregroundStyle(.clear)
-                            .overlay {
-                                Text("Read Full")
-                                    .foregroundStyle(.backgroudOne)
-                                    .font(.system(size: 16 * scaleFactor, weight: .bold))
-                            }
-                    })
-                    .padding()
-                    
-                    Spacer()
-                    
-                    GoToSourceButton(news: news, heigth: 50 * scaleFactor, width: 50 * scaleFactor)
-                    
-                    Button {
-                        vm.saveButtonPressed(news: news)
-                        
-                    } label: {
-                        Image(systemName: "bookmark")
-                            .font(.title)
-                            .foregroundStyle(.black)
-                            .frame(width: 50 * scaleFactor, height: 50 * scaleFactor)
-                            .background(
-                                Circle()
-                                    .foregroundStyle(Color.layerOne.opacity(0.5))
-                            )
-                    }
-                    
-                    ShareButton(news: news, heigth: 50 * scaleFactor, width: 50 * scaleFactor)
-                }
-                .padding(.trailing, 8 * scaleFactor)
+                sourceView
+                title
+                dateTime
+                bodyCard
+                buttons
+            }
+            .onAppear {
+                isSaved = dataService.isNewsSaved(newsID: news.id) // Check if news is already saved
             }
             .navigationDestination(isPresented: $showDetailView) {
                 DetailLoadingView(news: $selectedNews)
@@ -133,5 +53,117 @@ struct NewsCard: View {
 }
 
 #Preview {
-    NewsCard(news: DeveloperPreview.instance.news, cardBackground: .green)
+    NewsCard(news: DeveloperPreview.instance.news, cardBackground: .green, category: "")
+}
+
+extension NewsCard {
+    
+    private var sourceView: some View {
+        HStack {
+            
+            Text(category) // Display the category of the news
+                .setFont(.extraBold, size: 12)
+                .foregroundColor(cardBackground)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 6)
+                .background(Color.backgroudOne.cornerRadius(10.adaptive))
+            
+            Text("CHAT News Today")
+            .setFont(.extraBold, size: 12)
+            .foregroundColor(cardBackground)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(Color.backgroudOne.cornerRadius(10.adaptive))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 20)
+        .padding(.leading, 16)
+    }
+    
+    private var title: some View {
+        HStack {
+            if let title = news.title {
+                Text(title)
+                    .frame(width: 313, height: 128, alignment: .leading)
+                    .foregroundStyle(.backgroudOne)
+                    .setFont(.bold, size: 26)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.leading, 16)
+    }
+    
+    private var dateTime: some View {
+        VStack {
+            HStack {
+                if let date = news.date {
+                    Text(date)
+                }
+                Text("•")
+                if let time = news.time {
+                    Text(time)
+                }
+            }
+            .setFont(.bold, size: 16)
+            .foregroundStyle(.layerSix)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.leading, 16)
+    }
+    
+    private var bodyCard: some View {
+        VStack {
+            if let body = news.body {
+                Text(body)
+                    .lineSpacing(5)
+                    .frame(width: 293, height: 215, alignment: .center)
+                    .foregroundStyle(.backgroudThree)
+                    .setFont(.light, size: 14)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.top, 8)
+    }
+    
+    private var buttons: some View {
+        HStack {
+            Button(action: {
+                segue(news: news)
+            }, label: {
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(.backgroudThree, lineWidth: 2.0)
+                    .frame(width: 110, height: 50)
+                    .foregroundStyle(.clear)
+                    .overlay {
+                        Text("Read Full")
+                            .foregroundStyle(.backgroudOne)
+                            .setFont(.bold, size: 16)
+                    }
+            })
+            .padding()
+            
+            Spacer()
+            
+            GoToSourceButton(news: news, heigth: 50, width: 50)
+            
+            Button {
+                dataService.saveButtonPressed(news: news)
+                isSaved.toggle()
+            } label: {
+                withAnimation(.easeInOut, {
+                    Image(isSaved ? "SavedNews" : "UnsavedNews")
+                })
+                .font(.title)
+                .foregroundStyle(.black)
+                .frame(width: 50, height: 50)
+                .background(
+                    Circle()
+                        .foregroundStyle(Color.layerOne.opacity(0.5))
+                )
+            }
+            
+            ShareButton(news: news, heigth: 50, width: 50)
+        }
+        .padding(.trailing, 8)
+    }
 }

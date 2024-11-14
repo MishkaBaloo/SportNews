@@ -20,7 +20,6 @@ struct CustomTabBarContainerView<Content:View>: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-//            content.ignoresSafeArea()
             content
             CustomTabBarView(tabs: tabs, selection: $selection, localSelection: selection)
                 .padding(.top, 16)

@@ -14,7 +14,7 @@ struct CategoryRowCell: View {
     
     var body: some View {
         Text(title)
-            .font(.callout)
+            .setFont(.light, size: 16)
             .fontWeight(isSelected ? .bold : .light)
             .frame(minWidth: 30)
             .padding(.vertical, 12)

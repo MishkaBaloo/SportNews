@@ -8,29 +8,34 @@
 import Foundation
 import SwiftUI
 
-//struct TabBarItem: Hashable {
-//    let iconName: String
-//    let color: Color
-//}
-
-enum TabBarItem: Hashable {
-    case  news, mySaved, setting
-    
-    var iconName: String {
-        switch self {
-        case .news: return "globe"
-        case .mySaved: return "bookmark"
-        case .setting: return "gearshape"
-        }
+enum TabBarItem: String, Identifiable, CaseIterable {
+  case news
+  case mySaved
+  case setting
+  
+  var id: String { rawValue }
+  
+  @ViewBuilder func buildView() -> some View {
+    switch self {
+    case .news: News()
+    case .mySaved: MySavedView()
+    case .setting: SettingView()
     }
-    
-    var color: Color {
-        switch self {
-        case .news: return Color.white
-        case .mySaved: return Color.white
-        case .setting: return Color.white
-        }
+  }
+  
+  var defaultIcon: Image {
+    switch self {
+    case .news: Image(.newsDefault)
+    case .mySaved: Image(.savedDefault)
+    case .setting: Image(.settingsDefault)
     }
-    
-    
+  }
+  
+  var activeIcon: Image {
+    switch self {
+    case .news: Image(.newsActive)
+    case .mySaved: Image(.savedActive)
+    case .setting: Image(.settingsActive)
+    }
+  }
 }

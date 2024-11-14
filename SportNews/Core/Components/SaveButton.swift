@@ -8,21 +8,34 @@
 import SwiftUI
 
 struct SaveButton: View {
-    let iconName: String = "bookmark"
+    
+    private let dataService = MySavedDataService()
+    let news: NewsAPIDataModel
+    let action: () -> Void
+    
+    @State private var isSaved: Bool = false
     
     var body: some View {
-        Image(systemName: iconName) // fill if tap
-            .font(.title)
-            .foregroundStyle(.black)
-            .frame(width: 50, height: 50)
-            .background(
-                Circle()
-                    .foregroundStyle(Color.layerOne.opacity(0.5))
+        
+        Button(action: action) {
+            withAnimation(.easeInOut, {
+                Image(isSaved ? "SavedNews" : "UnsavedNews")
+            })
+                .font(.title)
+                .foregroundStyle(.black)
+                .frame(width: 50, height: 50)
+                .background(
+                    Circle()
+                        .foregroundStyle(Color.layerOne.opacity(0.5))
                 )
+        }
+        .onAppear(perform: {
+            isSaved = dataService.isNewsSaved(newsID: news.id)
+        })
     }
 }
 
 
 #Preview {
-    SaveButton()
+    SaveButton(news: DeveloperPreview.instance.news, action: {})
 }

@@ -7,13 +7,16 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 class MySavedDataService: ObservableObject {
     
     private let container: NSPersistentContainer
     private let containerName: String = "MySavedContainer"
-    private let entityName: String = "MySavedEntity"
-    @Published var savedEntities: [MySavedEntity] = []
+    private let entityName: String = "NewsAPIDataEntity"
+    @Published var savedEntities: [NewsAPIDataEntity] = []
+    
+    @AppStorage("selectedCategory") private var selectedCategory: MySavedCategory = .all
     
     init() {
         container = NSPersistentContainer(name: containerName)
@@ -28,34 +31,45 @@ class MySavedDataService: ObservableObject {
     //MARK: PUBLIC SECTION OF FUNC
     
     func saveButtonPressed(news: NewsAPIDataModel) {
-        
-        // check if news is already in MySaved
+        // Check if news is already saved
         if let entity = savedEntities.first(where: { $0.newsID == news.id }) {
             delete(entity: entity)
         } else {
             add(news: news)
         }
+        applyChanges(categoty: .all)
     }
     
-    func deleteNewsMySaved(entity: MySavedEntity) {
-        if let entity = savedEntities.first(where: { $0.newsID == entity.newsID }) {
-            container.viewContext.delete(entity)
-            applyChanges()
+    func isNewsSaved(newsID: String) -> Bool {
+        return savedEntities.contains { $0.newsID == newsID }
+    }
+    
+    func deleteNewsMySaved(news: NewsAPIDataModel) {
+        if let entity = savedEntities.first(where: {$0.newsID == news.id}) {
+            delete(entity: entity)
         }
+        applyChanges(categoty: selectedCategory)
     }
     
     func clearCache() {
-        savedEntities.forEach { news in
-            container.viewContext.delete(news)
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try container.viewContext.execute(deleteRequest)
+            savedEntities.removeAll() 
+            applyChanges(categoty: .all)
+        } catch let error {
+            print("Error clearing cache: \(error)")
         }
-        applyChanges()
     }
     
     //MARK: PRIVATE SECTION OF FUNC
     
     func getMySaved(for category: MySavedCategory) {
         
-        let request = NSFetchRequest<MySavedEntity>(entityName: entityName)
+        let request = NSFetchRequest<NewsAPIDataEntity>(entityName: entityName)
         
         if category != .all {
             request.predicate = NSPredicate(format: "category == %@", category.rawValue)
@@ -63,25 +77,46 @@ class MySavedDataService: ObservableObject {
         
         do {
             savedEntities = try container.viewContext.fetch(request)
+            
         } catch let error {
-            print("Error fetching MySaved Entities. \(error)")
+            print("Error fetching NewsAPIDataEntity. \(error)")
         }
     }
     
-    private func add(news: NewsAPIDataModel) { // create new entity every time, if we want to change maybe title or body we need to update() func
-        let entity = MySavedEntity(context: container.viewContext)
-        entity.newsID = news.id
-        entity.body = news.body
-        entity.dataType = news.dataType
-        entity.date = news.date
-        entity.image = news.image
-        entity.time = news.time
-        entity.title = news.title
-        entity.url = news.url
-        entity.category = selectedCategory(for: news)
-    
-        applyChanges()
+    private func add(news: NewsAPIDataModel) {
+        let fetchRequest: NSFetchRequest<NewsAPIDataEntity> = NewsAPIDataEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "newsID == %@", news.id)
+        
+        do {
+            let results = try container.viewContext.fetch(fetchRequest)
+            let entity: NewsAPIDataEntity
+            
+            if let existingEntity = results.first {
+                // Update data of news, is news with same ID is already exist
+                entity = existingEntity
+            } else {
+                // Create new entity if news doesn't exist
+                entity = NewsAPIDataEntity(context: container.viewContext)
+                entity.newsID = news.id
+            }
+            
+            // Update atributes of entity
+            entity.body = news.body
+            entity.dataType = news.dataType
+            entity.date = news.date
+            entity.image = news.image
+            entity.time = news.time
+            entity.title = news.title
+            entity.url = news.url
+            entity.category = selectedCategory(for: news)
+            
+            applyChanges(categoty: .all)
+            
+        } catch {
+            print("Failed to fetch or save news entity: \(error)")
+        }
     }
+
     
     private func selectedCategory(for news: NewsAPIDataModel) -> String {
         
@@ -114,9 +149,9 @@ class MySavedDataService: ObservableObject {
         return MySavedCategory.all.rawValue
     }
     
-      func delete(entity: MySavedEntity) {
+    private func delete(entity: NewsAPIDataEntity) {
         container.viewContext.delete(entity)
-          applyChanges()
+        applyChanges(categoty: selectedCategory)
     }
     
     private func save() {
@@ -127,8 +162,9 @@ class MySavedDataService: ObservableObject {
         }
     }
     
-    private func applyChanges() {
+    private func applyChanges(categoty: MySavedCategory) {
+        objectWillChange.send() // Update interface
         save()
-        getMySaved(for: .all)
+        getMySaved(for: categoty)
     }
 }

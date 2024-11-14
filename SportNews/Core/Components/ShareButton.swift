@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ShareButton: View {
     
-    let iconName: String = "square.and.arrow.up"
+    let iconName: String = "Share"
     let news: NewsAPIDataModel
     let heigth: CGFloat
     let width: CGFloat
@@ -20,12 +20,10 @@ struct ShareButton: View {
             if let url = URL(string: url) {
                 ShareLink(item: url) {
                     
-                    Image(systemName: iconName)
+                    Image(iconName)
                         .font(.title)
                         .foregroundStyle(.black)
-                        .frame(width: width, height: heigth)
-                        .padding(.bottom, 6)
-                        .background(
+                        .frame(width: width, height: heigth)                        .background(
                             Circle()
                                 .foregroundStyle(Color.white.opacity(0.5))
                             )

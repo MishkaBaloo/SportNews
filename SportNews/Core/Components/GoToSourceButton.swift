@@ -13,12 +13,12 @@ struct GoToSourceButton: View {
     let heigth: CGFloat
     let width: CGFloat
     var url: String { news.url }
-    let iconName: String = "shazam.logo"
+    let iconName: String = "attach-square"
     
     var body: some View {
 
         Link(destination: URL(string: url)!, label: {
-                Image(systemName: iconName)
+                Image(iconName)
                 .font(.title)
                 .foregroundStyle(.black)
                 .frame(width: heigth, height: width)

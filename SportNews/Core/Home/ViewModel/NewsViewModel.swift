@@ -11,19 +11,20 @@ import SwiftUI
 
 class NewsViewModel: ObservableObject {
     
-    @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array
     @Published var mySavedNews: [NewsAPIDataModel] = []
+    @Published var allNews: [NewsAPIDataModel] = [] // when we check all news we append to this allNews array
     @Published var isLoading: Bool = false
     @Published var searchText: String = ""
     private let dataService = NewsDataService()
     private let mySavedDataService = MySavedDataService()
     private var cancellables = Set<AnyCancellable>()
     
+    
     @AppStorage("selectedCategory") var selectedCategory: Category = .soccer
     
     init() {
-        loadNewsForSelectedCategory()
         addSubscribers()
+        getNews(for: selectedCategory)
     }
     
     func addSubscribers() {
@@ -37,40 +38,18 @@ class NewsViewModel: ObservableObject {
                 self?.allNews = returnedNews
             }
             .store(in: &cancellables)
-        
-        
-        // update mySaved news
-        $allNews
-            .combineLatest(mySavedDataService.$savedEntities)
-            .map { (newsAPIDataModel, mySavedEntities) -> [NewsAPIDataModel] in
-                
-                newsAPIDataModel
-                    .compactMap { (news) -> NewsAPIDataModel? in
-                        guard mySavedEntities.first(where: { $0.newsID == news.id }) != nil else {
-                            return nil
-                        }
-                        return news
-                    }
-            }
-            .sink { [weak self] (returnedNews) in
-                self?.mySavedNews = returnedNews
-                self?.isLoading = false
-            }
-            .store(in: &cancellables)
-    }
-    
-    func saveButtonPressed(news: NewsAPIDataModel) {
-        mySavedDataService.saveButtonPressed(news: news)
     }
     
     func reloadData() {
-        isLoading = true
-        dataService.getNews(for: selectedCategory)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.isLoading = false
-        }
-        HapticManager.notification(type: .success)
+            isLoading = true
+            dataService.getNews(for: selectedCategory)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                self?.isLoading = false
+            }
+            HapticManager.notification(type: .success)
     }
+    
+    
     
     private func filterNews(text: String, news: [NewsAPIDataModel]) -> [NewsAPIDataModel] {
         guard !text.isEmpty else {
@@ -101,6 +80,7 @@ class NewsViewModel: ObservableObject {
         }
     
     func getNews(for category: Category) {
+        
         DispatchQueue.main.async { [weak self] in
             self?.isLoading = true  // Show ProgressView on main thread
         }
@@ -112,14 +92,11 @@ class NewsViewModel: ObservableObject {
                 .receive(on: DispatchQueue.main)
                 .sink { news in
                     self?.allNews = news
+                    self?.isLoading = true
                     self?.isLoading = false  // Hide ProgressView on main thread
                 }
                 .store(in: &self!.cancellables)
         }
     }
-    
-    func loadNewsForSelectedCategory() {
-        isLoading = true
-        dataService.getNews(for: selectedCategory)  // Get news for selectedCategory
-    }
 }
+

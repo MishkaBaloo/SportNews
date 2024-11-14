@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SearchButton: View {
-    let iconName: String = "magnifyingglass"
+    let iconName: String = "searchButton"
     
     var body: some View {
-        Image(systemName: iconName)// rotation effect + vibrations
+        Image( iconName)// rotation effect + vibrations
             .font(.title)
             .foregroundStyle(.layerOne)
             .frame(width: 50, height: 50)

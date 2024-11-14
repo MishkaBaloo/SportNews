@@ -17,7 +17,7 @@ struct CustomTabBarView: View {
     
     var body: some View {
         
-        tabBarversionOne
+        tabBar
             .onChange(of: selection) { oldValue, newValue in
                 withAnimation(.easeInOut) {
                     localSelection = newValue
@@ -42,33 +42,47 @@ struct CustomTabbarView_Previews: PreviewProvider {
 
 extension CustomTabBarView {
     
-    private func tabView(tab: TabBarItem) -> some View {
-        VStack {
-            Image(systemName: tab.iconName).font(.system(.title, weight: .semibold))
-                .foregroundStyle(localSelection == tab ? .backgroudOne : .layerOne) // .backgroudOne if selected
-                .frame(width: 60, height: 60)
-                .background(
+//    private func tabView2(tab: TabBarItem) -> some View {
+//        VStack {
+//            Image(systemName: tab.iconName).font(.system(.title, weight: .semibold))
+//                .foregroundStyle(localSelection == tab ? .backgroudOne : .layerOne) // .backgroudOne if selected
+//                .frame(width: 60, height: 60)
+//                .background(
+//                Circle()
+//                    .foregroundStyle(localSelection == tab ? .layerOne :.layerThree) // .layerOne if selected
+//                )
+//            
+//        }
+//        .padding(.horizontal, 3)
+//    }
+    
+    private var tabBar: some View {
+      Image(.tabBar)
+        .resizable()
+        .frame(width: 216, height: 68)
+        .overlay(
+          HStack(spacing: 14) {
+            ForEach(tabs) { tab in
+              ZStack {
                 Circle()
-                    .foregroundStyle(localSelection == tab ? .layerOne :.layerThree) // .layerOne if selected
-                )
-            
-        }
-        .padding(.horizontal, 3)
-        .padding(.bottom, 8)
+                  .frame(width: 60, height: 60)
+                  .foregroundColor(localSelection == tab ? .layerOne : .layerThree)
+                
+                getTabImage(for: tab)
+              }
+            }
+          }
+        )
     }
     
-    private var tabBarversionOne: some View {
-        HStack(alignment: .center) {
-            ForEach(tabs,id: \.self) { tab in
-                tabView(tab: tab)
-                    .onTapGesture {
-                        switchToTab(tab: tab)
-                    }
-            }
+    @ViewBuilder private func getTabImage(for tab: TabBarItem) -> some View {
+      (localSelection == tab ? tab.activeIcon : tab.defaultIcon)
+        .resizable()
+        .frame(width: 32, height: 32)
+        .padding(14)
+        .onTapGesture {
+          switchToTab(tab: tab)
         }
-        .background(
-            Image("TabBar").scaledToFit()
-        )
     }
     
     private func switchToTab(tab: TabBarItem) {

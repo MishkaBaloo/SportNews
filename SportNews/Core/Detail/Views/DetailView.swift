@@ -17,10 +17,10 @@ struct DetailLoadingView: View {
             if let news = news {
                 
                 let index = vm.allNews.firstIndex(where: { $0.id == news.id})
-                let colorIndex = index! % 4
+                let colorIndex = (index ?? 4) % 4
                 let accentColor = vm.getAccentColor(for: colorIndex)
                 
-                DetailView(news: news, cardBackground: accentColor.color)
+                DetailView(news: news, cardBackground: accentColor.color, category: vm.selectedCategory.rawValue)
             }
         }
     }
@@ -30,8 +30,11 @@ struct DetailView: View {
     
     let news: NewsAPIDataModel
     let cardBackground: Color
-    @EnvironmentObject private var vm: NewsViewModel
+    let category: String
+    private let dataService = MySavedDataService()
     @Environment(\.dismiss) var presentationMode
+    @State private var isSaved: Bool = false
+    @State private var showDBNotification: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -55,13 +58,17 @@ struct DetailView: View {
                     .scrollIndicators(.hidden)
                 }
             }
+            .onAppear {
+                isSaved = dataService.isNewsSaved(newsID: news.id)
+            }
             .navigationBarBackButtonHidden(true)
+            
         }
     }
 }
 
 #Preview {
-    DetailView(news: DeveloperPreview.instance.news, cardBackground: .clear)
+    DetailView(news: DeveloperPreview.instance.news, cardBackground: .yellow, category: "")
 }
 
 //MARK: COMPONENTS
@@ -85,9 +92,16 @@ extension DetailView {
             Spacer()
             GoToSourceButton(news: news, heigth: 50, width: 50)
             Button {
-                vm.saveButtonPressed(news: news)
+                dataService.saveButtonPressed(news: news)
+                isSaved.toggle()
+                if !isSaved {
+                    presentationMode.callAsFunction()
+                }
+
             } label: {
-                Image(systemName: "bookmark")
+                withAnimation(.easeInOut, {
+                    Image(isSaved ? "SavedNews" : "UnsavedNews")
+                })
                     .font(.title)
                     .foregroundStyle(.black)
                     .frame(width: 50, height: 50)
@@ -103,14 +117,20 @@ extension DetailView {
     
     private var chatNewsToday: some View {
         HStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(.backgroudOne)
-                .overlay {
-                    Text("CHAT News Today")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(.layerOne)
-                }
-                .frame(width: 100, height: 20)
+            
+            Text(category) // Display the category of the news
+                .setFont(.extraBold, size: 12)
+                .foregroundColor(cardBackground)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 6)
+                .background(Color.backgroudOne.cornerRadius(10.adaptive))
+            
+            Text("CHAT News Today")
+            .setFont(.extraBold, size: 12)
+            .foregroundColor(cardBackground)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(Color.backgroudOne.cornerRadius(10.adaptive))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.leading, 16)
@@ -123,7 +143,8 @@ extension DetailView {
                 Text(title)
                     .frame(width: 313, height: 128, alignment: .leading)
                     .foregroundStyle(.backgroudOne)
-                    .font(.system(size: 26, weight: .bold))
+                    .setFont(.bold, size: 26)
+                    .lineSpacing(6)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -134,14 +155,12 @@ extension DetailView {
             if let date = news.date {
                 Text(date)
             }
-            
             Text("•")
-            
             if let time = news.time {
                 Text(time)
             }
         }
-        .font(.system(size: 16, weight: .bold))
+        .setFont(.bold, size: 16)
         .foregroundStyle(.layerSix)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.leading, 20)
@@ -150,7 +169,7 @@ extension DetailView {
     private var image: some View {
         NewsImageView(news: news)
             .scaledToFill()
-            .frame(width: 353, height: 200)
+            .frame(width: 350, height: 200)
             .clipShape(.rect(cornerRadius: 25))
     }
     
@@ -158,10 +177,10 @@ extension DetailView {
         VStack {
             if let body = news.body {
                 Text(body)
-                    .lineSpacing(2)
-                    .frame(width: 353, alignment: .center)
+                    .lineSpacing(5)
+                    .frame(width: 350, alignment: .center)
                     .foregroundStyle(.backgroudThree)
-                    .font(.system(size: 14, weight: .light))
+                    .setFont(.light, size: 16)
             }
         }
         .padding(.top, 8)

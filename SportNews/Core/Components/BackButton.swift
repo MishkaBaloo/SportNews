@@ -9,10 +9,10 @@ import SwiftUI
 
 struct BackButton: View {
     
-    let iconName: String = "chevron.left"
+    let iconName: String = "Arrows=Left"
     
     var body: some View {
-        Image(systemName: iconName)
+        Image(iconName)
             .font(.title)
             .foregroundStyle(.black)
             .frame(width: 50, height: 50)
