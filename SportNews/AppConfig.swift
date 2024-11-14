@@ -9,8 +9,7 @@ import Foundation
 
 
 enum AppConfig {
-  static let apiKey = "4a97229c-a083-465f-9af9-ac9cd72140bd"
-  static var articlesPerPageDownloaded: Int {
+    static var articlesPerPageDownloaded: Int {
     #if DEV
     10
     #else
